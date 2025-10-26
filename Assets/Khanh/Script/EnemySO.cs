@@ -1,6 +1,6 @@
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "New Enemy Data", menuName = "FishyWishy/New Enemy")]
+[CreateAssetMenu(fileName = "New Enemy Data", menuName = "FishyWishy/New Enemy Stat")]
 
 public class EnemySO : UnitSO
 {
