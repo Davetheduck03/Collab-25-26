@@ -6,9 +6,9 @@ public class BaseUnit : MonoBehaviour
 {
     public UnitSO unitData;
 
-    private List<UnitComponent> components = new List<UnitComponent>();
+    protected List<UnitComponent> components = new List<UnitComponent>();
 
-    private void Awake()
+    public virtual void Awake()
     {
         // Get all components that inherit from UnitComponent
         GetComponents(components);
