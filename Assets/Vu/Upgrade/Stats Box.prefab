@@ -47,6 +47,8 @@ GameObject:
   - component: {fileID: 2076225017161116521}
   - component: {fileID: 5723769338428853630}
   - component: {fileID: 875705405351146950}
+  - component: {fileID: 7072613952187374323}
+  - component: {fileID: 3366341744476054249}
   m_Layer: 5
   m_Name: Stats Box
   m_TagString: Untagged
@@ -129,9 +131,67 @@ MonoBehaviour:
   iconImage: {fileID: 3864625914921213727}
   progressBar: {fileID: 6026193764415741673}
   upgradeButton: {fileID: 8126492968153573973}
+  showDetailBtn: {fileID: 3366341744476054249}
   costText: {fileID: 4058281966836867701}
   dividerParent: {fileID: 1290141629487589449}
   dividerPrefab: {fileID: 8429284443277667754, guid: 1d7e0035a1481a745b7597d12166160a, type: 3}
+--- !u!114 &7072613952187374323
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2366951726109182204}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Navigation:
+    m_Mode: 3
+    m_WrapAround: 0
+    m_SelectOnUp: {fileID: 0}
+    m_SelectOnDown: {fileID: 0}
+    m_SelectOnLeft: {fileID: 0}
+    m_SelectOnRight: {fileID: 0}
+  m_Transition: 1
+  m_Colors:
+    m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
+    m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
+    m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
+    m_ColorMultiplier: 1
+    m_FadeDuration: 0.1
+  m_SpriteState:
+    m_HighlightedSprite: {fileID: 0}
+    m_PressedSprite: {fileID: 0}
+    m_SelectedSprite: {fileID: 0}
+    m_DisabledSprite: {fileID: 0}
+  m_AnimationTriggers:
+    m_NormalTrigger: Normal
+    m_HighlightedTrigger: Highlighted
+    m_PressedTrigger: Pressed
+    m_SelectedTrigger: Selected
+    m_DisabledTrigger: Disabled
+  m_Interactable: 1
+  m_TargetGraphic: {fileID: 5723769338428853630}
+  m_OnClick:
+    m_PersistentCalls:
+      m_Calls: []
+--- !u!114 &3366341744476054249
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2366951726109182204}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d1e3443178f928743b07e1734bb0ca01, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  upgradeType: 0
 --- !u!1 &3225428290344338082
 GameObject:
   m_ObjectHideFlags: 0
@@ -218,6 +278,7 @@ GameObject:
   - component: {fileID: 1720629712605388639}
   - component: {fileID: 3340718125515248238}
   - component: {fileID: 9135406758432030187}
+  - component: {fileID: 1439281727627487341}
   m_Layer: 5
   m_Name: Progress Bar
   m_TagString: Untagged
@@ -283,6 +344,91 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1.81
+--- !u!114 &1439281727627487341
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4770065579631293767}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ad062ff8f1ac49a47b97d53551db7119, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ForceMaterial: {fileID: 0}
+  ActiveChange: 1
+  __MainTex2: {fileID: 2800000, guid: 6ed1aafd335608e48aa3198044a161df, type: 3}
+  _Alpha: 1
+  Light: 1
+  LightSize: 0.32
+  UseShinyCurve: 1
+  ShinyLightCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0.000007780734
+      value: -0.4416301
+      inSlope: 3.6074991
+      outSlope: 3.6074991
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0.4310643
+      value: 1.113406
+      inSlope: 2.413712
+      outSlope: 2.413712
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0.5258899
+      value: 1.229086
+      inSlope: -0.051003218
+      outSlope: -0.051003218
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0.6136486
+      value: 1.113075
+      inSlope: -3.1223154
+      outSlope: -3.1223154
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0.9367767
+      value: -0.4775873
+      inSlope: -2.509676
+      outSlope: -2.509676
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1.144408
+      value: -0.4976555
+      inSlope: -0.09665305
+      outSlope: -0.09665305
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 1
+    m_PostInfinity: 1
+    m_RotationOrder: 4
+  AnimationSpeedReduction: 2
+  Intensity: 0.669
+  OnlyLight: 0
+  LightBump: 0.461
+  ShaderChange: 0
+  ActiveUpdate: 1
 --- !u!1 &5906044304599293106
 GameObject:
   m_ObjectHideFlags: 0

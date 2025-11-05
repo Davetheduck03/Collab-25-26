@@ -9,6 +9,7 @@ public class UpgradeUISlot : MonoBehaviour
     public Image iconImage;
     public Image progressBar;
     public Button upgradeButton;
+    public ShowDetailBtn showDetailBtn;
     public TMP_Text costText;
 
     [Header("Divider Setup")]
@@ -25,7 +26,8 @@ public class UpgradeUISlot : MonoBehaviour
 
         if (entry != null && entry.icon != null)
             iconImage.sprite = entry.icon;
-
+        if (showDetailBtn != null)
+            showDetailBtn.upgradeType = type;
         UpdateDisplay();
         upgradeButton.onClick.AddListener(OnUpgradeClicked);
     }
@@ -52,7 +54,7 @@ public class UpgradeUISlot : MonoBehaviour
         else
         {
             upgradeButton.interactable = true;
-            costText.text = $"Cost: {cost}";
+            costText.text = $"{cost}";
         }
     }
 

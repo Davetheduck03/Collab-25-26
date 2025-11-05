@@ -1,12 +1,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class UpgradeUIManager : MonoBehaviour
+public class UpgradeUIManager : GameSingleton<UpgradeUIManager>
 {
     [Header("References")]
     public GameObject upgradeSlotPrefab;
     public Transform upgradeListParent;
-
+    public UpgradeDetailPanel detailPanel;
     private Dictionary<UpgradeType, UpgradeUISlot> uiSlots = new Dictionary<UpgradeType, UpgradeUISlot>();
 
     void Start()
@@ -15,9 +15,10 @@ public class UpgradeUIManager : MonoBehaviour
         UpgradeManager.OnUpgradeSuccessful += RefreshUI;
     }
 
-    void OnDestroy()
+    protected override void OnDestroy()
     {
         UpgradeManager.OnUpgradeSuccessful -= RefreshUI;
+        base.OnDestroy(); // ensures _instance is cleared
     }
 
     void GenerateUpgradeUI()
@@ -31,7 +32,10 @@ public class UpgradeUIManager : MonoBehaviour
             uiSlots.Add(entry.type, slot);
         }
     }
-
+    public void ShowDetail(UpgradeType type)
+    {
+        detailPanel.Show(type);
+    }
     void RefreshUI(UpgradeType type)
     {
         if (uiSlots.TryGetValue(type, out var slot))
