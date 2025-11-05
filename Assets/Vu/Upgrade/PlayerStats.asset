@@ -1,0 +1,63 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ec14556d8c39ee947a2ac5c655c4d575, type: 3}
+  m_Name: PlayerStats
+  m_EditorClassIdentifier: 
+  upgrades:
+  - type: 0
+    icon: {fileID: -232997553, guid: 43528fa8363aa2941995f448e229b2f0, type: 3}
+    baseValue: 100
+    incrementPerLevel: 12.5
+    maxLevel: 10
+    baseCost: 200
+    costIncrement: 50
+    costMultiplier: 1.5
+  - type: 1
+    icon: {fileID: 569706349, guid: 43528fa8363aa2941995f448e229b2f0, type: 3}
+    baseValue: 50
+    incrementPerLevel: 5
+    maxLevel: 10
+    baseCost: 200
+    costIncrement: 50
+    costMultiplier: 1.5
+  - type: 5
+    icon: {fileID: -514835467, guid: 43528fa8363aa2941995f448e229b2f0, type: 3}
+    baseValue: 100
+    incrementPerLevel: 10
+    maxLevel: 10
+    baseCost: 200
+    costIncrement: 50
+    costMultiplier: 1.5
+  - type: 4
+    icon: {fileID: 1807696509, guid: 43528fa8363aa2941995f448e229b2f0, type: 3}
+    baseValue: 2
+    incrementPerLevel: 2
+    maxLevel: 10
+    baseCost: 200
+    costIncrement: 50
+    costMultiplier: 1.5
+  - type: 3
+    icon: {fileID: -375876727, guid: 43528fa8363aa2941995f448e229b2f0, type: 3}
+    baseValue: 5
+    incrementPerLevel: 1.5
+    maxLevel: 10
+    baseCost: 200
+    costIncrement: 50
+    costMultiplier: 1.5
+  - type: 2
+    icon: {fileID: 687288507, guid: 43528fa8363aa2941995f448e229b2f0, type: 3}
+    baseValue: 10
+    incrementPerLevel: 1.5
+    maxLevel: 10
+    baseCost: 200
+    costIncrement: 50
+    costMultiplier: 1.5
