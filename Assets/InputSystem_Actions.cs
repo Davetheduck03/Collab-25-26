@@ -1111,33 +1111,6 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""Attack Left"",
-                    ""type"": ""Button"",
-                    ""id"": ""0f851ba7-2db6-455c-af76-dfa36d1af2e6"",
-                    ""expectedControlType"": """",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
-                },
-                {
-                    ""name"": ""Attack Right"",
-                    ""type"": ""Button"",
-                    ""id"": ""ed3f8189-6b59-43ab-8515-a25b14fd88fa"",
-                    ""expectedControlType"": """",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
-                },
-                {
-                    ""name"": ""Parry"",
-                    ""type"": ""Button"",
-                    ""id"": ""30bc5a29-6ebb-4864-b343-1426c0d63bad"",
-                    ""expectedControlType"": """",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
-                },
-                {
                     ""name"": ""FinishFish"",
                     ""type"": ""Button"",
                     ""id"": ""5eb93ee7-6aa2-421d-a235-cce3959673e0"",
@@ -1216,29 +1189,80 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
-                    ""id"": ""548e2bda-3d75-499b-92b1-ae5b9e8700f4"",
-                    ""path"": ""<Keyboard>/q"",
+                    ""id"": ""5ddc4c6d-6fed-4c26-a145-a0808bfdbcf5"",
+                    ""path"": ""<Keyboard>/tab"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": "";Keyboard&Mouse"",
-                    ""action"": ""Attack Left"",
+                    ""groups"": """",
+                    ""action"": ""FinishFish"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
-                },
+                }
+            ]
+        },
+        {
+            ""name"": ""CastLine"",
+            ""id"": ""3199e810-2020-491a-8232-a01f82a3fc38"",
+            ""actions"": [
                 {
-                    ""name"": """",
-                    ""id"": ""4174d5ba-d038-42ef-96a6-9473e3586d12"",
-                    ""path"": ""<Gamepad>/leftShoulder"",
-                    ""interactions"": """",
+                    ""name"": ""Move"",
+                    ""type"": ""Value"",
+                    ""id"": ""8e0a4101-83da-420d-8ee6-35568ec1c781"",
+                    ""expectedControlType"": ""Vector2"",
                     ""processors"": """",
-                    ""groups"": "";Gamepad"",
-                    ""action"": ""Attack Left"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
                 },
                 {
+                    ""name"": ""Attack Right"",
+                    ""type"": ""Button"",
+                    ""id"": ""ef40fd1e-96bb-430d-b8d1-809e50b1e3ff"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Attack Left"",
+                    ""type"": ""Button"",
+                    ""id"": ""cc098d0b-4ded-4217-9cf2-d5420109ddf1"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Parry"",
+                    ""type"": ""Button"",
+                    ""id"": ""af3aa9dd-f185-4710-a875-28db038a3523"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Pull"",
+                    ""type"": ""Value"",
+                    ""id"": ""d8767dd1-9864-4213-ace4-c48bf10f1b05"",
+                    ""expectedControlType"": ""Vector2"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""Sink"",
+                    ""type"": ""Value"",
+                    ""id"": ""204f8925-cd2b-433f-82ef-515be52f8331"",
+                    ""expectedControlType"": ""Vector2"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
+                }
+            ],
+            ""bindings"": [
+                {
                     ""name"": """",
-                    ""id"": ""649d9765-3ba7-4b63-8015-0d7317c57d1f"",
+                    ""id"": ""6faaaf8f-a471-4ec8-aa1e-0eeeb7483b71"",
                     ""path"": ""<Keyboard>/e"",
                     ""interactions"": """",
                     ""processors"": """",
@@ -1249,7 +1273,7 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
-                    ""id"": ""43c4329c-d19e-4003-a5a1-22ef1c4c40e9"",
+                    ""id"": ""f01b94b6-162b-456f-9240-d88956e6e9d3"",
                     ""path"": ""<Gamepad>/rightShoulder"",
                     ""interactions"": """",
                     ""processors"": """",
@@ -1260,7 +1284,29 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
-                    ""id"": ""6c6af982-61e6-43ed-8c39-075bcf6b6559"",
+                    ""id"": ""da5c4816-951e-4136-9373-ecd7584f4ad0"",
+                    ""path"": ""<Keyboard>/q"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";Keyboard&Mouse"",
+                    ""action"": ""Attack Left"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""012c5822-c8d8-4732-85c4-66cc801b4462"",
+                    ""path"": ""<Gamepad>/leftShoulder"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";Gamepad"",
+                    ""action"": ""Attack Left"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""565d990c-ab03-4bfb-81b1-594364c4a3db"",
                     ""path"": ""<Keyboard>/space"",
                     ""interactions"": """",
                     ""processors"": """",
@@ -1271,7 +1317,7 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
-                    ""id"": ""1b1a316e-3468-441d-a482-269aea396727"",
+                    ""id"": ""add0dff8-7f3d-42f2-a934-bdf62a6b1ef0"",
                     ""path"": ""<Gamepad>/buttonSouth"",
                     ""interactions"": """",
                     ""processors"": """",
@@ -1281,13 +1327,101 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
                     ""isPartOfComposite"": false
                 },
                 {
-                    ""name"": """",
-                    ""id"": ""5ddc4c6d-6fed-4c26-a145-a0808bfdbcf5"",
-                    ""path"": ""<Keyboard>/tab"",
+                    ""name"": ""WASD"",
+                    ""id"": ""70a0c726-1b6d-4a59-8d03-96f58bc981ac"",
+                    ""path"": ""2DVector"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""FinishFish"",
+                    ""action"": ""Move"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""left"",
+                    ""id"": ""36f9b6e0-a595-4e6a-bf05-30eea0995b74"",
+                    ""path"": ""<Keyboard>/a"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Move"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""left"",
+                    ""id"": ""0cdfa6c2-7886-43d7-a4bf-8d231ccfbfb3"",
+                    ""path"": ""<Gamepad>/dpad/left"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Move"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""right"",
+                    ""id"": ""804d4a49-1027-4b7e-aa82-1cc41ca03261"",
+                    ""path"": ""<Keyboard>/d"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Move"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""right"",
+                    ""id"": ""0a1ffb00-bf36-4b8a-9daa-1fe2fe1df79a"",
+                    ""path"": ""<Gamepad>/dpad/right"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Move"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""7e5f4d42-e015-44d5-99e7-f633dd0c9aa1"",
+                    ""path"": ""<Keyboard>/w"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Pull"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""903b5e3b-6b13-42df-94bc-103d0f9e1ae9"",
+                    ""path"": ""<Gamepad>/dpad/up"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Pull"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""21abff15-cee8-45f5-beaa-ab22172bd8af"",
+                    ""path"": ""<Keyboard>/s"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Sink"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""38628c91-0849-4212-a7b0-dfc6f7e6e673"",
+                    ""path"": ""<Gamepad>/dpad/down"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Sink"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -1384,10 +1518,15 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
         m_Boat = asset.FindActionMap("Boat", throwIfNotFound: true);
         m_Boat_BoatMove = m_Boat.FindAction("BoatMove", throwIfNotFound: true);
         m_Boat_Fish = m_Boat.FindAction("Fish", throwIfNotFound: true);
-        m_Boat_AttackLeft = m_Boat.FindAction("Attack Left", throwIfNotFound: true);
-        m_Boat_AttackRight = m_Boat.FindAction("Attack Right", throwIfNotFound: true);
-        m_Boat_Parry = m_Boat.FindAction("Parry", throwIfNotFound: true);
         m_Boat_FinishFish = m_Boat.FindAction("FinishFish", throwIfNotFound: true);
+        // CastLine
+        m_CastLine = asset.FindActionMap("CastLine", throwIfNotFound: true);
+        m_CastLine_Move = m_CastLine.FindAction("Move", throwIfNotFound: true);
+        m_CastLine_AttackRight = m_CastLine.FindAction("Attack Right", throwIfNotFound: true);
+        m_CastLine_AttackLeft = m_CastLine.FindAction("Attack Left", throwIfNotFound: true);
+        m_CastLine_Parry = m_CastLine.FindAction("Parry", throwIfNotFound: true);
+        m_CastLine_Pull = m_CastLine.FindAction("Pull", throwIfNotFound: true);
+        m_CastLine_Sink = m_CastLine.FindAction("Sink", throwIfNotFound: true);
     }
 
     ~@InputSystem_Actions()
@@ -1395,6 +1534,7 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
         UnityEngine.Debug.Assert(!m_Player.enabled, "This will cause a leak and performance issues, InputSystem_Actions.Player.Disable() has not been called.");
         UnityEngine.Debug.Assert(!m_UI.enabled, "This will cause a leak and performance issues, InputSystem_Actions.UI.Disable() has not been called.");
         UnityEngine.Debug.Assert(!m_Boat.enabled, "This will cause a leak and performance issues, InputSystem_Actions.Boat.Disable() has not been called.");
+        UnityEngine.Debug.Assert(!m_CastLine.enabled, "This will cause a leak and performance issues, InputSystem_Actions.CastLine.Disable() has not been called.");
     }
 
     /// <summary>
@@ -1851,9 +1991,6 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
     private List<IBoatActions> m_BoatActionsCallbackInterfaces = new List<IBoatActions>();
     private readonly InputAction m_Boat_BoatMove;
     private readonly InputAction m_Boat_Fish;
-    private readonly InputAction m_Boat_AttackLeft;
-    private readonly InputAction m_Boat_AttackRight;
-    private readonly InputAction m_Boat_Parry;
     private readonly InputAction m_Boat_FinishFish;
     /// <summary>
     /// Provides access to input actions defined in input action map "Boat".
@@ -1874,18 +2011,6 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
         /// Provides access to the underlying input action "Boat/Fish".
         /// </summary>
         public InputAction @Fish => m_Wrapper.m_Boat_Fish;
-        /// <summary>
-        /// Provides access to the underlying input action "Boat/AttackLeft".
-        /// </summary>
-        public InputAction @AttackLeft => m_Wrapper.m_Boat_AttackLeft;
-        /// <summary>
-        /// Provides access to the underlying input action "Boat/AttackRight".
-        /// </summary>
-        public InputAction @AttackRight => m_Wrapper.m_Boat_AttackRight;
-        /// <summary>
-        /// Provides access to the underlying input action "Boat/Parry".
-        /// </summary>
-        public InputAction @Parry => m_Wrapper.m_Boat_Parry;
         /// <summary>
         /// Provides access to the underlying input action "Boat/FinishFish".
         /// </summary>
@@ -1922,15 +2047,6 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
             @Fish.started += instance.OnFish;
             @Fish.performed += instance.OnFish;
             @Fish.canceled += instance.OnFish;
-            @AttackLeft.started += instance.OnAttackLeft;
-            @AttackLeft.performed += instance.OnAttackLeft;
-            @AttackLeft.canceled += instance.OnAttackLeft;
-            @AttackRight.started += instance.OnAttackRight;
-            @AttackRight.performed += instance.OnAttackRight;
-            @AttackRight.canceled += instance.OnAttackRight;
-            @Parry.started += instance.OnParry;
-            @Parry.performed += instance.OnParry;
-            @Parry.canceled += instance.OnParry;
             @FinishFish.started += instance.OnFinishFish;
             @FinishFish.performed += instance.OnFinishFish;
             @FinishFish.canceled += instance.OnFinishFish;
@@ -1951,15 +2067,6 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
             @Fish.started -= instance.OnFish;
             @Fish.performed -= instance.OnFish;
             @Fish.canceled -= instance.OnFish;
-            @AttackLeft.started -= instance.OnAttackLeft;
-            @AttackLeft.performed -= instance.OnAttackLeft;
-            @AttackLeft.canceled -= instance.OnAttackLeft;
-            @AttackRight.started -= instance.OnAttackRight;
-            @AttackRight.performed -= instance.OnAttackRight;
-            @AttackRight.canceled -= instance.OnAttackRight;
-            @Parry.started -= instance.OnParry;
-            @Parry.performed -= instance.OnParry;
-            @Parry.canceled -= instance.OnParry;
             @FinishFish.started -= instance.OnFinishFish;
             @FinishFish.performed -= instance.OnFinishFish;
             @FinishFish.canceled -= instance.OnFinishFish;
@@ -1996,6 +2103,157 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
     /// Provides a new <see cref="BoatActions" /> instance referencing this action map.
     /// </summary>
     public BoatActions @Boat => new BoatActions(this);
+
+    // CastLine
+    private readonly InputActionMap m_CastLine;
+    private List<ICastLineActions> m_CastLineActionsCallbackInterfaces = new List<ICastLineActions>();
+    private readonly InputAction m_CastLine_Move;
+    private readonly InputAction m_CastLine_AttackRight;
+    private readonly InputAction m_CastLine_AttackLeft;
+    private readonly InputAction m_CastLine_Parry;
+    private readonly InputAction m_CastLine_Pull;
+    private readonly InputAction m_CastLine_Sink;
+    /// <summary>
+    /// Provides access to input actions defined in input action map "CastLine".
+    /// </summary>
+    public struct CastLineActions
+    {
+        private @InputSystem_Actions m_Wrapper;
+
+        /// <summary>
+        /// Construct a new instance of the input action map wrapper class.
+        /// </summary>
+        public CastLineActions(@InputSystem_Actions wrapper) { m_Wrapper = wrapper; }
+        /// <summary>
+        /// Provides access to the underlying input action "CastLine/Move".
+        /// </summary>
+        public InputAction @Move => m_Wrapper.m_CastLine_Move;
+        /// <summary>
+        /// Provides access to the underlying input action "CastLine/AttackRight".
+        /// </summary>
+        public InputAction @AttackRight => m_Wrapper.m_CastLine_AttackRight;
+        /// <summary>
+        /// Provides access to the underlying input action "CastLine/AttackLeft".
+        /// </summary>
+        public InputAction @AttackLeft => m_Wrapper.m_CastLine_AttackLeft;
+        /// <summary>
+        /// Provides access to the underlying input action "CastLine/Parry".
+        /// </summary>
+        public InputAction @Parry => m_Wrapper.m_CastLine_Parry;
+        /// <summary>
+        /// Provides access to the underlying input action "CastLine/Pull".
+        /// </summary>
+        public InputAction @Pull => m_Wrapper.m_CastLine_Pull;
+        /// <summary>
+        /// Provides access to the underlying input action "CastLine/Sink".
+        /// </summary>
+        public InputAction @Sink => m_Wrapper.m_CastLine_Sink;
+        /// <summary>
+        /// Provides access to the underlying input action map instance.
+        /// </summary>
+        public InputActionMap Get() { return m_Wrapper.m_CastLine; }
+        /// <inheritdoc cref="UnityEngine.InputSystem.InputActionMap.Enable()" />
+        public void Enable() { Get().Enable(); }
+        /// <inheritdoc cref="UnityEngine.InputSystem.InputActionMap.Disable()" />
+        public void Disable() { Get().Disable(); }
+        /// <inheritdoc cref="UnityEngine.InputSystem.InputActionMap.enabled" />
+        public bool enabled => Get().enabled;
+        /// <summary>
+        /// Implicitly converts an <see ref="CastLineActions" /> to an <see ref="InputActionMap" /> instance.
+        /// </summary>
+        public static implicit operator InputActionMap(CastLineActions set) { return set.Get(); }
+        /// <summary>
+        /// Adds <see cref="InputAction.started"/>, <see cref="InputAction.performed"/> and <see cref="InputAction.canceled"/> callbacks provided via <param cref="instance" /> on all input actions contained in this map.
+        /// </summary>
+        /// <param name="instance">Callback instance.</param>
+        /// <remarks>
+        /// If <paramref name="instance" /> is <c>null</c> or <paramref name="instance"/> have already been added this method does nothing.
+        /// </remarks>
+        /// <seealso cref="CastLineActions" />
+        public void AddCallbacks(ICastLineActions instance)
+        {
+            if (instance == null || m_Wrapper.m_CastLineActionsCallbackInterfaces.Contains(instance)) return;
+            m_Wrapper.m_CastLineActionsCallbackInterfaces.Add(instance);
+            @Move.started += instance.OnMove;
+            @Move.performed += instance.OnMove;
+            @Move.canceled += instance.OnMove;
+            @AttackRight.started += instance.OnAttackRight;
+            @AttackRight.performed += instance.OnAttackRight;
+            @AttackRight.canceled += instance.OnAttackRight;
+            @AttackLeft.started += instance.OnAttackLeft;
+            @AttackLeft.performed += instance.OnAttackLeft;
+            @AttackLeft.canceled += instance.OnAttackLeft;
+            @Parry.started += instance.OnParry;
+            @Parry.performed += instance.OnParry;
+            @Parry.canceled += instance.OnParry;
+            @Pull.started += instance.OnPull;
+            @Pull.performed += instance.OnPull;
+            @Pull.canceled += instance.OnPull;
+            @Sink.started += instance.OnSink;
+            @Sink.performed += instance.OnSink;
+            @Sink.canceled += instance.OnSink;
+        }
+
+        /// <summary>
+        /// Removes <see cref="InputAction.started"/>, <see cref="InputAction.performed"/> and <see cref="InputAction.canceled"/> callbacks provided via <param cref="instance" /> on all input actions contained in this map.
+        /// </summary>
+        /// <remarks>
+        /// Calling this method when <paramref name="instance" /> have not previously been registered has no side-effects.
+        /// </remarks>
+        /// <seealso cref="CastLineActions" />
+        private void UnregisterCallbacks(ICastLineActions instance)
+        {
+            @Move.started -= instance.OnMove;
+            @Move.performed -= instance.OnMove;
+            @Move.canceled -= instance.OnMove;
+            @AttackRight.started -= instance.OnAttackRight;
+            @AttackRight.performed -= instance.OnAttackRight;
+            @AttackRight.canceled -= instance.OnAttackRight;
+            @AttackLeft.started -= instance.OnAttackLeft;
+            @AttackLeft.performed -= instance.OnAttackLeft;
+            @AttackLeft.canceled -= instance.OnAttackLeft;
+            @Parry.started -= instance.OnParry;
+            @Parry.performed -= instance.OnParry;
+            @Parry.canceled -= instance.OnParry;
+            @Pull.started -= instance.OnPull;
+            @Pull.performed -= instance.OnPull;
+            @Pull.canceled -= instance.OnPull;
+            @Sink.started -= instance.OnSink;
+            @Sink.performed -= instance.OnSink;
+            @Sink.canceled -= instance.OnSink;
+        }
+
+        /// <summary>
+        /// Unregisters <param cref="instance" /> and unregisters all input action callbacks via <see cref="CastLineActions.UnregisterCallbacks(ICastLineActions)" />.
+        /// </summary>
+        /// <seealso cref="CastLineActions.UnregisterCallbacks(ICastLineActions)" />
+        public void RemoveCallbacks(ICastLineActions instance)
+        {
+            if (m_Wrapper.m_CastLineActionsCallbackInterfaces.Remove(instance))
+                UnregisterCallbacks(instance);
+        }
+
+        /// <summary>
+        /// Replaces all existing callback instances and previously registered input action callbacks associated with them with callbacks provided via <param cref="instance" />.
+        /// </summary>
+        /// <remarks>
+        /// If <paramref name="instance" /> is <c>null</c>, calling this method will only unregister all existing callbacks but not register any new callbacks.
+        /// </remarks>
+        /// <seealso cref="CastLineActions.AddCallbacks(ICastLineActions)" />
+        /// <seealso cref="CastLineActions.RemoveCallbacks(ICastLineActions)" />
+        /// <seealso cref="CastLineActions.UnregisterCallbacks(ICastLineActions)" />
+        public void SetCallbacks(ICastLineActions instance)
+        {
+            foreach (var item in m_Wrapper.m_CastLineActionsCallbackInterfaces)
+                UnregisterCallbacks(item);
+            m_Wrapper.m_CastLineActionsCallbackInterfaces.Clear();
+            AddCallbacks(instance);
+        }
+    }
+    /// <summary>
+    /// Provides a new <see cref="CastLineActions" /> instance referencing this action map.
+    /// </summary>
+    public CastLineActions @CastLine => new CastLineActions(this);
     private int m_KeyboardMouseSchemeIndex = -1;
     /// <summary>
     /// Provides access to the input control scheme.
@@ -2232,12 +2490,27 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnFish(InputAction.CallbackContext context);
         /// <summary>
-        /// Method invoked when associated input action "Attack Left" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// Method invoked when associated input action "FinishFish" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
         /// </summary>
         /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
-        void OnAttackLeft(InputAction.CallbackContext context);
+        void OnFinishFish(InputAction.CallbackContext context);
+    }
+    /// <summary>
+    /// Interface to implement callback methods for all input action callbacks associated with input actions defined by "CastLine" which allows adding and removing callbacks.
+    /// </summary>
+    /// <seealso cref="CastLineActions.AddCallbacks(ICastLineActions)" />
+    /// <seealso cref="CastLineActions.RemoveCallbacks(ICastLineActions)" />
+    public interface ICastLineActions
+    {
+        /// <summary>
+        /// Method invoked when associated input action "Move" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnMove(InputAction.CallbackContext context);
         /// <summary>
         /// Method invoked when associated input action "Attack Right" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
         /// </summary>
@@ -2246,6 +2519,13 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnAttackRight(InputAction.CallbackContext context);
         /// <summary>
+        /// Method invoked when associated input action "Attack Left" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnAttackLeft(InputAction.CallbackContext context);
+        /// <summary>
         /// Method invoked when associated input action "Parry" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
         /// </summary>
         /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
@@ -2253,11 +2533,18 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnParry(InputAction.CallbackContext context);
         /// <summary>
-        /// Method invoked when associated input action "FinishFish" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// Method invoked when associated input action "Pull" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
         /// </summary>
         /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
-        void OnFinishFish(InputAction.CallbackContext context);
+        void OnPull(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "Sink" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnSink(InputAction.CallbackContext context);
     }
 }

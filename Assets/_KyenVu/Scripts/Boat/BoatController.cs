@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
+using System;
 
 public class BoatController : MonoBehaviour
 {
@@ -10,6 +11,20 @@ public class BoatController : MonoBehaviour
     private Vector2 moveInput;
     private bool canMove = true;
     private bool isFishing = false;
+
+    // Event to notify that fishing has started
+    public static event Action OnFishingStarted;
+
+    private void OnEnable()
+    {
+        // Listen for finish event from CastLineControl
+        CastLineControl.OnFishingFinished += HandleFishingFinished;
+    }
+
+    private void OnDisable()
+    {
+        CastLineControl.OnFishingFinished -= HandleFishingFinished;
+    }
 
     private void Awake()
     {
@@ -25,7 +40,6 @@ public class BoatController : MonoBehaviour
             rb.linearVelocity = new Vector2(0, rb.linearVelocity.y);
     }
 
-
     private void OnBoatMove(InputValue value)
     {
         if (canMove)
@@ -36,37 +50,19 @@ public class BoatController : MonoBehaviour
     {
         if (!isFishing)
         {
-            Debug.Log("Fishing");
+            Debug.Log(" Started Fishing");
             isFishing = true;
             canMove = false;
+            rb.linearVelocity = Vector2.zero;
+            // Notify others (like CastLineControl) that fishing has started
+            OnFishingStarted?.Invoke();
         }
     }
 
-    private void OnFinishFish()
+    private void HandleFishingFinished()
     {
-        if (isFishing)
-        {
-            Debug.Log("Finished Fishing");
-            isFishing = false;
-            canMove = true;
-        }
-    }
-
-    private void OnAttackLeft()
-    {
-        if (isFishing)
-            Debug.Log("AttackLeft");
-    }
-
-    private void OnAttackRight()
-    {
-        if (isFishing)
-            Debug.Log("AttackRight");
-    }
-
-    private void OnParry()
-    {
-        if (isFishing)
-            Debug.Log("Parry");
+        Debug.Log("Fishing finished! Returning to boat control.");
+        isFishing = false;
+        canMove = true;
     }
 }

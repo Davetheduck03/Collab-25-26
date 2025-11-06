@@ -1025,33 +1025,6 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "Attack Left",
-                    "type": "Button",
-                    "id": "0f851ba7-2db6-455c-af76-dfa36d1af2e6",
-                    "expectedControlType": "",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
-                    "name": "Attack Right",
-                    "type": "Button",
-                    "id": "ed3f8189-6b59-43ab-8515-a25b14fd88fa",
-                    "expectedControlType": "",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
-                    "name": "Parry",
-                    "type": "Button",
-                    "id": "30bc5a29-6ebb-4864-b343-1426c0d63bad",
-                    "expectedControlType": "",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
                     "name": "FinishFish",
                     "type": "Button",
                     "id": "5eb93ee7-6aa2-421d-a235-cce3959673e0",
@@ -1130,29 +1103,80 @@
                 },
                 {
                     "name": "",
-                    "id": "548e2bda-3d75-499b-92b1-ae5b9e8700f4",
-                    "path": "<Keyboard>/q",
+                    "id": "5ddc4c6d-6fed-4c26-a145-a0808bfdbcf5",
+                    "path": "<Keyboard>/tab",
                     "interactions": "",
                     "processors": "",
-                    "groups": ";Keyboard&Mouse",
-                    "action": "Attack Left",
+                    "groups": "",
+                    "action": "FinishFish",
                     "isComposite": false,
                     "isPartOfComposite": false
-                },
+                }
+            ]
+        },
+        {
+            "name": "CastLine",
+            "id": "3199e810-2020-491a-8232-a01f82a3fc38",
+            "actions": [
                 {
-                    "name": "",
-                    "id": "4174d5ba-d038-42ef-96a6-9473e3586d12",
-                    "path": "<Gamepad>/leftShoulder",
-                    "interactions": "",
+                    "name": "Move",
+                    "type": "Value",
+                    "id": "8e0a4101-83da-420d-8ee6-35568ec1c781",
+                    "expectedControlType": "Vector2",
                     "processors": "",
-                    "groups": ";Gamepad",
-                    "action": "Attack Left",
-                    "isComposite": false,
-                    "isPartOfComposite": false
+                    "interactions": "",
+                    "initialStateCheck": true
                 },
                 {
+                    "name": "Attack Right",
+                    "type": "Button",
+                    "id": "ef40fd1e-96bb-430d-b8d1-809e50b1e3ff",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Attack Left",
+                    "type": "Button",
+                    "id": "cc098d0b-4ded-4217-9cf2-d5420109ddf1",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Parry",
+                    "type": "Button",
+                    "id": "af3aa9dd-f185-4710-a875-28db038a3523",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Pull",
+                    "type": "Value",
+                    "id": "d8767dd1-9864-4213-ace4-c48bf10f1b05",
+                    "expectedControlType": "Vector2",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                },
+                {
+                    "name": "Sink",
+                    "type": "Value",
+                    "id": "204f8925-cd2b-433f-82ef-515be52f8331",
+                    "expectedControlType": "Vector2",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                }
+            ],
+            "bindings": [
+                {
                     "name": "",
-                    "id": "649d9765-3ba7-4b63-8015-0d7317c57d1f",
+                    "id": "6faaaf8f-a471-4ec8-aa1e-0eeeb7483b71",
                     "path": "<Keyboard>/e",
                     "interactions": "",
                     "processors": "",
@@ -1163,7 +1187,7 @@
                 },
                 {
                     "name": "",
-                    "id": "43c4329c-d19e-4003-a5a1-22ef1c4c40e9",
+                    "id": "f01b94b6-162b-456f-9240-d88956e6e9d3",
                     "path": "<Gamepad>/rightShoulder",
                     "interactions": "",
                     "processors": "",
@@ -1174,7 +1198,29 @@
                 },
                 {
                     "name": "",
-                    "id": "6c6af982-61e6-43ed-8c39-075bcf6b6559",
+                    "id": "da5c4816-951e-4136-9373-ecd7584f4ad0",
+                    "path": "<Keyboard>/q",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Keyboard&Mouse",
+                    "action": "Attack Left",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "012c5822-c8d8-4732-85c4-66cc801b4462",
+                    "path": "<Gamepad>/leftShoulder",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Gamepad",
+                    "action": "Attack Left",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "565d990c-ab03-4bfb-81b1-594364c4a3db",
                     "path": "<Keyboard>/space",
                     "interactions": "",
                     "processors": "",
@@ -1185,7 +1231,7 @@
                 },
                 {
                     "name": "",
-                    "id": "1b1a316e-3468-441d-a482-269aea396727",
+                    "id": "add0dff8-7f3d-42f2-a934-bdf62a6b1ef0",
                     "path": "<Gamepad>/buttonSouth",
                     "interactions": "",
                     "processors": "",
@@ -1195,13 +1241,101 @@
                     "isPartOfComposite": false
                 },
                 {
-                    "name": "",
-                    "id": "5ddc4c6d-6fed-4c26-a145-a0808bfdbcf5",
-                    "path": "<Keyboard>/tab",
+                    "name": "WASD",
+                    "id": "70a0c726-1b6d-4a59-8d03-96f58bc981ac",
+                    "path": "2DVector",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "FinishFish",
+                    "action": "Move",
+                    "isComposite": true,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "left",
+                    "id": "36f9b6e0-a595-4e6a-bf05-30eea0995b74",
+                    "path": "<Keyboard>/a",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Move",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "left",
+                    "id": "0cdfa6c2-7886-43d7-a4bf-8d231ccfbfb3",
+                    "path": "<Gamepad>/dpad/left",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Move",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "right",
+                    "id": "804d4a49-1027-4b7e-aa82-1cc41ca03261",
+                    "path": "<Keyboard>/d",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Move",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "right",
+                    "id": "0a1ffb00-bf36-4b8a-9daa-1fe2fe1df79a",
+                    "path": "<Gamepad>/dpad/right",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Move",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "",
+                    "id": "7e5f4d42-e015-44d5-99e7-f633dd0c9aa1",
+                    "path": "<Keyboard>/w",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Pull",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "903b5e3b-6b13-42df-94bc-103d0f9e1ae9",
+                    "path": "<Gamepad>/dpad/up",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Pull",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "21abff15-cee8-45f5-beaa-ab22172bd8af",
+                    "path": "<Keyboard>/s",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Sink",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "38628c91-0849-4212-a7b0-dfc6f7e6e673",
+                    "path": "<Gamepad>/dpad/down",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Sink",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
