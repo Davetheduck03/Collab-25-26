@@ -164,4 +164,13 @@ public class CastLineControl : MonoBehaviour
 
         OnFishingFinished?.Invoke();
     }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (!isFishing) return;
+        if (collision.gameObject.CompareTag("Fish"))
+        {
+            print("Fish Caught");
+        }
+    }
 }
