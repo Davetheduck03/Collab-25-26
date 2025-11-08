@@ -8,6 +8,9 @@ public class BoatController : MonoBehaviour
     public float moveSpeed = 5f;
     public Rigidbody2D rb;
 
+    [Header("Fishing Settings")]
+    public GameObject hook;
+
     private Vector2 moveInput;
     private bool canMove = true;
     private bool isFishing = false;
@@ -30,6 +33,7 @@ public class BoatController : MonoBehaviour
     {
         if (rb == null)
             rb = GetComponent<Rigidbody2D>();
+        hook.SetActive(false);
     }
 
     private void FixedUpdate()
@@ -51,6 +55,7 @@ public class BoatController : MonoBehaviour
         if (!isFishing)
         {
             Debug.Log(" Started Fishing");
+            hook.SetActive(true);
             isFishing = true;
             canMove = false;
             rb.linearVelocity = Vector2.zero;

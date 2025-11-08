@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 using System;
+using UnityEngine.Rendering;
 
 [RequireComponent(typeof(LineRenderer))]
 public class CastLineControl : MonoBehaviour
@@ -16,14 +17,16 @@ public class CastLineControl : MonoBehaviour
     public float naturalSinkRate = 0.5f;  // Natural slow sink
 
     [Header("References")]
-    public Transform hook;       // Hook/bait to move
-    public Transform lineOrigin; // The point where the line starts (e.g., the boat)
+    public GameObject hook;       // Hook/bait to move
+    public Transform lineOrigin;  // The point where the line starts (e.g., the boat)
     private LineRenderer lineRenderer;
 
     private Vector2 moveInput;
-    public bool isFishing = false;
-    public bool isSinking = false;
-    public bool isPulling = false;
+    private bool isFishing = false;
+    private bool isCatching = false;
+    private bool isSinking = false;
+    private bool isPulling = false;
+    private GameObject caughtFish;
 
     private float currentLineLength = 0f; // Vertical distance (depth)
     private float currentHorizontalOffset = 0f; // Sideways offset from origin
@@ -31,9 +34,12 @@ public class CastLineControl : MonoBehaviour
     // Event to notify BoatController when fishing ends
     public static event Action OnFishingFinished;
 
+    public delegate void OnCaughtFish(); // pass fish data (fish type, etc) later will use for inventory
+    public static event OnCaughtFish OnFishCaught;
+
+
     private void Awake()
     {
-        // Get or create a LineRenderer component
         lineRenderer = GetComponent<LineRenderer>();
         if (lineRenderer == null)
             lineRenderer = gameObject.AddComponent<LineRenderer>();
@@ -43,7 +49,7 @@ public class CastLineControl : MonoBehaviour
         lineRenderer.startWidth = 0.05f;
         lineRenderer.endWidth = 0.03f;
         lineRenderer.useWorldSpace = true;
-        lineRenderer.enabled = false; // hidden until fishing starts
+        lineRenderer.enabled = false;
     }
 
     private void OnEnable()
@@ -60,11 +66,16 @@ public class CastLineControl : MonoBehaviour
     {
         Debug.Log("Cast line! Fishing mode enabled.");
         isFishing = true;
+        isCatching = false;
         currentLineLength = 0f;
         currentHorizontalOffset = 0f;
+        caughtFish = null;
 
         if (hook != null && lineOrigin != null)
-            hook.position = lineOrigin.position;
+        {
+            hook.SetActive(true);
+            hook.transform.position = lineOrigin.position;
+        }
 
         lineRenderer.enabled = true;
     }
@@ -76,11 +87,18 @@ public class CastLineControl : MonoBehaviour
         HandleLineMovement();
         UpdateHookPosition();
         UpdateLineRenderer();
+
+        // Check if the caught fish has been reeled all the way up
+        if (isCatching && caughtFish != null && currentLineLength <= 0.05f)
+        {
+            Debug.Log("Fish reeled in!");
+            FinishFishing();
+        }
     }
 
     private void HandleLineMovement()
     {
-        // Horizontal control
+        // Horizontal movement
         currentHorizontalOffset += moveInput.x * moveSpeed * Time.deltaTime;
         currentHorizontalOffset = Mathf.Clamp(currentHorizontalOffset, -maxHorizontalRange, maxHorizontalRange);
 
@@ -106,7 +124,7 @@ public class CastLineControl : MonoBehaviour
                             Vector3.right * currentHorizontalOffset +
                             Vector3.down * currentLineLength;
 
-        hook.position = targetPos;
+        hook.transform.position = targetPos;
     }
 
     private void UpdateLineRenderer()
@@ -114,7 +132,7 @@ public class CastLineControl : MonoBehaviour
         if (!lineRenderer.enabled || lineOrigin == null || hook == null) return;
 
         lineRenderer.SetPosition(0, lineOrigin.position);
-        lineRenderer.SetPosition(1, hook.position);
+        lineRenderer.SetPosition(1, hook.transform.position);
     }
 
     private void OnMove(InputValue value)
@@ -139,41 +157,58 @@ public class CastLineControl : MonoBehaviour
 
     private void OnAttackLeft()
     {
-        if (!isFishing) return;
+        if (!isCatching) return;
         Debug.Log("Attack Left!");
     }
 
     private void OnAttackRight()
     {
-        if (!isFishing) return;
+        if (!isCatching) return;
         Debug.Log("Attack Right!");
     }
 
     private void OnParry()
     {
-        if (!isFishing) return;
+        if (!isCatching) return;
         Debug.Log("Parry!");
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (!isFishing) return;
+
+        if (collision.CompareTag("Fish") && !isCatching)
+        {
+            Debug.Log("Fish caught on hook!");
+            isCatching = true;
+            caughtFish = collision.gameObject;
+
+            // Attach fish to hook
+            caughtFish.transform.SetParent(hook.transform);
+
+            OnFishCaught?.Invoke();
+        }
     }
 
     public void FinishFishing()
     {
         if (!isFishing) return;
 
-        Debug.Log("Fish caught! Ending fishing mode...");
+        Debug.Log("Fishing session finished!");
         isFishing = false;
         moveInput = Vector2.zero;
 
         lineRenderer.enabled = false;
+        hook.SetActive(false);
 
         OnFishingFinished?.Invoke();
-    }
 
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        if (!isFishing) return;
-        if (collision.gameObject.CompareTag("Fish"))
+        if (caughtFish != null)
         {
-            print("Fish Caught");
+            // Optionally: disable or destroy fish after catching
+            caughtFish.transform.SetParent(null);
+
+            caughtFish = null;
         }
     }
 }
