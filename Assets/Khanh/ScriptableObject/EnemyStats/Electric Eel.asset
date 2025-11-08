@@ -10,21 +10,20 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: aa089746ad4b80045ba2f1b3b353b52f, type: 3}
-  m_Name: Carp
+  m_Name: Electric Eel
   m_EditorClassIdentifier: 
-  UnitName: Carp
-  UnitPrefab: {fileID: 6714761297254429148, guid: 0b079c97a0300d34982151046a2a4012, type: 3}
-  Icon: {fileID: 0}
-  inGameSprite: {fileID: 21300000, guid: d6a348f882f788a4abc1deec7624fc03, type: 3}
-  health: 30
+  UnitName: Electric Eel
+  Icon: {fileID: 21300000, guid: 422dcec45e7e4c44aa3e75dc08beb711, type: 3}
+  inGameSprite: {fileID: 21300000, guid: 422dcec45e7e4c44aa3e75dc08beb711, type: 3}
+  health: 90
   speed: 5
-  damage: 5
-  stamina: 10
+  damage: 12
+  stamina: 40
   damageType: {fileID: 0}
   defenseTypes: []
   armor: 0
-  experienceReward: 5
+  experienceReward: 15
   rarity: 0
-  minPrice: 5
-  maxPrice: 10
-  price: 6
+  minPrice: 15
+  maxPrice: 20
+  price: 19

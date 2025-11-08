@@ -7,8 +7,8 @@ public abstract class UnitSO : ScriptableObject
 
     [Header("Basic Info")]
     public string UnitName;
-    public GameObject UnitPrefab;
     public Sprite Icon;
+    public Sprite inGameSprite;
 
     [Header("Base Stats")]
     public float health;

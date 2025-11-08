@@ -10,21 +10,20 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: aa089746ad4b80045ba2f1b3b353b52f, type: 3}
-  m_Name: Carp
+  m_Name: The Wish Fish
   m_EditorClassIdentifier: 
-  UnitName: Carp
-  UnitPrefab: {fileID: 6714761297254429148, guid: 0b079c97a0300d34982151046a2a4012, type: 3}
+  UnitName: The Wish Fish
   Icon: {fileID: 0}
-  inGameSprite: {fileID: 21300000, guid: d6a348f882f788a4abc1deec7624fc03, type: 3}
-  health: 30
+  inGameSprite: {fileID: 21300000, guid: 043600de549941c408c7a6fc61858864, type: 3}
+  health: 500
   speed: 5
-  damage: 5
-  stamina: 10
+  damage: 35
+  stamina: 500
   damageType: {fileID: 0}
   defenseTypes: []
   armor: 0
-  experienceReward: 5
+  experienceReward: 100
   rarity: 0
-  minPrice: 5
-  maxPrice: 10
-  price: 6
+  minPrice: 50
+  maxPrice: 100
+  price: 0

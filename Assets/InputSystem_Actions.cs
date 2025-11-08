@@ -1118,6 +1118,15 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Spawn_Test"",
+                    ""type"": ""Button"",
+                    ""id"": ""95444df6-d29f-4f76-81b2-285e8e17c350"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -1195,6 +1204,17 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""FinishFish"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""6a061390-1435-43fd-b421-63cb77bb7b1f"",
+                    ""path"": ""<Keyboard>/enter"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";Keyboard&Mouse"",
+                    ""action"": ""Spawn_Test"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -1387,7 +1407,7 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
                     ""path"": ""<Keyboard>/w"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": """",
+                    ""groups"": "";Keyboard&Mouse"",
                     ""action"": ""Pull"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
@@ -1409,7 +1429,7 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
                     ""path"": ""<Keyboard>/s"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": """",
+                    ""groups"": "";Keyboard&Mouse"",
                     ""action"": ""Sink"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
@@ -1519,6 +1539,7 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
         m_Boat_BoatMove = m_Boat.FindAction("BoatMove", throwIfNotFound: true);
         m_Boat_Fish = m_Boat.FindAction("Fish", throwIfNotFound: true);
         m_Boat_FinishFish = m_Boat.FindAction("FinishFish", throwIfNotFound: true);
+        m_Boat_Spawn_Test = m_Boat.FindAction("Spawn_Test", throwIfNotFound: true);
         // CastLine
         m_CastLine = asset.FindActionMap("CastLine", throwIfNotFound: true);
         m_CastLine_Move = m_CastLine.FindAction("Move", throwIfNotFound: true);
@@ -1992,6 +2013,7 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
     private readonly InputAction m_Boat_BoatMove;
     private readonly InputAction m_Boat_Fish;
     private readonly InputAction m_Boat_FinishFish;
+    private readonly InputAction m_Boat_Spawn_Test;
     /// <summary>
     /// Provides access to input actions defined in input action map "Boat".
     /// </summary>
@@ -2015,6 +2037,10 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
         /// Provides access to the underlying input action "Boat/FinishFish".
         /// </summary>
         public InputAction @FinishFish => m_Wrapper.m_Boat_FinishFish;
+        /// <summary>
+        /// Provides access to the underlying input action "Boat/Spawn_Test".
+        /// </summary>
+        public InputAction @Spawn_Test => m_Wrapper.m_Boat_Spawn_Test;
         /// <summary>
         /// Provides access to the underlying input action map instance.
         /// </summary>
@@ -2050,6 +2076,9 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
             @FinishFish.started += instance.OnFinishFish;
             @FinishFish.performed += instance.OnFinishFish;
             @FinishFish.canceled += instance.OnFinishFish;
+            @Spawn_Test.started += instance.OnSpawn_Test;
+            @Spawn_Test.performed += instance.OnSpawn_Test;
+            @Spawn_Test.canceled += instance.OnSpawn_Test;
         }
 
         /// <summary>
@@ -2070,6 +2099,9 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
             @FinishFish.started -= instance.OnFinishFish;
             @FinishFish.performed -= instance.OnFinishFish;
             @FinishFish.canceled -= instance.OnFinishFish;
+            @Spawn_Test.started -= instance.OnSpawn_Test;
+            @Spawn_Test.performed -= instance.OnSpawn_Test;
+            @Spawn_Test.canceled -= instance.OnSpawn_Test;
         }
 
         /// <summary>
@@ -2496,6 +2528,13 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnFinishFish(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "Spawn_Test" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnSpawn_Test(InputAction.CallbackContext context);
     }
     /// <summary>
     /// Interface to implement callback methods for all input action callbacks associated with input actions defined by "CastLine" which allows adding and removing callbacks.

@@ -1032,6 +1032,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "Spawn_Test",
+                    "type": "Button",
+                    "id": "95444df6-d29f-4f76-81b2-285e8e17c350",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -1109,6 +1118,17 @@
                     "processors": "",
                     "groups": "",
                     "action": "FinishFish",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "6a061390-1435-43fd-b421-63cb77bb7b1f",
+                    "path": "<Keyboard>/enter",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Keyboard&Mouse",
+                    "action": "Spawn_Test",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
@@ -1301,7 +1321,7 @@
                     "path": "<Keyboard>/w",
                     "interactions": "",
                     "processors": "",
-                    "groups": "",
+                    "groups": ";Keyboard&Mouse",
                     "action": "Pull",
                     "isComposite": false,
                     "isPartOfComposite": false
@@ -1323,7 +1343,7 @@
                     "path": "<Keyboard>/s",
                     "interactions": "",
                     "processors": "",
-                    "groups": "",
+                    "groups": ";Keyboard&Mouse",
                     "action": "Sink",
                     "isComposite": false,
                     "isPartOfComposite": false

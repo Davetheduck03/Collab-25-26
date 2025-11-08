@@ -21,9 +21,9 @@ public class CastLineControl : MonoBehaviour
     private LineRenderer lineRenderer;
 
     private Vector2 moveInput;
-    private bool isFishing = false;
-    private bool isSinking = false;
-    private bool isPulling = false;
+    public bool isFishing = false;
+    public bool isSinking = false;
+    public bool isPulling = false;
 
     private float currentLineLength = 0f; // Vertical distance (depth)
     private float currentHorizontalOffset = 0f; // Sideways offset from origin
@@ -89,6 +89,7 @@ public class CastLineControl : MonoBehaviour
 
         if (isPulling)
             currentLineLength -= speed * Time.deltaTime;
+            
         else if (isSinking)
             currentLineLength += speed * fastSinkMultiplier * Time.deltaTime;
         else
@@ -126,12 +127,14 @@ public class CastLineControl : MonoBehaviour
     {
         if (!isFishing) return;
         isSinking = value.isPressed;
+        Debug.Log("Sinking");
     }
 
     private void OnPull(InputValue value)
     {
         if (!isFishing) return;
         isPulling = value.isPressed;
+        Debug.Log("Pulling");
     }
 
     private void OnAttackLeft()
