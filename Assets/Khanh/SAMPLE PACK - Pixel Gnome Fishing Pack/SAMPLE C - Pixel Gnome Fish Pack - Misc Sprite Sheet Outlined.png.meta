@@ -172,7 +172,9 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      SAMPLE C - Pixel Gnome Fish Pack - Misc Sprite Sheet Outlined_0: 8251561922352131556
+      SAMPLE C - Pixel Gnome Fish Pack - Misc Sprite Sheet Outlined_1: 7801585039171210021
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

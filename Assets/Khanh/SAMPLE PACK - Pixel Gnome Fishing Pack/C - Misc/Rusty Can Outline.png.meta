@@ -147,7 +147,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      Rusty Can Outline_0: 7046356899166123997
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
