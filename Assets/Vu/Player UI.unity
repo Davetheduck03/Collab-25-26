@@ -503,7 +503,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &294495866
 RectTransform:
   m_ObjectHideFlags: 0
@@ -784,19 +784,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 375545884}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1118170095}
-        m_TargetAssemblyTypeName: PlayerStatsPanel, Assembly-CSharp
-        m_MethodName: OnReserveButton
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
 --- !u!114 &375545884
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2089,7 +2077,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: -7.3, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &614244705
@@ -2227,8 +2215,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchoredPosition: {x: -6, y: 0}
+  m_SizeDelta: {x: -16.9218, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &620977453
 MonoBehaviour:
@@ -2279,7 +2267,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 10
+  m_fontSize: 11.4
   m_fontSizeBase: 24
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -2320,7 +2308,7 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: 3.030509, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
-  m_hasFontAssetChanged: 1
+  m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
 --- !u!222 &620977454
@@ -2838,7 +2826,7 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: 0, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
-  m_hasFontAssetChanged: 1
+  m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
 --- !u!222 &756489241
@@ -3084,7 +3072,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1118170095}
         m_TargetAssemblyTypeName: PlayerStatsPanel, Assembly-CSharp
-        m_MethodName: OnStatsButton
+        m_MethodName: OnButtonPress
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -3287,7 +3275,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &792352072
 RectTransform:
   m_ObjectHideFlags: 0
@@ -4659,7 +4647,7 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: 0, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
-  m_hasFontAssetChanged: 1
+  m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
 --- !u!222 &1113568572
@@ -4683,6 +4671,8 @@ GameObject:
   - component: {fileID: 1118170092}
   - component: {fileID: 1118170091}
   - component: {fileID: 1118170095}
+  - component: {fileID: 1118170097}
+  - component: {fileID: 1118170096}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -4789,6 +4779,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   statsPanel: {fileID: 792352071}
+  inventoryPanel: {fileID: 294495865}
   gameUI: {fileID: 1134791211}
   animationImage: {fileID: 1182341479}
   openFrames:
@@ -4816,6 +4807,36 @@ MonoBehaviour:
   openSaturation: -80
   closeSaturation: 0
   saturationTweenDuration: 0.3
+  inventoryButton: {fileID: 375545883}
+  statsButton: {fileID: 785931406}
+  playAnimationOnSwitch: 1
+  switchAnimationDurationMultiplier: 1
+--- !u!114 &1118170096
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1118170090}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6e958795e5089d244989e918b4bac84d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  switchToInventoryButton: {fileID: 375545883}
+--- !u!114 &1118170097
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1118170090}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 32a0e6af02c991f44b09bf442945b616, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  switchToStatsButton: {fileID: 785931406}
 --- !u!1 &1134791211
 GameObject:
   m_ObjectHideFlags: 0
@@ -4931,8 +4952,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 6.619, y: 14.1323}
-  m_SizeDelta: {x: 431.4273, y: 477.5817}
+  m_AnchoredPosition: {x: 6.619, y: 2.6957}
+  m_SizeDelta: {x: 431.4273, y: 500.4549}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1186456900
 GameObject:
@@ -6018,7 +6039,6 @@ GameObject:
   - component: {fileID: 1472066677}
   - component: {fileID: 1472066680}
   - component: {fileID: 1472066679}
-  - component: {fileID: 1472066678}
   m_Layer: 5
   m_Name: Button (1)
   m_TagString: Untagged
@@ -6043,65 +6063,9 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0.5}
   m_AnchorMax: {x: 1, y: 0.5}
-  m_AnchoredPosition: {x: -49.055786, y: 89.499985}
-  m_SizeDelta: {x: 33.172394, y: 33.1725}
+  m_AnchoredPosition: {x: -35.642, y: 89.0972}
+  m_SizeDelta: {x: 60, y: 27.6056}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &1472066678
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1472066676}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Navigation:
-    m_Mode: 3
-    m_WrapAround: 0
-    m_SelectOnUp: {fileID: 0}
-    m_SelectOnDown: {fileID: 0}
-    m_SelectOnLeft: {fileID: 0}
-    m_SelectOnRight: {fileID: 0}
-  m_Transition: 1
-  m_Colors:
-    m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
-    m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
-    m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
-    m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
-    m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
-    m_ColorMultiplier: 1
-    m_FadeDuration: 0.1
-  m_SpriteState:
-    m_HighlightedSprite: {fileID: 0}
-    m_PressedSprite: {fileID: 0}
-    m_SelectedSprite: {fileID: 0}
-    m_DisabledSprite: {fileID: 0}
-  m_AnimationTriggers:
-    m_NormalTrigger: Normal
-    m_HighlightedTrigger: Highlighted
-    m_PressedTrigger: Pressed
-    m_SelectedTrigger: Selected
-    m_DisabledTrigger: Disabled
-  m_Interactable: 1
-  m_TargetGraphic: {fileID: 1472066679}
-  m_OnClick:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1118170095}
-        m_TargetAssemblyTypeName: PlayerStatsPanel, Assembly-CSharp
-        m_MethodName: OnReserveButton
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
 --- !u!114 &1472066679
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6122,7 +6086,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: c6c113b08c536374c9ee5edbc1ba6bc4, type: 3}
+  m_Sprite: {fileID: 2960402581040015946, guid: 3d3ec0ae6eb7d52478fd7f687da703ee, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -6462,7 +6426,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1118170095}
         m_TargetAssemblyTypeName: PlayerStatsPanel, Assembly-CSharp
-        m_MethodName: OnStatsButton
+        m_MethodName: OnButtonPress
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -6634,7 +6598,6 @@ GameObject:
   - component: {fileID: 1629925427}
   - component: {fileID: 1629925430}
   - component: {fileID: 1629925429}
-  - component: {fileID: 1629925428}
   m_Layer: 5
   m_Name: Button
   m_TagString: Untagged
@@ -6659,65 +6622,9 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0.5}
   m_AnchorMax: {x: 1, y: 0.5}
-  m_AnchoredPosition: {x: -49.055786, y: 126.40003}
-  m_SizeDelta: {x: 33.172394, y: 33.1725}
+  m_AnchoredPosition: {x: -35.642, y: 130.9844}
+  m_SizeDelta: {x: 60, y: 28.5688}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &1629925428
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1629925426}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Navigation:
-    m_Mode: 3
-    m_WrapAround: 0
-    m_SelectOnUp: {fileID: 0}
-    m_SelectOnDown: {fileID: 0}
-    m_SelectOnLeft: {fileID: 0}
-    m_SelectOnRight: {fileID: 0}
-  m_Transition: 1
-  m_Colors:
-    m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
-    m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
-    m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
-    m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
-    m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
-    m_ColorMultiplier: 1
-    m_FadeDuration: 0.1
-  m_SpriteState:
-    m_HighlightedSprite: {fileID: 0}
-    m_PressedSprite: {fileID: 0}
-    m_SelectedSprite: {fileID: 0}
-    m_DisabledSprite: {fileID: 0}
-  m_AnimationTriggers:
-    m_NormalTrigger: Normal
-    m_HighlightedTrigger: Highlighted
-    m_PressedTrigger: Pressed
-    m_SelectedTrigger: Selected
-    m_DisabledTrigger: Disabled
-  m_Interactable: 1
-  m_TargetGraphic: {fileID: 1629925429}
-  m_OnClick:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1118170095}
-        m_TargetAssemblyTypeName: PlayerStatsPanel, Assembly-CSharp
-        m_MethodName: OnStatsButton
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
 --- !u!114 &1629925429
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6738,7 +6645,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: c6c113b08c536374c9ee5edbc1ba6bc4, type: 3}
+  m_Sprite: {fileID: 2960402581040015946, guid: 3d3ec0ae6eb7d52478fd7f687da703ee, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -7436,9 +7343,9 @@ RectTransform:
   - {fileID: 958698343}
   m_Father: {fileID: 1629943908}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 79.375, y: -17.2684}
   m_SizeDelta: {x: 158.75, y: 34.5368}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1765021732
