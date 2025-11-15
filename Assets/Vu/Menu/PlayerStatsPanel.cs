@@ -15,7 +15,6 @@ public class PlayerStatsPanel : MonoBehaviour
     [Header("Animation (Frame-by-frame)")]
     public Image animationImage;      // UI Image for frames
     public Sprite[] openFrames;       // Frames when opening
-    public Sprite[] closeFrames;      // Frames when closing
     public float frameRate = 0.05f;   // Seconds per frame
 
     [Header("Post Processing")]
@@ -107,13 +106,12 @@ public class PlayerStatsPanel : MonoBehaviour
         playingAnimation = true;
         isOpen = false;
 
-        
         animationImage.gameObject.SetActive(true);
 
-        // Play frames
-        foreach (Sprite sprite in closeFrames)
+        // Play openFrames in reverse
+        for (int i = openFrames.Length - 1; i >= 0; i--)
         {
-            animationImage.sprite = sprite;
+            animationImage.sprite = openFrames[i];
             yield return new WaitForSecondsRealtime(frameRate);
         }
 
@@ -129,7 +127,9 @@ public class PlayerStatsPanel : MonoBehaviour
                 saturationTweenDuration
             ).SetUpdate(true);
         }
+
         statsPanel.SetActive(false);
+
         // Return gameplay
         if (gameUI) gameUI.SetActive(true);
         Time.timeScale = 1f;
