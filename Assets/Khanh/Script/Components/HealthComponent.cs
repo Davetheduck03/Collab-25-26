@@ -6,13 +6,18 @@ using UnityEngine;
 
 public class HealthComponent : UnitComponent
 {
-    private float currentHealth;
+    [SerializeField] private float currentHealth;
     public bool isDamagable;
 
     protected override void OnInitialize()
     {
         currentHealth = data.health;
         isDamagable = true;
+    }
+
+    protected override void OnBoatSetUp()
+    {
+        currentHealth = UpgradeManager.Instance.ComputeStat(UpgradeType.Health);
     }
 
     public void TakeDamage(DamageData data)
@@ -28,7 +33,6 @@ public class HealthComponent : UnitComponent
         {
             Die();
         }
-
     }
 
     private void Die()

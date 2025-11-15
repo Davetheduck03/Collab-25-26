@@ -1,4 +1,5 @@
 using System.Collections;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class Fish : BaseUnit
@@ -7,8 +8,13 @@ public class Fish : BaseUnit
     private bool isCaught = false;
     private bool facingRight = false;
     private bool facingLeft = false;
+    private GameObject m_Boat;
 
     private Coroutine fightCoroutine;
+
+    [SerializeField] private DamageComponent damageComponent;
+    public HealthComponent healthComponent;
+    public MovementComponent movementComponent;
 
     private void OnEnable()
     {
@@ -25,6 +31,7 @@ public class Fish : BaseUnit
         _spriteRenderer = GetComponent<SpriteRenderer>();
         ApplyScriptableData();
         GetComponents(components);
+        m_Boat = GameObject.Find("Boat");
 
         foreach (var comp in components)
         {
@@ -82,12 +89,14 @@ public class Fish : BaseUnit
     private void OnTurnRight()
     {
         if(!isCaught) return;
+        damageComponent.TryDealDamage(m_Boat);
         Debug.Log("Fish Attack Right!");
     }
     // The fish will turn left and only take damage when player attacks left, attack player when player attacks right
     private void OnTurnLeft()
     {
         if(!isCaught) return;
+        damageComponent.TryDealDamage(m_Boat);
         Debug.Log("Fish Attack Left!");
     }
     // The fish will attack the player and player have to parry to avoid damage

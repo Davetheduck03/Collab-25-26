@@ -27,7 +27,7 @@ public class CastLineControl : MonoBehaviour
     private bool isSinking = false;
     private bool isPulling = false;
     private GameObject caughtFish;
-
+    private GameObject catchingFish;
     private float currentLineLength = 0f; // Vertical distance (depth)
     private float currentHorizontalOffset = 0f; // Sideways offset from origin
 
@@ -36,6 +36,8 @@ public class CastLineControl : MonoBehaviour
 
     public delegate void OnCaughtFish(); // pass fish data (fish type, etc) later will use for inventory
     public static event OnCaughtFish OnFishCaught;
+
+    [SerializeField] private DamageComponent damageComponent;
 
 
     private void Awake()
@@ -70,6 +72,7 @@ public class CastLineControl : MonoBehaviour
         currentLineLength = 0f;
         currentHorizontalOffset = 0f;
         caughtFish = null;
+        catchingFish = gameObject.transform.GetChild(0).gameObject;
 
         if (hook != null && lineOrigin != null)
         {
@@ -158,12 +161,15 @@ public class CastLineControl : MonoBehaviour
     private void OnAttackLeft()
     {
         if (!isCatching) return;
+        damageComponent.TryDealDamage(catchingFish);
         Debug.Log("Attack Left!");
     }
 
     private void OnAttackRight()
     {
         if (!isCatching) return;
+        damageComponent.TryDealDamage(catchingFish);
+        Debug.Log("Attack Left!");
         Debug.Log("Attack Right!");
     }
 
@@ -197,9 +203,10 @@ public class CastLineControl : MonoBehaviour
         Debug.Log("Fishing session finished!");
         isFishing = false;
         moveInput = Vector2.zero;
-
+        catchingFish = null;
         lineRenderer.enabled = false;
         hook.SetActive(false);
+
 
         OnFishingFinished?.Invoke();
 
