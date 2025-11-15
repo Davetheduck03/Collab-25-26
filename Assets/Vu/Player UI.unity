@@ -4788,94 +4788,29 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5bc757d3cb8675b4a901b71a1d7e2401, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  statsPanel:
-    panelName: StatsPanel
-    panelObject: {fileID: 792352071}
-    openFrames:
-    - {fileID: 21300000, guid: f20c11c785076f240876087f5f95f4db, type: 3}
-    - {fileID: 21300000, guid: a2a147c996a98d54cb23644d1727be66, type: 3}
-    - {fileID: 21300000, guid: 372bb72bf66d31d438d9e6342f964e63, type: 3}
-    - {fileID: 21300000, guid: 1e87deeaec3318644bb73da356012d5d, type: 3}
-    - {fileID: 21300000, guid: 4faef160bd3dff24ca54b79faac9e52f, type: 3}
-    - {fileID: 21300000, guid: 44df4c778d87b06429e1a8338fe9e75f, type: 3}
-    - {fileID: 21300000, guid: 5befb7d7636e22b41bb9e7e766162969, type: 3}
-    - {fileID: 21300000, guid: 5794633ea47630a4783238e68f22d067, type: 3}
-    - {fileID: 21300000, guid: 2b4275627636a9c488e2d246541e982f, type: 3}
-    - {fileID: 21300000, guid: da1495a9de685f0419c5e7d0b424b553, type: 3}
-    - {fileID: 21300000, guid: 426f70de9c66662409a2adc57c3649d6, type: 3}
-    - {fileID: 21300000, guid: 1660f70243e592a4794457792c1959c2, type: 3}
-    - {fileID: 21300000, guid: bcfa25a4e5cf6ca4c81a4ecb49f3e1c8, type: 3}
-    - {fileID: 21300000, guid: 627d657a1192cdf4a91052cf20b27c98, type: 3}
-    - {fileID: 21300000, guid: 31560e2d30edc114ab81030693232bb3, type: 3}
-    - {fileID: 21300000, guid: 2f0b28967ccc58d459808772677f42b1, type: 3}
-    - {fileID: 21300000, guid: 44805f522d6e25d4ea6457f858b0e4dd, type: 3}
-    - {fileID: 21300000, guid: a8855bd54d6fb1443a96de0a512b7da7, type: 3}
-    - {fileID: 21300000, guid: 58e9bd85f7e4add46886d67d6ab0a6df, type: 3}
-    closeFrames:
-    - {fileID: 21300000, guid: 58e9bd85f7e4add46886d67d6ab0a6df, type: 3}
-    - {fileID: 21300000, guid: a8855bd54d6fb1443a96de0a512b7da7, type: 3}
-    - {fileID: 21300000, guid: 44805f522d6e25d4ea6457f858b0e4dd, type: 3}
-    - {fileID: 21300000, guid: 2f0b28967ccc58d459808772677f42b1, type: 3}
-    - {fileID: 21300000, guid: 31560e2d30edc114ab81030693232bb3, type: 3}
-    - {fileID: 21300000, guid: 627d657a1192cdf4a91052cf20b27c98, type: 3}
-    - {fileID: 21300000, guid: bcfa25a4e5cf6ca4c81a4ecb49f3e1c8, type: 3}
-    - {fileID: 21300000, guid: 1660f70243e592a4794457792c1959c2, type: 3}
-    - {fileID: 21300000, guid: 426f70de9c66662409a2adc57c3649d6, type: 3}
-    - {fileID: 21300000, guid: da1495a9de685f0419c5e7d0b424b553, type: 3}
-    - {fileID: 21300000, guid: 2b4275627636a9c488e2d246541e982f, type: 3}
-    - {fileID: 21300000, guid: 5794633ea47630a4783238e68f22d067, type: 3}
-    - {fileID: 21300000, guid: 5befb7d7636e22b41bb9e7e766162969, type: 3}
-    - {fileID: 21300000, guid: 44df4c778d87b06429e1a8338fe9e75f, type: 3}
-    - {fileID: 21300000, guid: 4faef160bd3dff24ca54b79faac9e52f, type: 3}
-    - {fileID: 21300000, guid: 1e87deeaec3318644bb73da356012d5d, type: 3}
-    - {fileID: 21300000, guid: 372bb72bf66d31d438d9e6342f964e63, type: 3}
-    - {fileID: 21300000, guid: a2a147c996a98d54cb23644d1727be66, type: 3}
-    - {fileID: 21300000, guid: f20c11c785076f240876087f5f95f4db, type: 3}
-  reservePanel:
-    panelName: InventoryPanel
-    panelObject: {fileID: 294495865}
-    openFrames:
-    - {fileID: 21300000, guid: f20c11c785076f240876087f5f95f4db, type: 3}
-    - {fileID: 21300000, guid: a2a147c996a98d54cb23644d1727be66, type: 3}
-    - {fileID: 21300000, guid: 372bb72bf66d31d438d9e6342f964e63, type: 3}
-    - {fileID: 21300000, guid: 1e87deeaec3318644bb73da356012d5d, type: 3}
-    - {fileID: 21300000, guid: 4faef160bd3dff24ca54b79faac9e52f, type: 3}
-    - {fileID: 21300000, guid: 44df4c778d87b06429e1a8338fe9e75f, type: 3}
-    - {fileID: 21300000, guid: 5befb7d7636e22b41bb9e7e766162969, type: 3}
-    - {fileID: 21300000, guid: 5794633ea47630a4783238e68f22d067, type: 3}
-    - {fileID: 21300000, guid: 2b4275627636a9c488e2d246541e982f, type: 3}
-    - {fileID: 21300000, guid: da1495a9de685f0419c5e7d0b424b553, type: 3}
-    - {fileID: 21300000, guid: 426f70de9c66662409a2adc57c3649d6, type: 3}
-    - {fileID: 21300000, guid: 1660f70243e592a4794457792c1959c2, type: 3}
-    - {fileID: 21300000, guid: bcfa25a4e5cf6ca4c81a4ecb49f3e1c8, type: 3}
-    - {fileID: 21300000, guid: 627d657a1192cdf4a91052cf20b27c98, type: 3}
-    - {fileID: 21300000, guid: 31560e2d30edc114ab81030693232bb3, type: 3}
-    - {fileID: 21300000, guid: 2f0b28967ccc58d459808772677f42b1, type: 3}
-    - {fileID: 21300000, guid: 44805f522d6e25d4ea6457f858b0e4dd, type: 3}
-    - {fileID: 21300000, guid: a8855bd54d6fb1443a96de0a512b7da7, type: 3}
-    - {fileID: 21300000, guid: 58e9bd85f7e4add46886d67d6ab0a6df, type: 3}
-    closeFrames:
-    - {fileID: 21300000, guid: 58e9bd85f7e4add46886d67d6ab0a6df, type: 3}
-    - {fileID: 21300000, guid: a8855bd54d6fb1443a96de0a512b7da7, type: 3}
-    - {fileID: 21300000, guid: 44805f522d6e25d4ea6457f858b0e4dd, type: 3}
-    - {fileID: 21300000, guid: 2f0b28967ccc58d459808772677f42b1, type: 3}
-    - {fileID: 21300000, guid: 31560e2d30edc114ab81030693232bb3, type: 3}
-    - {fileID: 21300000, guid: 627d657a1192cdf4a91052cf20b27c98, type: 3}
-    - {fileID: 21300000, guid: bcfa25a4e5cf6ca4c81a4ecb49f3e1c8, type: 3}
-    - {fileID: 21300000, guid: 1660f70243e592a4794457792c1959c2, type: 3}
-    - {fileID: 21300000, guid: 426f70de9c66662409a2adc57c3649d6, type: 3}
-    - {fileID: 21300000, guid: da1495a9de685f0419c5e7d0b424b553, type: 3}
-    - {fileID: 21300000, guid: 2b4275627636a9c488e2d246541e982f, type: 3}
-    - {fileID: 21300000, guid: 5794633ea47630a4783238e68f22d067, type: 3}
-    - {fileID: 21300000, guid: 5befb7d7636e22b41bb9e7e766162969, type: 3}
-    - {fileID: 21300000, guid: 44df4c778d87b06429e1a8338fe9e75f, type: 3}
-    - {fileID: 21300000, guid: 4faef160bd3dff24ca54b79faac9e52f, type: 3}
-    - {fileID: 21300000, guid: 1e87deeaec3318644bb73da356012d5d, type: 3}
-    - {fileID: 21300000, guid: 372bb72bf66d31d438d9e6342f964e63, type: 3}
-    - {fileID: 21300000, guid: a2a147c996a98d54cb23644d1727be66, type: 3}
-    - {fileID: 21300000, guid: f20c11c785076f240876087f5f95f4db, type: 3}
+  statsPanel: {fileID: 792352071}
   gameUI: {fileID: 1134791211}
-  animationImage: {fileID: 294495867}
+  animationImage: {fileID: 1182341479}
+  openFrames:
+  - {fileID: 21300000, guid: f20c11c785076f240876087f5f95f4db, type: 3}
+  - {fileID: 21300000, guid: a2a147c996a98d54cb23644d1727be66, type: 3}
+  - {fileID: 21300000, guid: 372bb72bf66d31d438d9e6342f964e63, type: 3}
+  - {fileID: 21300000, guid: 1e87deeaec3318644bb73da356012d5d, type: 3}
+  - {fileID: 21300000, guid: 4faef160bd3dff24ca54b79faac9e52f, type: 3}
+  - {fileID: 21300000, guid: 44df4c778d87b06429e1a8338fe9e75f, type: 3}
+  - {fileID: 21300000, guid: 5befb7d7636e22b41bb9e7e766162969, type: 3}
+  - {fileID: 21300000, guid: 5794633ea47630a4783238e68f22d067, type: 3}
+  - {fileID: 21300000, guid: 2b4275627636a9c488e2d246541e982f, type: 3}
+  - {fileID: 21300000, guid: da1495a9de685f0419c5e7d0b424b553, type: 3}
+  - {fileID: 21300000, guid: 426f70de9c66662409a2adc57c3649d6, type: 3}
+  - {fileID: 21300000, guid: 1660f70243e592a4794457792c1959c2, type: 3}
+  - {fileID: 21300000, guid: bcfa25a4e5cf6ca4c81a4ecb49f3e1c8, type: 3}
+  - {fileID: 21300000, guid: 627d657a1192cdf4a91052cf20b27c98, type: 3}
+  - {fileID: 21300000, guid: 31560e2d30edc114ab81030693232bb3, type: 3}
+  - {fileID: 21300000, guid: 2f0b28967ccc58d459808772677f42b1, type: 3}
+  - {fileID: 21300000, guid: 44805f522d6e25d4ea6457f858b0e4dd, type: 3}
+  - {fileID: 21300000, guid: a8855bd54d6fb1443a96de0a512b7da7, type: 3}
+  - {fileID: 21300000, guid: 58e9bd85f7e4add46886d67d6ab0a6df, type: 3}
   frameRate: 0.05
   globalVolume: {fileID: 1512426627}
   openSaturation: -80
