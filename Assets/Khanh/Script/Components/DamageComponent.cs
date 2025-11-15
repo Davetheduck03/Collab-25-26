@@ -17,6 +17,7 @@ public class DamageComponent : UnitComponent
     protected override void OnBoatSetUp()
     {
         damage = UpgradeManager.Instance.ComputeStat(UpgradeType.Attack);
+        damageType = null;
     }
 
     public void TryDealDamage(GameObject target)

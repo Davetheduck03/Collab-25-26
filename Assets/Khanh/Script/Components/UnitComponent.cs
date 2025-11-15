@@ -18,8 +18,9 @@ public abstract class UnitComponent : MonoBehaviour
         OnInitialize();
     }
 
-    public void BoatSetUp()
+    public void BoatSetUp(UnitSO _)
     {
+        this.data = _;
         OnBoatSetUp();
     }
 

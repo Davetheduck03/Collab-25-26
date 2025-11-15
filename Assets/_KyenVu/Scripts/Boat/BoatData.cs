@@ -5,6 +5,7 @@ using System.Collections.Generic;
 public class BoatData : MonoBehaviour
 {
     public List<UnitComponent> components;
+    public UnitSO m_BoatSO;
 
     private void Start()
     {
@@ -16,7 +17,7 @@ public class BoatData : MonoBehaviour
         GetComponents(components);
         foreach(var component in components)
         {
-            component.BoatSetUp();
+            component.BoatSetUp(m_BoatSO);
         }
     }
 }

@@ -39,7 +39,6 @@ public class CastLineControl : MonoBehaviour
 
     [SerializeField] private DamageComponent damageComponent;
 
-
     private void Awake()
     {
         lineRenderer = GetComponent<LineRenderer>();
@@ -72,7 +71,6 @@ public class CastLineControl : MonoBehaviour
         currentLineLength = 0f;
         currentHorizontalOffset = 0f;
         caughtFish = null;
-        catchingFish = gameObject.transform.GetChild(0).gameObject;
 
         if (hook != null && lineOrigin != null)
         {
@@ -191,7 +189,7 @@ public class CastLineControl : MonoBehaviour
 
             // Attach fish to hook
             caughtFish.transform.SetParent(hook.transform);
-
+            catchingFish = gameObject.transform.GetChild(0).gameObject;
             OnFishCaught?.Invoke();
         }
     }

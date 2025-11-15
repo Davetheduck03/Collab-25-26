@@ -8,7 +8,8 @@ public class Fish : BaseUnit
     private bool isCaught = false;
     private bool facingRight = false;
     private bool facingLeft = false;
-    private GameObject m_Boat;
+
+    [SerializeField] private GameObject m_Boat;
 
     private Coroutine fightCoroutine;
 
