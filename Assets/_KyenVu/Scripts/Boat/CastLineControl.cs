@@ -37,6 +37,11 @@ public class CastLineControl : MonoBehaviour
     public delegate void OnCaughtFish(); // pass fish data (fish type, etc) later will use for inventory
     public static event OnCaughtFish OnFishCaught;
 
+    public static event Action OnPlayerAttackLeft;
+    public static event Action OnPlayerAttackRight;
+    public static event Action OnPlayerParry;
+
+
     [SerializeField] private DamageComponent damageComponent;
 
     private void Awake()
@@ -160,6 +165,7 @@ public class CastLineControl : MonoBehaviour
     {
         if (!isCatching) return;
         damageComponent.TryDealDamage(catchingFish);
+        OnPlayerAttackLeft?.Invoke();
         Debug.Log("Attack Left!");
     }
 
@@ -167,13 +173,15 @@ public class CastLineControl : MonoBehaviour
     {
         if (!isCatching) return;
         damageComponent.TryDealDamage(catchingFish);
-        Debug.Log("Attack Left!");
+        OnPlayerAttackRight?.Invoke();
+
         Debug.Log("Attack Right!");
     }
 
     private void OnParry()
     {
         if (!isCatching) return;
+        OnPlayerParry?.Invoke();
         Debug.Log("Parry!");
     }
 

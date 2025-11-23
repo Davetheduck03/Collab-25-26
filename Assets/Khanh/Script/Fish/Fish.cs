@@ -8,6 +8,27 @@ public class Fish : BaseUnit
     private bool isCaught = false;
     private bool facingRight = false;
     private bool facingLeft = false;
+    private bool expectingLeft = false;
+    private bool expectingRight = false;
+    private bool expectingParry = false;
+
+    private void OnEnable()
+    {
+        CastLineControl.OnFishCaught += GotCaught;
+        CastLineControl.OnPlayerAttackLeft += PlayerPressedLeft;
+        CastLineControl.OnPlayerAttackRight += PlayerPressedRight;
+        CastLineControl.OnPlayerParry += PlayerPressedParry;
+    }
+
+    private void OnDisable()
+    {
+        CastLineControl.OnFishCaught -= GotCaught;
+        CastLineControl.OnPlayerAttackLeft -= PlayerPressedLeft;
+        CastLineControl.OnPlayerAttackRight -= PlayerPressedRight;
+        CastLineControl.OnPlayerParry -= PlayerPressedParry;
+    }
+
+
 
     [SerializeField] private GameObject m_Boat;
 
@@ -16,17 +37,6 @@ public class Fish : BaseUnit
     [SerializeField] private DamageComponent damageComponent;
     public HealthComponent healthComponent;
     public MovementComponent movementComponent;
-
-    private void OnEnable()
-    {
-        CastLineControl.OnFishCaught += GotCaught;
-    }
-    private void OnDisable()
-    {
-        CastLineControl.OnFishCaught -= GotCaught;
-    }
-
-
     public void Initialize()
     {
         _spriteRenderer = GetComponent<SpriteRenderer>();
@@ -89,22 +99,103 @@ public class Fish : BaseUnit
     // The fish will turn right and only take damage when player attacks right, attack player when player attacks left
     private void OnTurnRight()
     {
-        if(!isCaught) return;
-        damageComponent.TryDealDamage(m_Boat);
-        Debug.Log("Fish Attack Right!");
+        if (!isCaught) return;
+
+        expectingRight = true;
+        expectingLeft = false;
+        expectingParry = false;
+
+        Debug.Log("Fish Turn Right! Player must ATTACK RIGHT!");
     }
+
     // The fish will turn left and only take damage when player attacks left, attack player when player attacks right
     private void OnTurnLeft()
     {
-        if(!isCaught) return;
-        damageComponent.TryDealDamage(m_Boat);
-        Debug.Log("Fish Attack Left!");
+        if (!isCaught) return;
+
+        expectingLeft = true;
+        expectingRight = false;
+        expectingParry = false;
+
+        Debug.Log("Fish Turn Left! Player must ATTACK LEFT!");
     }
+
     // The fish will attack the player and player have to parry to avoid damage
     private void OnAttack()
     {
-        if(!isCaught) return;
-        Debug.Log("Fish Parry!");
+        if (!isCaught) return;
+
+        expectingParry = true;
+        expectingLeft = false;
+        expectingRight = false;
+
+        Debug.Log("Fish Attacks! Player must PARRY!");
+    }
+
+    private void ResetExpectations()
+    {
+        expectingLeft = false;
+        expectingRight = false;
+        expectingParry = false;
+    }
+
+    private void TakeDamage()
+    {
+        unitData.health -= 10;
+        Debug.Log("Fish takes damage! HP = " + unitData.health);
+
+        if (unitData.health <= 0)
+        {
+            StopCoroutine(fightCoroutine);
+            Debug.Log("Fish defeated!");
+        }
+    }
+
+    private void PlayerPressedLeft()
+    {
+        if (expectingLeft)
+        {
+            Debug.Log("Correct! Player hits the fish!");
+            TakeDamage();
+        }
+        else
+        {
+            Debug.Log("Wrong input! Player takes damage!");
+            damageComponent.TryDealDamage(m_Boat);
+        }
+
+        ResetExpectations();
+    }
+
+    private void PlayerPressedRight()
+    {
+        if (expectingRight)
+        {
+            Debug.Log("Correct! Player hits the fish!");
+            TakeDamage();
+        }
+        else
+        {
+            Debug.Log("Wrong input! Player takes damage!");
+            damageComponent.TryDealDamage(m_Boat);
+        }
+
+        ResetExpectations();
+    }
+
+    private void PlayerPressedParry()
+    {
+        if (expectingParry)
+        {
+            Debug.Log("Perfect Parry!");
+        }
+        else
+        {
+            Debug.Log("Failed Parry! Player takes damage!");
+            damageComponent.TryDealDamage(m_Boat);
+        }
+
+        ResetExpectations();
     }
 
 }
