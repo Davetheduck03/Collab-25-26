@@ -27,7 +27,7 @@ public class CastLineControl : MonoBehaviour
     private bool isSinking = false;
     private bool isPulling = false;
     private GameObject caughtFish;
-
+    private GameObject catchingFish;
     private float currentLineLength = 0f; // Vertical distance (depth)
     private float currentHorizontalOffset = 0f; // Sideways offset from origin
 
@@ -37,6 +37,12 @@ public class CastLineControl : MonoBehaviour
     public delegate void OnCaughtFish(); // pass fish data (fish type, etc) later will use for inventory
     public static event OnCaughtFish OnFishCaught;
 
+    public static event Action OnPlayerAttackLeft;
+    public static event Action OnPlayerAttackRight;
+    public static event Action OnPlayerParry;
+
+
+    [SerializeField] private DamageComponent damageComponent;
 
     private void Awake()
     {
@@ -158,18 +164,24 @@ public class CastLineControl : MonoBehaviour
     private void OnAttackLeft()
     {
         if (!isCatching) return;
+        damageComponent.TryDealDamage(catchingFish);
+        OnPlayerAttackLeft?.Invoke();
         Debug.Log("Attack Left!");
     }
 
     private void OnAttackRight()
     {
         if (!isCatching) return;
+        damageComponent.TryDealDamage(catchingFish);
+        OnPlayerAttackRight?.Invoke();
+
         Debug.Log("Attack Right!");
     }
 
     private void OnParry()
     {
         if (!isCatching) return;
+        OnPlayerParry?.Invoke();
         Debug.Log("Parry!");
     }
 
@@ -185,7 +197,7 @@ public class CastLineControl : MonoBehaviour
 
             // Attach fish to hook
             caughtFish.transform.SetParent(hook.transform);
-
+            catchingFish = gameObject.transform.GetChild(0).gameObject;
             OnFishCaught?.Invoke();
         }
     }
@@ -197,9 +209,10 @@ public class CastLineControl : MonoBehaviour
         Debug.Log("Fishing session finished!");
         isFishing = false;
         moveInput = Vector2.zero;
-
+        catchingFish = null;
         lineRenderer.enabled = false;
         hook.SetActive(false);
+
 
         OnFishingFinished?.Invoke();
 

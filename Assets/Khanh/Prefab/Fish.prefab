@@ -106,6 +106,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 772fd486d1149f04ca1984d6adf0c1ec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  damage: 0
+  damageType: {fileID: 0}
 --- !u!114 &7005803166693777981
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -118,6 +120,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 62d706a8ba4773d438ea95c7cabcc571, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentHealth: 0
   isDamagable: 0
 --- !u!114 &2240382376479457974
 MonoBehaviour:
@@ -149,6 +152,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   unitData: {fileID: 0}
+  damageComponent: {fileID: 4857199698746985457}
+  healthComponent: {fileID: 7005803166693777981}
+  movementComponent: {fileID: 2240382376479457974}
 --- !u!114 &2020156071748646715
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -6,7 +6,7 @@ using UnityEngine;
 
 public class HealthComponent : UnitComponent
 {
-    private float currentHealth;
+    [SerializeField] private float currentHealth;
     public bool isDamagable;
 
     protected override void OnInitialize()
@@ -15,12 +15,17 @@ public class HealthComponent : UnitComponent
         isDamagable = true;
     }
 
-    public void TakeDamage(DamageData data)
+    protected override void OnBoatSetUp()
+    {
+        currentHealth = UpgradeManager.Instance.ComputeStat(UpgradeType.Health);
+    }
+
+    public void TakeDamage(DamageData d_Data)
     {
         if (!isDamagable) return;
 
-        float baseAmount = data.amount;
-        float finalDamage = this.data.CalculateDamageTaken(baseAmount, data.damageType);
+        float baseAmount = d_Data.amount;
+        float finalDamage = this.data.CalculateDamageTaken(baseAmount, d_Data.damageType);
         currentHealth -= finalDamage;
 
         Debug.Log($"{gameObject.name} took {finalDamage} {data.damageType} damage. Remaining HP: {currentHealth}");
@@ -28,8 +33,9 @@ public class HealthComponent : UnitComponent
         {
             Die();
         }
-
     }
+
+
 
     private void Die()
     {

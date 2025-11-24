@@ -1,22 +1,23 @@
+using NUnit.Framework;
 using UnityEngine;
+using System.Collections.Generic;
 
 public class BoatData : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
+    public List<UnitComponent> components;
+    public UnitSO m_BoatSO;
 
-
-
-
-
-
-    void Start()
+    private void Start()
     {
-        
+        Initialtize();
     }
 
-    // Update is called once per frame
-    void Update()
+    private void Initialtize()
     {
-        
+        GetComponents(components);
+        foreach(var component in components)
+        {
+            component.BoatSetUp(m_BoatSO);
+        }
     }
 }

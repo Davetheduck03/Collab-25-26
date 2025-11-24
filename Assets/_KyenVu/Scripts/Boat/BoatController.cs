@@ -5,7 +5,7 @@ using System;
 public class BoatController : MonoBehaviour
 {
     [Header("Movement Settings")]
-    public float moveSpeed = 5f;
+    public float moveSpeed;
     public Rigidbody2D rb;
 
     [Header("Fishing Settings")]
@@ -34,6 +34,7 @@ public class BoatController : MonoBehaviour
         if (rb == null)
             rb = GetComponent<Rigidbody2D>();
         hook.SetActive(false);
+        
     }
 
     private void FixedUpdate()
