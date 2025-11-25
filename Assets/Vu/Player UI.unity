@@ -6425,8 +6425,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1118170095}
-        m_TargetAssemblyTypeName: PlayerStatsPanel, Assembly-CSharp
-        m_MethodName: OnButtonPress
+        m_TargetAssemblyTypeName: PlayerPanel, Assembly-CSharp
+        m_MethodName: ToggleMenu
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
