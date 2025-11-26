@@ -1,0 +1,1365 @@
+fileFormatVersion: 2
+guid: 19e1d7f88f566c1409e2d536e5c70be0
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -8722236744934701893
+    second: boat0001-sheet_0
+  - first:
+      213: 2508731649849535522
+    second: boat0001-sheet_1
+  - first:
+      213: -6564154607898634798
+    second: boat0001-sheet_2
+  - first:
+      213: -4146093252140481143
+    second: boat0001-sheet_3
+  - first:
+      213: -6761258001184105325
+    second: boat0001-sheet_4
+  - first:
+      213: 1185839787111956090
+    second: boat0001-sheet_5
+  - first:
+      213: -1139960146436943677
+    second: boat0001-sheet_6
+  - first:
+      213: 2850463676728615765
+    second: boat0001-sheet_7
+  - first:
+      213: 4649411810712048630
+    second: boat0001-sheet_8
+  - first:
+      213: 75172512883776999
+    second: boat0001-sheet_9
+  - first:
+      213: -573036921459361640
+    second: boat0001-sheet_10
+  - first:
+      213: -5727779914522337315
+    second: boat0001-sheet_11
+  - first:
+      213: 8855410498161672635
+    second: boat0001-sheet_12
+  - first:
+      213: -7047126257062925457
+    second: boat0001-sheet_13
+  - first:
+      213: -89298947597791843
+    second: boat0001-sheet_14
+  - first:
+      213: 1016311426848270783
+    second: boat0001-sheet_15
+  - first:
+      213: 7970029407212039288
+    second: boat0001-sheet_16
+  - first:
+      213: -747025973502407558
+    second: boat0001-sheet_17
+  - first:
+      213: 3238817305429763452
+    second: boat0001-sheet_18
+  - first:
+      213: 5828678101933349045
+    second: boat0001-sheet_19
+  - first:
+      213: -1671602348179650126
+    second: boat0001-sheet_20
+  - first:
+      213: 7580486048930986251
+    second: boat0001-sheet_21
+  - first:
+      213: -8223509079143572401
+    second: boat0001-sheet_22
+  - first:
+      213: -5949264082131255470
+    second: boat0001-sheet_23
+  - first:
+      213: 8411369466740716548
+    second: boat0001-sheet_24
+  - first:
+      213: -3743223497873630696
+    second: boat0001-sheet_25
+  - first:
+      213: -2450522493475508050
+    second: boat0001-sheet_26
+  - first:
+      213: 4972504330118894339
+    second: boat0001-sheet_27
+  - first:
+      213: 6842023386424041120
+    second: boat0001-sheet_28
+  - first:
+      213: 7426964680830026641
+    second: boat0001-sheet_29
+  - first:
+      213: 2633992955251618355
+    second: boat0001-sheet_30
+  - first:
+      213: 1675504411760966968
+    second: boat0001-sheet_31
+  - first:
+      213: -417757752946684325
+    second: boat0001-sheet_32
+  - first:
+      213: -5719833357320704574
+    second: boat0001-sheet_33
+  - first:
+      213: -806355415223365128
+    second: boat0001-sheet_34
+  - first:
+      213: -7545663918067106922
+    second: boat0001-sheet_35
+  - first:
+      213: 1934743698528131437
+    second: boat0001-sheet_36
+  - first:
+      213: -8686175799928815624
+    second: boat0001-sheet_37
+  - first:
+      213: -8020201891870643085
+    second: boat0001-sheet_38
+  - first:
+      213: -683098680884736010
+    second: boat0001-sheet_39
+  - first:
+      213: 7409295483870496774
+    second: boat0001-sheet_40
+  - first:
+      213: -2941335139704776179
+    second: boat0001-sheet_41
+  - first:
+      213: 3180333371013345373
+    second: boat0001-sheet_42
+  - first:
+      213: 4518530710157161456
+    second: boat0001-sheet_43
+  - first:
+      213: -9088775149689877507
+    second: boat0001-sheet_44
+  - first:
+      213: 8891322407352151569
+    second: boat0001-sheet_45
+  - first:
+      213: -7244056262316627294
+    second: boat0001-sheet_46
+  - first:
+      213: 6932466720599861777
+    second: boat0001-sheet_47
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: boat0001-sheet_0
+      rect:
+        serializedVersion: 2
+        x: 17
+        y: 392
+        width: 30
+        height: 41
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bb4ce4394e364f680800000000000000
+      internalID: -8722236744934701893
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: boat0001-sheet_1
+      rect:
+        serializedVersion: 2
+        x: 82
+        y: 391
+        width: 30
+        height: 41
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 22caf0ac42ec0d220800000000000000
+      internalID: 2508731649849535522
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: boat0001-sheet_2
+      rect:
+        serializedVersion: 2
+        x: 144
+        y: 391
+        width: 33
+        height: 41
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2d55579992077e4a0800000000000000
+      internalID: -6564154607898634798
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: boat0001-sheet_3
+      rect:
+        serializedVersion: 2
+        x: 205
+        y: 391
+        width: 37
+        height: 40
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 985c584772e1676c0800000000000000
+      internalID: -4146093252140481143
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: boat0001-sheet_4
+      rect:
+        serializedVersion: 2
+        x: 267
+        y: 392
+        width: 39
+        height: 38
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 39c57acabaf2b22a0800000000000000
+      internalID: -6761258001184105325
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: boat0001-sheet_5
+      rect:
+        serializedVersion: 2
+        x: 330
+        y: 392
+        width: 41
+        height: 37
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a7e3557e003f47010800000000000000
+      internalID: 1185839787111956090
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: boat0001-sheet_6
+      rect:
+        serializedVersion: 2
+        x: 394
+        y: 392
+        width: 42
+        height: 36
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3c0168d594c0e20f0800000000000000
+      internalID: -1139960146436943677
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: boat0001-sheet_7
+      rect:
+        serializedVersion: 2
+        x: 9
+        y: 329
+        width: 44
+        height: 34
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 55320909c91ee8720800000000000000
+      internalID: 2850463676728615765
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: boat0001-sheet_8
+      rect:
+        serializedVersion: 2
+        x: 72
+        y: 330
+        width: 46
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6f35fff7867068040800000000000000
+      internalID: 4649411810712048630
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: boat0001-sheet_9
+      rect:
+        serializedVersion: 2
+        x: 136
+        y: 331
+        width: 47
+        height: 29
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7ed9f4f80011b0100800000000000000
+      internalID: 75172512883776999
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: boat0001-sheet_10
+      rect:
+        serializedVersion: 2
+        x: 199
+        y: 333
+        width: 50
+        height: 26
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8983b3db4f92c08f0800000000000000
+      internalID: -573036921459361640
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: boat0001-sheet_11
+      rect:
+        serializedVersion: 2
+        x: 263
+        y: 334
+        width: 50
+        height: 24
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ddf574bc386d280b0800000000000000
+      internalID: -5727779914522337315
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: boat0001-sheet_12
+      rect:
+        serializedVersion: 2
+        x: 328
+        y: 334
+        width: 50
+        height: 23
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bb1013b1eecb4ea70800000000000000
+      internalID: 8855410498161672635
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: boat0001-sheet_13
+      rect:
+        serializedVersion: 2
+        x: 391
+        y: 333
+        width: 50
+        height: 25
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f6baf68a104933e90800000000000000
+      internalID: -7047126257062925457
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: boat0001-sheet_14
+      rect:
+        serializedVersion: 2
+        x: 7
+        y: 268
+        width: 50
+        height: 27
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d9d0e9d841fb2cef0800000000000000
+      internalID: -89298947597791843
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: boat0001-sheet_15
+      rect:
+        serializedVersion: 2
+        x: 72
+        y: 268
+        width: 47
+        height: 29
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fb9267aabd9aa1e00800000000000000
+      internalID: 1016311426848270783
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: boat0001-sheet_16
+      rect:
+        serializedVersion: 2
+        x: 136
+        y: 267
+        width: 46
+        height: 31
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 87c6a42d48b3b9e60800000000000000
+      internalID: 7970029407212039288
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: boat0001-sheet_17
+      rect:
+        serializedVersion: 2
+        x: 201
+        y: 267
+        width: 44
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a7c0663c5d702a5f0800000000000000
+      internalID: -747025973502407558
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: boat0001-sheet_18
+      rect:
+        serializedVersion: 2
+        x: 266
+        y: 267
+        width: 42
+        height: 33
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c756786ed2792fc20800000000000000
+      internalID: 3238817305429763452
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: boat0001-sheet_19
+      rect:
+        serializedVersion: 2
+        x: 330
+        y: 267
+        width: 41
+        height: 33
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5b8d5df1adf93e050800000000000000
+      internalID: 5828678101933349045
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: boat0001-sheet_20
+      rect:
+        serializedVersion: 2
+        x: 395
+        y: 266
+        width: 39
+        height: 35
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2b90b0755864dc8e0800000000000000
+      internalID: -1671602348179650126
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: boat0001-sheet_21
+      rect:
+        serializedVersion: 2
+        x: 13
+        y: 201
+        width: 37
+        height: 37
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b09f55bf5eb433960800000000000000
+      internalID: 7580486048930986251
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: boat0001-sheet_22
+      rect:
+        serializedVersion: 2
+        x: 80
+        y: 200
+        width: 33
+        height: 38
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f4c9272001a30ed80800000000000000
+      internalID: -8223509079143572401
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: boat0001-sheet_23
+      rect:
+        serializedVersion: 2
+        x: 146
+        y: 200
+        width: 30
+        height: 38
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 25f739d76d7ff6da0800000000000000
+      internalID: -5949264082131255470
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: boat0001-sheet_24
+      rect:
+        serializedVersion: 2
+        x: 209
+        y: 200
+        width: 30
+        height: 38
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 404b5a3f6ff2bb470800000000000000
+      internalID: 8411369466740716548
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: boat0001-sheet_25
+      rect:
+        serializedVersion: 2
+        x: 272
+        y: 200
+        width: 30
+        height: 38
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 81ad856af066d0cc0800000000000000
+      internalID: -3743223497873630696
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: boat0001-sheet_26
+      rect:
+        serializedVersion: 2
+        x: 335
+        y: 200
+        width: 33
+        height: 38
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ea0b94e86cefdfdd0800000000000000
+      internalID: -2450522493475508050
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: boat0001-sheet_27
+      rect:
+        serializedVersion: 2
+        x: 398
+        y: 201
+        width: 37
+        height: 37
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 30314d0c752e10540800000000000000
+      internalID: 4972504330118894339
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: boat0001-sheet_28
+      rect:
+        serializedVersion: 2
+        x: 14
+        y: 138
+        width: 39
+        height: 35
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0ae58b4f400c3fe50800000000000000
+      internalID: 6842023386424041120
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: boat0001-sheet_29
+      rect:
+        serializedVersion: 2
+        x: 77
+        y: 139
+        width: 41
+        height: 33
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1930f380701e11760800000000000000
+      internalID: 7426964680830026641
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: boat0001-sheet_30
+      rect:
+        serializedVersion: 2
+        x: 140
+        y: 139
+        width: 42
+        height: 33
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 33277a623a2dd8420800000000000000
+      internalID: 2633992955251618355
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: boat0001-sheet_31
+      rect:
+        serializedVersion: 2
+        x: 203
+        y: 139
+        width: 44
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 83dbc92a266904710800000000000000
+      internalID: 1675504411760966968
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: boat0001-sheet_32
+      rect:
+        serializedVersion: 2
+        x: 266
+        y: 139
+        width: 46
+        height: 31
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b5e827d7983d33af0800000000000000
+      internalID: -417757752946684325
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: boat0001-sheet_33
+      rect:
+        serializedVersion: 2
+        x: 329
+        y: 140
+        width: 47
+        height: 29
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2cd2872ddd11f90b0800000000000000
+      internalID: -5719833357320704574
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: boat0001-sheet_34
+      rect:
+        serializedVersion: 2
+        x: 391
+        y: 140
+        width: 50
+        height: 27
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8f116e8a5004fc4f0800000000000000
+      internalID: -806355415223365128
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: boat0001-sheet_35
+      rect:
+        serializedVersion: 2
+        x: 7
+        y: 77
+        width: 50
+        height: 25
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 69bb02925aa684790800000000000000
+      internalID: -7545663918067106922
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: boat0001-sheet_36
+      rect:
+        serializedVersion: 2
+        x: 70
+        y: 78
+        width: 50
+        height: 23
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d69d132a42799da10800000000000000
+      internalID: 1934743698528131437
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: boat0001-sheet_37
+      rect:
+        serializedVersion: 2
+        x: 135
+        y: 78
+        width: 50
+        height: 24
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8fff5ac9121847780800000000000000
+      internalID: -8686175799928815624
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: boat0001-sheet_38
+      rect:
+        serializedVersion: 2
+        x: 199
+        y: 77
+        width: 50
+        height: 26
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 37c62284fd482b090800000000000000
+      internalID: -8020201891870643085
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: boat0001-sheet_39
+      rect:
+        serializedVersion: 2
+        x: 265
+        y: 75
+        width: 47
+        height: 29
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6ffc3537e552586f0800000000000000
+      internalID: -683098680884736010
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: boat0001-sheet_40
+      rect:
+        serializedVersion: 2
+        x: 330
+        y: 74
+        width: 46
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 608c1088cfa13d660800000000000000
+      internalID: 7409295483870496774
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: boat0001-sheet_41
+      rect:
+        serializedVersion: 2
+        x: 395
+        y: 73
+        width: 44
+        height: 34
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d0ad58836474e27d0800000000000000
+      internalID: -2941335139704776179
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: boat0001-sheet_42
+      rect:
+        serializedVersion: 2
+        x: 12
+        y: 8
+        width: 42
+        height: 36
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d50329ec950d22c20800000000000000
+      internalID: 3180333371013345373
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: boat0001-sheet_43
+      rect:
+        serializedVersion: 2
+        x: 77
+        y: 8
+        width: 41
+        height: 37
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0f37c9d9dbb05be30800000000000000
+      internalID: 4518530710157161456
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: boat0001-sheet_44
+      rect:
+        serializedVersion: 2
+        x: 142
+        y: 8
+        width: 39
+        height: 38
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: dfb465fd72f2ed180800000000000000
+      internalID: -9088775149689877507
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: boat0001-sheet_45
+      rect:
+        serializedVersion: 2
+        x: 206
+        y: 7
+        width: 37
+        height: 40
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 11e22b90f92546b70800000000000000
+      internalID: 8891322407352151569
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: boat0001-sheet_46
+      rect:
+        serializedVersion: 2
+        x: 271
+        y: 7
+        width: 33
+        height: 41
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2aa6ca7c531f77b90800000000000000
+      internalID: -7244056262316627294
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: boat0001-sheet_47
+      rect:
+        serializedVersion: 2
+        x: 336
+        y: 7
+        width: 30
+        height: 41
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 11a629aa0c1153060800000000000000
+      internalID: 6932466720599861777
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      boat0001-sheet_0: -8722236744934701893
+      boat0001-sheet_1: 2508731649849535522
+      boat0001-sheet_10: -573036921459361640
+      boat0001-sheet_11: -5727779914522337315
+      boat0001-sheet_12: 8855410498161672635
+      boat0001-sheet_13: -7047126257062925457
+      boat0001-sheet_14: -89298947597791843
+      boat0001-sheet_15: 1016311426848270783
+      boat0001-sheet_16: 7970029407212039288
+      boat0001-sheet_17: -747025973502407558
+      boat0001-sheet_18: 3238817305429763452
+      boat0001-sheet_19: 5828678101933349045
+      boat0001-sheet_2: -6564154607898634798
+      boat0001-sheet_20: -1671602348179650126
+      boat0001-sheet_21: 7580486048930986251
+      boat0001-sheet_22: -8223509079143572401
+      boat0001-sheet_23: -5949264082131255470
+      boat0001-sheet_24: 8411369466740716548
+      boat0001-sheet_25: -3743223497873630696
+      boat0001-sheet_26: -2450522493475508050
+      boat0001-sheet_27: 4972504330118894339
+      boat0001-sheet_28: 6842023386424041120
+      boat0001-sheet_29: 7426964680830026641
+      boat0001-sheet_3: -4146093252140481143
+      boat0001-sheet_30: 2633992955251618355
+      boat0001-sheet_31: 1675504411760966968
+      boat0001-sheet_32: -417757752946684325
+      boat0001-sheet_33: -5719833357320704574
+      boat0001-sheet_34: -806355415223365128
+      boat0001-sheet_35: -7545663918067106922
+      boat0001-sheet_36: 1934743698528131437
+      boat0001-sheet_37: -8686175799928815624
+      boat0001-sheet_38: -8020201891870643085
+      boat0001-sheet_39: -683098680884736010
+      boat0001-sheet_4: -6761258001184105325
+      boat0001-sheet_40: 7409295483870496774
+      boat0001-sheet_41: -2941335139704776179
+      boat0001-sheet_42: 3180333371013345373
+      boat0001-sheet_43: 4518530710157161456
+      boat0001-sheet_44: -9088775149689877507
+      boat0001-sheet_45: 8891322407352151569
+      boat0001-sheet_46: -7244056262316627294
+      boat0001-sheet_47: 6932466720599861777
+      boat0001-sheet_5: 1185839787111956090
+      boat0001-sheet_6: -1139960146436943677
+      boat0001-sheet_7: 2850463676728615765
+      boat0001-sheet_8: 4649411810712048630
+      boat0001-sheet_9: 75172512883776999
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
