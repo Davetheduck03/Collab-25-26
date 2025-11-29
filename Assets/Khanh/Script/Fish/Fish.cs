@@ -1,6 +1,8 @@
+using System;
 using System.Collections;
 using Unity.VisualScripting;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class Fish : BaseUnit
 {
@@ -11,6 +13,13 @@ public class Fish : BaseUnit
     private bool expectingLeft = false;
     private bool expectingRight = false;
     private bool expectingParry = false;
+
+    private float maxHP;
+    private float nextThreshold;
+
+
+    public static event Action<float> OnFishHealthThresholdReached;
+
 
     private void OnEnable()
     {
@@ -69,6 +78,8 @@ public class Fish : BaseUnit
     private void GotCaught()
     {
         isCaught = true;
+        maxHP = unitData.health;
+        nextThreshold = maxHP * 0.8f;
         fightCoroutine = StartCoroutine(FightPattern());
 
     }
@@ -142,7 +153,16 @@ public class Fish : BaseUnit
     private void TakeDamage()
     {
         unitData.health -= 10;
-        Debug.Log("Fish takes damage! HP = " + unitData.health);
+
+        float hpPercent = unitData.health / maxHP;
+
+        if (unitData.health <= nextThreshold)
+        {
+            float normalizedPercent = unitData.health / maxHP; // 0.8, 0.6, 0.4, 0.2, 0.0
+            OnFishHealthThresholdReached?.Invoke(normalizedPercent);
+
+            nextThreshold -= maxHP * 0.2f;
+        }
 
         if (unitData.health <= 0)
         {
@@ -150,6 +170,7 @@ public class Fish : BaseUnit
             Debug.Log("Fish defeated!");
         }
     }
+
 
     private void PlayerPressedLeft()
     {
