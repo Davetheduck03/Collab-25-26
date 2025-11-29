@@ -21,6 +21,7 @@ public class Fish : BaseUnit
     public static event Action<float> OnFishHealthThresholdReached;
 
 
+
     private void OnEnable()
     {
         CastLineControl.OnFishCaught += GotCaught;
@@ -46,6 +47,7 @@ public class Fish : BaseUnit
     [SerializeField] private DamageComponent damageComponent;
     public HealthComponent healthComponent;
     public MovementComponent movementComponent;
+
     public void Initialize()
     {
         _spriteRenderer = GetComponent<SpriteRenderer>();
@@ -75,18 +77,18 @@ public class Fish : BaseUnit
             Debug.Log($"{name} price: {enemySO.price} | rarity: {enemySO.rarity}");
         }
     }
+
     private void GotCaught()
     {
         isCaught = true;
-        maxHP = unitData.health;
+        maxHP = healthComponent.currentHealth;
         nextThreshold = maxHP * 0.8f;
         fightCoroutine = StartCoroutine(FightPattern());
-
     }
 
     private IEnumerator FightPattern()
     {
-        while (isCaught && unitData.health > 0)
+        while (isCaught && healthComponent.currentHealth > 0)
         {
             int action = Random.Range(0, 3);
 
@@ -150,21 +152,19 @@ public class Fish : BaseUnit
         expectingParry = false;
     }
 
-    private void TakeDamage()
+    private void CheckForHealthThreshold()
     {
-        unitData.health -= 10;
+        float hpPercent = healthComponent.currentHealth / maxHP;
 
-        float hpPercent = unitData.health / maxHP;
-
-        if (unitData.health <= nextThreshold)
+        if (healthComponent.currentHealth <= nextThreshold)
         {
-            float normalizedPercent = unitData.health / maxHP; // 0.8, 0.6, 0.4, 0.2, 0.0
+            float normalizedPercent = healthComponent.currentHealth / maxHP; // 0.8, 0.6, 0.4, 0.2, 0.0
             OnFishHealthThresholdReached?.Invoke(normalizedPercent);
 
             nextThreshold -= maxHP * 0.2f;
         }
 
-        if (unitData.health <= 0)
+        if (healthComponent.currentHealth <= 0)
         {
             StopCoroutine(fightCoroutine);
             Debug.Log("Fish defeated!");
@@ -172,33 +172,35 @@ public class Fish : BaseUnit
     }
 
 
-    private void PlayerPressedLeft()
+    private void PlayerPressedLeft(DamageComponent damageComponent)
     {
         if (expectingLeft)
         {
             Debug.Log("Correct! Player hits the fish!");
-            TakeDamage();
+            damageComponent.TryDealDamage(this.gameObject);
+            CheckForHealthThreshold();
         }
         else
         {
             Debug.Log("Wrong input! Player takes damage!");
-            damageComponent.TryDealDamage(m_Boat);
+            this.damageComponent.TryDealDamage(m_Boat);
         }
 
         ResetExpectations();
     }
 
-    private void PlayerPressedRight()
+    private void PlayerPressedRight(DamageComponent damageComponent)
     {
         if (expectingRight)
         {
             Debug.Log("Correct! Player hits the fish!");
-            TakeDamage();
+            damageComponent.TryDealDamage(this.gameObject);
+            CheckForHealthThreshold();
         }
         else
         {
             Debug.Log("Wrong input! Player takes damage!");
-            damageComponent.TryDealDamage(m_Boat);
+            this.damageComponent.TryDealDamage(m_Boat);
         }
 
         ResetExpectations();

@@ -41,11 +41,13 @@ public class CastLineControl : MonoBehaviour
     // Store line length at moment of catch
     private float baseCatchLength = 0f;
 
+    [SerializeField] DamageComponent damageComponent;
+
     // Events
     public static event Action OnFishingFinished;
     public static event Action OnFishCaught;
-    public static event Action OnPlayerAttackLeft;
-    public static event Action OnPlayerAttackRight;
+    public static event Action<DamageComponent> OnPlayerAttackLeft;
+    public static event Action<DamageComponent> OnPlayerAttackRight;
     public static event Action OnPlayerParry;
 
     private void Awake()
@@ -182,13 +184,13 @@ public class CastLineControl : MonoBehaviour
     private void OnAttackLeft()
     {
         if (!isCatching) return;
-        OnPlayerAttackLeft?.Invoke();
+        OnPlayerAttackLeft?.Invoke(damageComponent);
     }
 
     private void OnAttackRight()
     {
         if (!isCatching) return;
-        OnPlayerAttackRight?.Invoke();
+        OnPlayerAttackRight?.Invoke(damageComponent);
     }
 
     private void OnParry()
