@@ -84,15 +84,19 @@ public class SettingMenu : MonoBehaviour
     {
         GameObject newItem = Instantiate(keyInstructionPrefab, keyInstructionContainer);
 
-        newItem.transform.Find("KeyText")
-            .GetComponent<TextMeshProUGUI>().text = title;
+        var keyTMP = newItem.transform.Find("KeyText").GetComponent<TextMeshProUGUI>();
+        var descTMP = newItem.transform.Find("DescriptionText").GetComponent<TextMeshProUGUI>();
 
-        newItem.transform.Find("DescriptionText")
-            .GetComponent<TextMeshProUGUI>().text = "";
+        keyTMP.text = title;
+        descTMP.text = "";
 
-        // Style category title slightly larger or bold
-        var keyText = newItem.transform.Find("KeyText").GetComponent<TextMeshProUGUI>();
-        keyText.fontSize += 4;
-        keyText.fontStyle = FontStyles.Bold;
+        // Make it look like a section header
+        keyTMP.fontSize = 36;
+        keyTMP.fontStyle = FontStyles.Bold;
+        keyTMP.color = new Color(1f, 0.8f, 0.4f); // nice gold/orange color (optional)
+
+        // Optional: add a bit of top spacing so it feels separated
+        var layout = newItem.GetComponent<HorizontalLayoutGroup>();
+        if (layout) layout.padding.top = 30;
     }
 }
