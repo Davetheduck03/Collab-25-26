@@ -1,0 +1,2925 @@
+fileFormatVersion: 2
+guid: 848178e7948295a4c8673cf8d540fa7d
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -5488351582058154879
+    second: Keyboard Letters and Symbols 1_0
+  - first:
+      213: -6589816360027187000
+    second: Keyboard Letters and Symbols 1_1
+  - first:
+      213: 2430550356169613059
+    second: Keyboard Letters and Symbols 1_2
+  - first:
+      213: 6094465542944080406
+    second: Keyboard Letters and Symbols 1_3
+  - first:
+      213: 6992939999117541484
+    second: Keyboard Letters and Symbols 1_4
+  - first:
+      213: 5945240466593631613
+    second: Keyboard Letters and Symbols 1_5
+  - first:
+      213: 1004657944484661768
+    second: Keyboard Letters and Symbols 1_6
+  - first:
+      213: 6928709597278074014
+    second: Keyboard Letters and Symbols 1_7
+  - first:
+      213: -6858184983782429704
+    second: Keyboard Letters and Symbols 1_8
+  - first:
+      213: 6721065168041825604
+    second: Keyboard Letters and Symbols 1_9
+  - first:
+      213: -1574119068738141068
+    second: Keyboard Letters and Symbols 1_10
+  - first:
+      213: -2222604910440047259
+    second: Keyboard Letters and Symbols 1_11
+  - first:
+      213: 505055552390477280
+    second: Keyboard Letters and Symbols 1_12
+  - first:
+      213: 5347515533871591392
+    second: Keyboard Letters and Symbols 1_13
+  - first:
+      213: -6916675663865904051
+    second: Keyboard Letters and Symbols 1_14
+  - first:
+      213: -2094946271976515999
+    second: Keyboard Letters and Symbols 1_15
+  - first:
+      213: -6816785305166705703
+    second: Keyboard Letters and Symbols 1_16
+  - first:
+      213: 1044549019126145385
+    second: Keyboard Letters and Symbols 1_17
+  - first:
+      213: -3855152721690477978
+    second: Keyboard Letters and Symbols 1_18
+  - first:
+      213: -5874319159992631522
+    second: Keyboard Letters and Symbols 1_19
+  - first:
+      213: -408834124993053380
+    second: Keyboard Letters and Symbols 1_20
+  - first:
+      213: 4961499349049101752
+    second: Keyboard Letters and Symbols 1_21
+  - first:
+      213: -6314140166135191258
+    second: Keyboard Letters and Symbols 1_22
+  - first:
+      213: -6124182679275282005
+    second: Keyboard Letters and Symbols 1_23
+  - first:
+      213: 1542857529990380426
+    second: Keyboard Letters and Symbols 1_24
+  - first:
+      213: 1896169077137689033
+    second: Keyboard Letters and Symbols 1_25
+  - first:
+      213: -2379723288348210334
+    second: Keyboard Letters and Symbols 1_26
+  - first:
+      213: 8843766775244373770
+    second: Keyboard Letters and Symbols 1_27
+  - first:
+      213: 5405208666172701364
+    second: Keyboard Letters and Symbols 1_28
+  - first:
+      213: 94701078102910146
+    second: Keyboard Letters and Symbols 1_29
+  - first:
+      213: -8157140417435704604
+    second: Keyboard Letters and Symbols 1_30
+  - first:
+      213: 8923241005975960210
+    second: Keyboard Letters and Symbols 1_31
+  - first:
+      213: 2473268651078313036
+    second: Keyboard Letters and Symbols 1_32
+  - first:
+      213: 5492406813792252258
+    second: Keyboard Letters and Symbols 1_33
+  - first:
+      213: 8315793514297406645
+    second: Keyboard Letters and Symbols 1_34
+  - first:
+      213: 7896430239279875275
+    second: Keyboard Letters and Symbols 1_35
+  - first:
+      213: -5657854943273782731
+    second: Keyboard Letters and Symbols 1_36
+  - first:
+      213: 9035627566101049427
+    second: Keyboard Letters and Symbols 1_37
+  - first:
+      213: 1680894859696895557
+    second: Keyboard Letters and Symbols 1_38
+  - first:
+      213: 4402459977002731972
+    second: Keyboard Letters and Symbols 1_39
+  - first:
+      213: -5554330180449051908
+    second: Keyboard Letters and Symbols 1_40
+  - first:
+      213: -6574186406512867279
+    second: Keyboard Letters and Symbols 1_41
+  - first:
+      213: 8982105735769211704
+    second: Keyboard Letters and Symbols 1_42
+  - first:
+      213: 5075631605332009126
+    second: Keyboard Letters and Symbols 1_43
+  - first:
+      213: 4093240466999044618
+    second: Keyboard Letters and Symbols 1_44
+  - first:
+      213: -5031681270697973334
+    second: Keyboard Letters and Symbols 1_45
+  - first:
+      213: -2787149301829672043
+    second: Keyboard Letters and Symbols 1_46
+  - first:
+      213: 6791604403974265853
+    second: Keyboard Letters and Symbols 1_47
+  - first:
+      213: -6376459730195935157
+    second: Keyboard Letters and Symbols 1_48
+  - first:
+      213: -8322298003889675274
+    second: Keyboard Letters and Symbols 1_49
+  - first:
+      213: -8991380168738098813
+    second: Keyboard Letters and Symbols 1_50
+  - first:
+      213: -7939229448248497199
+    second: Keyboard Letters and Symbols 1_51
+  - first:
+      213: 469045478845846300
+    second: Keyboard Letters and Symbols 1_52
+  - first:
+      213: -5570105724152303830
+    second: Keyboard Letters and Symbols 1_53
+  - first:
+      213: -6803346318339842382
+    second: Keyboard Letters and Symbols 1_54
+  - first:
+      213: 6049456904873528347
+    second: Keyboard Letters and Symbols 1_55
+  - first:
+      213: 1191738760361173922
+    second: Keyboard Letters and Symbols 1_56
+  - first:
+      213: 7678289681125893431
+    second: Keyboard Letters and Symbols 1_57
+  - first:
+      213: -3740537232944727692
+    second: Keyboard Letters and Symbols 1_58
+  - first:
+      213: 979720132375211157
+    second: Keyboard Letters and Symbols 1_59
+  - first:
+      213: -221942686181245938
+    second: Keyboard Letters and Symbols 1_60
+  - first:
+      213: -6504237688763576131
+    second: Keyboard Letters and Symbols 1_61
+  - first:
+      213: -5954717837885496451
+    second: Keyboard Letters and Symbols 1_62
+  - first:
+      213: -2289630064046872400
+    second: Keyboard Letters and Symbols 1_63
+  - first:
+      213: -6440531937522226391
+    second: Keyboard Letters and Symbols 1_64
+  - first:
+      213: 1145689403092019497
+    second: Keyboard Letters and Symbols 1_65
+  - first:
+      213: 4000501836392480255
+    second: Keyboard Letters and Symbols 1_66
+  - first:
+      213: -6419628834849607286
+    second: Keyboard Letters and Symbols 1_67
+  - first:
+      213: -8812451261265376929
+    second: Keyboard Letters and Symbols 1_68
+  - first:
+      213: 2751346378195455812
+    second: Keyboard Letters and Symbols 1_69
+  - first:
+      213: -356622851965752628
+    second: Keyboard Letters and Symbols 1_70
+  - first:
+      213: 8520511753401473629
+    second: Keyboard Letters and Symbols 1_71
+  - first:
+      213: -8721719661803337202
+    second: Keyboard Letters and Symbols 1_72
+  - first:
+      213: -7568329794316252397
+    second: Keyboard Letters and Symbols 1_73
+  - first:
+      213: -8853992622507593509
+    second: Keyboard Letters and Symbols 1_74
+  - first:
+      213: 5878538486042662058
+    second: Keyboard Letters and Symbols 1_75
+  - first:
+      213: 9203684261223670514
+    second: Keyboard Letters and Symbols 1_76
+  - first:
+      213: -5977254009304735230
+    second: Keyboard Letters and Symbols 1_77
+  - first:
+      213: -140990518114825724
+    second: Keyboard Letters and Symbols 1_78
+  - first:
+      213: 9045548230573382295
+    second: Keyboard Letters and Symbols 1_79
+  - first:
+      213: -3289506566771431477
+    second: Keyboard Letters and Symbols 1_80
+  - first:
+      213: -6284820045869285848
+    second: Keyboard Letters and Symbols 1_81
+  - first:
+      213: 900851519456518549
+    second: Keyboard Letters and Symbols 1_82
+  - first:
+      213: -4322221908085939789
+    second: Keyboard Letters and Symbols 1_83
+  - first:
+      213: -6190104018470619686
+    second: Keyboard Letters and Symbols 1_84
+  - first:
+      213: 522635654076130819
+    second: Keyboard Letters and Symbols 1_85
+  - first:
+      213: 1736496761216813805
+    second: Keyboard Letters and Symbols 1_86
+  - first:
+      213: 3616727219151252671
+    second: Keyboard Letters and Symbols 1_87
+  - first:
+      213: -5732963920242892567
+    second: Keyboard Letters and Symbols 1_88
+  - first:
+      213: 5183357974276684525
+    second: Keyboard Letters and Symbols 1_89
+  - first:
+      213: 9179835763991389716
+    second: Keyboard Letters and Symbols 1_90
+  - first:
+      213: -2970087082344612610
+    second: Keyboard Letters and Symbols 1_91
+  - first:
+      213: -8821274531952518143
+    second: Keyboard Letters and Symbols 1_92
+  - first:
+      213: 1305736289929720406
+    second: Keyboard Letters and Symbols 1_93
+  - first:
+      213: 6356250984277007767
+    second: Keyboard Letters and Symbols 1_94
+  - first:
+      213: -3971011803771244300
+    second: Keyboard Letters and Symbols 1_95
+  - first:
+      213: 6195332585351590761
+    second: Keyboard Letters and Symbols 1_96
+  - first:
+      213: -1661886359736512473
+    second: Keyboard Letters and Symbols 1_97
+  - first:
+      213: 3705512004618054033
+    second: Keyboard Letters and Symbols 1_98
+  - first:
+      213: -978292218483083813
+    second: Keyboard Letters and Symbols 1_99
+  - first:
+      213: 7333714715209096627
+    second: Keyboard Letters and Symbols 1_100
+  - first:
+      213: 7393424715221501807
+    second: Keyboard Letters and Symbols 1_101
+  - first:
+      213: -8263430521083097286
+    second: Keyboard Letters and Symbols 1_102
+  - first:
+      213: 5213502302438590451
+    second: Keyboard Letters and Symbols 1_103
+  - first:
+      213: -7432603770042294345
+    second: Keyboard Letters and Symbols 1_104
+  - first:
+      213: 3203292860754010035
+    second: Keyboard Letters and Symbols 1_105
+  - first:
+      213: -6868340731328592161
+    second: Keyboard Letters and Symbols 1_106
+  - first:
+      213: 322824708582836175
+    second: Keyboard Letters and Symbols 1_107
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: Keyboard Letters and Symbols 1_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 209
+        width: 15
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 18478fc805575d3b0800000000000000
+      internalID: -5488351582058154879
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Keyboard Letters and Symbols 1_1
+      rect:
+        serializedVersion: 2
+        x: 16
+        y: 209
+        width: 15
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8c895855fe44c84a0800000000000000
+      internalID: -6589816360027187000
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Keyboard Letters and Symbols 1_2
+      rect:
+        serializedVersion: 2
+        x: 32
+        y: 209
+        width: 15
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 30f503cdbac0bb120800000000000000
+      internalID: 2430550356169613059
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Keyboard Letters and Symbols 1_3
+      rect:
+        serializedVersion: 2
+        x: 48
+        y: 209
+        width: 15
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6124a071f14e39450800000000000000
+      internalID: 6094465542944080406
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Keyboard Letters and Symbols 1_4
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 209
+        width: 15
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c60850701e9eb0160800000000000000
+      internalID: 6992939999117541484
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Keyboard Letters and Symbols 1_5
+      rect:
+        serializedVersion: 2
+        x: 80
+        y: 209
+        width: 15
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d7d479384bcb18250800000000000000
+      internalID: 5945240466593631613
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Keyboard Letters and Symbols 1_6
+      rect:
+        serializedVersion: 2
+        x: 96
+        y: 209
+        width: 15
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 80a48cdd31341fd00800000000000000
+      internalID: 1004657944484661768
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Keyboard Letters and Symbols 1_7
+      rect:
+        serializedVersion: 2
+        x: 112
+        y: 209
+        width: 15
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e9479993ba8b72060800000000000000
+      internalID: 6928709597278074014
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Keyboard Letters and Symbols 1_8
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 193
+        width: 15
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8fbeabde715d2d0a0800000000000000
+      internalID: -6858184983782429704
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Keyboard Letters and Symbols 1_9
+      rect:
+        serializedVersion: 2
+        x: 16
+        y: 193
+        width: 15
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 445526d1925064d50800000000000000
+      internalID: 6721065168041825604
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Keyboard Letters and Symbols 1_10
+      rect:
+        serializedVersion: 2
+        x: 32
+        y: 193
+        width: 15
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 474c1b90c0b972ae0800000000000000
+      internalID: -1574119068738141068
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Keyboard Letters and Symbols 1_11
+      rect:
+        serializedVersion: 2
+        x: 48
+        y: 193
+        width: 15
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 56d9e2d1c98b721e0800000000000000
+      internalID: -2222604910440047259
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Keyboard Letters and Symbols 1_12
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 193
+        width: 15
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0e5b2185951520700800000000000000
+      internalID: 505055552390477280
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Keyboard Letters and Symbols 1_13
+      rect:
+        serializedVersion: 2
+        x: 80
+        y: 193
+        width: 15
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0efac43bb01363a40800000000000000
+      internalID: 5347515533871591392
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Keyboard Letters and Symbols 1_14
+      rect:
+        serializedVersion: 2
+        x: 96
+        y: 193
+        width: 15
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d440fac31280300a0800000000000000
+      internalID: -6916675663865904051
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Keyboard Letters and Symbols 1_15
+      rect:
+        serializedVersion: 2
+        x: 112
+        y: 193
+        width: 15
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1669f4317714de2e0800000000000000
+      internalID: -2094946271976515999
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Keyboard Letters and Symbols 1_16
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 177
+        width: 15
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9db8f6fb1e9e561a0800000000000000
+      internalID: -6816785305166705703
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Keyboard Letters and Symbols 1_17
+      rect:
+        serializedVersion: 2
+        x: 16
+        y: 177
+        width: 15
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9612f737ccbfe7e00800000000000000
+      internalID: 1044549019126145385
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Keyboard Letters and Symbols 1_18
+      rect:
+        serializedVersion: 2
+        x: 32
+        y: 177
+        width: 15
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 66a32cc660fbf7ac0800000000000000
+      internalID: -3855152721690477978
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Keyboard Letters and Symbols 1_19
+      rect:
+        serializedVersion: 2
+        x: 48
+        y: 177
+        width: 15
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e1f3e53f8d93a7ea0800000000000000
+      internalID: -5874319159992631522
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Keyboard Letters and Symbols 1_20
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 177
+        width: 15
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c3d3bb78787835af0800000000000000
+      internalID: -408834124993053380
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Keyboard Letters and Symbols 1_21
+      rect:
+        serializedVersion: 2
+        x: 80
+        y: 177
+        width: 15
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8bd476dee59cad440800000000000000
+      internalID: 4961499349049101752
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Keyboard Letters and Symbols 1_22
+      rect:
+        serializedVersion: 2
+        x: 96
+        y: 177
+        width: 15
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6296c7ff8faaf58a0800000000000000
+      internalID: -6314140166135191258
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Keyboard Letters and Symbols 1_23
+      rect:
+        serializedVersion: 2
+        x: 112
+        y: 177
+        width: 15
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ba1623eec48820ba0800000000000000
+      internalID: -6124182679275282005
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Keyboard Letters and Symbols 1_24
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 161
+        width: 15
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a8bfc16cfb4596510800000000000000
+      internalID: 1542857529990380426
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Keyboard Letters and Symbols 1_25
+      rect:
+        serializedVersion: 2
+        x: 16
+        y: 161
+        width: 15
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9c94fd4babb805a10800000000000000
+      internalID: 1896169077137689033
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Keyboard Letters and Symbols 1_26
+      rect:
+        serializedVersion: 2
+        x: 32
+        y: 161
+        width: 15
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 26bc74e074689fed0800000000000000
+      internalID: -2379723288348210334
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Keyboard Letters and Symbols 1_27
+      rect:
+        serializedVersion: 2
+        x: 48
+        y: 161
+        width: 15
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a0fb7da960f5bba70800000000000000
+      internalID: 8843766775244373770
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Keyboard Letters and Symbols 1_28
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 161
+        width: 15
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4ba3614d4a8230b40800000000000000
+      internalID: 5405208666172701364
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Keyboard Letters and Symbols 1_29
+      rect:
+        serializedVersion: 2
+        x: 80
+        y: 161
+        width: 15
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2c4ab28f022705100800000000000000
+      internalID: 94701078102910146
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Keyboard Letters and Symbols 1_30
+      rect:
+        serializedVersion: 2
+        x: 96
+        y: 161
+        width: 15
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4e263cb32040cce80800000000000000
+      internalID: -8157140417435704604
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Keyboard Letters and Symbols 1_31
+      rect:
+        serializedVersion: 2
+        x: 112
+        y: 161
+        width: 15
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 29a7566ea68b5db70800000000000000
+      internalID: 8923241005975960210
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Keyboard Letters and Symbols 1_32
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 145
+        width: 15
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c44e1a5fbb0d25220800000000000000
+      internalID: 2473268651078313036
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Keyboard Letters and Symbols 1_33
+      rect:
+        serializedVersion: 2
+        x: 16
+        y: 145
+        width: 15
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 261b50aa5e2f83c40800000000000000
+      internalID: 5492406813792252258
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Keyboard Letters and Symbols 1_34
+      rect:
+        serializedVersion: 2
+        x: 32
+        y: 145
+        width: 15
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5b4b13d6422a76370800000000000000
+      internalID: 8315793514297406645
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Keyboard Letters and Symbols 1_35
+      rect:
+        serializedVersion: 2
+        x: 48
+        y: 145
+        width: 15
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bc40eed2771c59d60800000000000000
+      internalID: 7896430239279875275
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Keyboard Letters and Symbols 1_36
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 145
+        width: 15
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5327a7bd7e24b71b0800000000000000
+      internalID: -5657854943273782731
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Keyboard Letters and Symbols 1_37
+      rect:
+        serializedVersion: 2
+        x: 80
+        y: 145
+        width: 15
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3503e28066ff46d70800000000000000
+      internalID: 9035627566101049427
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Keyboard Letters and Symbols 1_38
+      rect:
+        serializedVersion: 2
+        x: 96
+        y: 145
+        width: 15
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 546730918fcb35710800000000000000
+      internalID: 1680894859696895557
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Keyboard Letters and Symbols 1_39
+      rect:
+        serializedVersion: 2
+        x: 112
+        y: 145
+        width: 15
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4c94f1b160ea81d30800000000000000
+      internalID: 4402459977002731972
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Keyboard Letters and Symbols 1_40
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 129
+        width: 15
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: cfa5a15012e0be2b0800000000000000
+      internalID: -5554330180449051908
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Keyboard Letters and Symbols 1_41
+      rect:
+        serializedVersion: 2
+        x: 16
+        y: 129
+        width: 15
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 13849987b4cc3c4a0800000000000000
+      internalID: -6574186406512867279
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Keyboard Letters and Symbols 1_42
+      rect:
+        serializedVersion: 2
+        x: 32
+        y: 129
+        width: 15
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 833c583d399d6ac70800000000000000
+      internalID: 8982105735769211704
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Keyboard Letters and Symbols 1_43
+      rect:
+        serializedVersion: 2
+        x: 48
+        y: 129
+        width: 15
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6a06f8e9d04407640800000000000000
+      internalID: 5075631605332009126
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Keyboard Letters and Symbols 1_44
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 129
+        width: 15
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a0a6bbf848c1ec830800000000000000
+      internalID: 4093240466999044618
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Keyboard Letters and Symbols 1_45
+      rect:
+        serializedVersion: 2
+        x: 80
+        y: 129
+        width: 15
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: aa9af051b80eb2ab0800000000000000
+      internalID: -5031681270697973334
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Keyboard Letters and Symbols 1_46
+      rect:
+        serializedVersion: 2
+        x: 96
+        y: 129
+        width: 15
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 593e6781a7e0259d0800000000000000
+      internalID: -2787149301829672043
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Keyboard Letters and Symbols 1_47
+      rect:
+        serializedVersion: 2
+        x: 112
+        y: 129
+        width: 15
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: dfb5dd1d830a04e50800000000000000
+      internalID: 6791604403974265853
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Keyboard Letters and Symbols 1_48
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 113
+        width: 15
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b409619c8a34287a0800000000000000
+      internalID: -6376459730195935157
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Keyboard Letters and Symbols 1_49
+      rect:
+        serializedVersion: 2
+        x: 16
+        y: 113
+        width: 15
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6f3a6331f02418c80800000000000000
+      internalID: -8322298003889675274
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Keyboard Letters and Symbols 1_50
+      rect:
+        serializedVersion: 2
+        x: 32
+        y: 113
+        width: 15
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 381bfd9ff53383380800000000000000
+      internalID: -8991380168738098813
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Keyboard Letters and Symbols 1_51
+      rect:
+        serializedVersion: 2
+        x: 48
+        y: 113
+        width: 15
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1dbe3d271e032d190800000000000000
+      internalID: -7939229448248497199
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Keyboard Letters and Symbols 1_52
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 113
+        width: 15
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c131c1eb062628600800000000000000
+      internalID: 469045478845846300
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Keyboard Letters and Symbols 1_53
+      rect:
+        serializedVersion: 2
+        x: 80
+        y: 113
+        width: 15
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a2f28860b5203b2b0800000000000000
+      internalID: -5570105724152303830
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Keyboard Letters and Symbols 1_54
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 97
+        width: 15
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2be5463b198a591a0800000000000000
+      internalID: -6803346318339842382
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Keyboard Letters and Symbols 1_55
+      rect:
+        serializedVersion: 2
+        x: 16
+        y: 97
+        width: 15
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b1c450be00df3f350800000000000000
+      internalID: 6049456904873528347
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Keyboard Letters and Symbols 1_56
+      rect:
+        serializedVersion: 2
+        x: 32
+        y: 97
+        width: 15
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2a36464a618e98010800000000000000
+      internalID: 1191738760361173922
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Keyboard Letters and Symbols 1_57
+      rect:
+        serializedVersion: 2
+        x: 48
+        y: 97
+        width: 15
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7356e0e98c3ce8a60800000000000000
+      internalID: 7678289681125893431
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Keyboard Letters and Symbols 1_58
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 97
+        width: 15
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 479f4317431f61cc0800000000000000
+      internalID: -3740537232944727692
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Keyboard Letters and Symbols 1_59
+      rect:
+        serializedVersion: 2
+        x: 80
+        y: 97
+        width: 15
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 59ce585054aa89d00800000000000000
+      internalID: 979720132375211157
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Keyboard Letters and Symbols 1_60
+      rect:
+        serializedVersion: 2
+        x: 96
+        y: 97
+        width: 15
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e0cbba58d408becf0800000000000000
+      internalID: -221942686181245938
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Keyboard Letters and Symbols 1_61
+      rect:
+        serializedVersion: 2
+        x: 112
+        y: 97
+        width: 15
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: db01a82784e4cb5a0800000000000000
+      internalID: -6504237688763576131
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Keyboard Letters and Symbols 1_62
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 81
+        width: 15
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d7327270da79c5da0800000000000000
+      internalID: -5954717837885496451
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Keyboard Letters and Symbols 1_63
+      rect:
+        serializedVersion: 2
+        x: 16
+        y: 81
+        width: 15
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0b86e6576999930e0800000000000000
+      internalID: -2289630064046872400
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Keyboard Letters and Symbols 1_64
+      rect:
+        serializedVersion: 2
+        x: 32
+        y: 81
+        width: 15
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 92bed638352ae96a0800000000000000
+      internalID: -6440531937522226391
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Keyboard Letters and Symbols 1_65
+      rect:
+        serializedVersion: 2
+        x: 48
+        y: 81
+        width: 15
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 929aa36217e46ef00800000000000000
+      internalID: 1145689403092019497
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Keyboard Letters and Symbols 1_66
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 81
+        width: 15
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ffdb8718933a48730800000000000000
+      internalID: 4000501836392480255
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Keyboard Letters and Symbols 1_67
+      rect:
+        serializedVersion: 2
+        x: 80
+        y: 81
+        width: 15
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a813fec5695e8e6a0800000000000000
+      internalID: -6419628834849607286
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Keyboard Letters and Symbols 1_68
+      rect:
+        serializedVersion: 2
+        x: 96
+        y: 81
+        width: 15
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f5985dba442e3b580800000000000000
+      internalID: -8812451261265376929
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Keyboard Letters and Symbols 1_69
+      rect:
+        serializedVersion: 2
+        x: 112
+        y: 81
+        width: 15
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 44fc56624febe2620800000000000000
+      internalID: 2751346378195455812
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Keyboard Letters and Symbols 1_70
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 65
+        width: 15
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: cca6bc5d7650d0bf0800000000000000
+      internalID: -356622851965752628
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Keyboard Letters and Symbols 1_71
+      rect:
+        serializedVersion: 2
+        x: 16
+        y: 65
+        width: 15
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d5a190ecb40fe3670800000000000000
+      internalID: 8520511753401473629
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Keyboard Letters and Symbols 1_72
+      rect:
+        serializedVersion: 2
+        x: 32
+        y: 65
+        width: 15
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e0a0caf5d2a36f680800000000000000
+      internalID: -8721719661803337202
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Keyboard Letters and Symbols 1_73
+      rect:
+        serializedVersion: 2
+        x: 48
+        y: 65
+        width: 15
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 31b46ca9624e7f690800000000000000
+      internalID: -7568329794316252397
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Keyboard Letters and Symbols 1_74
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 65
+        width: 15
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bd0718bce9c402580800000000000000
+      internalID: -8853992622507593509
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Keyboard Letters and Symbols 1_75
+      rect:
+        serializedVersion: 2
+        x: 80
+        y: 65
+        width: 15
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: aa419037b93c49150800000000000000
+      internalID: 5878538486042662058
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Keyboard Letters and Symbols 1_76
+      rect:
+        serializedVersion: 2
+        x: 96
+        y: 65
+        width: 15
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2f22717821e0abf70800000000000000
+      internalID: 9203684261223670514
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Keyboard Letters and Symbols 1_77
+      rect:
+        serializedVersion: 2
+        x: 112
+        y: 65
+        width: 15
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 202ac1bb5278c0da0800000000000000
+      internalID: -5977254009304735230
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Keyboard Letters and Symbols 1_78
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 49
+        width: 15
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 40a411beed91b0ef0800000000000000
+      internalID: -140990518114825724
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Keyboard Letters and Symbols 1_79
+      rect:
+        serializedVersion: 2
+        x: 16
+        y: 49
+        width: 15
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 79a5df9b03e388d70800000000000000
+      internalID: 9045548230573382295
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Keyboard Letters and Symbols 1_80
+      rect:
+        serializedVersion: 2
+        x: 32
+        y: 49
+        width: 15
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bc72641c4335952d0800000000000000
+      internalID: -3289506566771431477
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Keyboard Letters and Symbols 1_81
+      rect:
+        serializedVersion: 2
+        x: 48
+        y: 49
+        width: 15
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 82ef4b87775d7c8a0800000000000000
+      internalID: -6284820045869285848
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Keyboard Letters and Symbols 1_82
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 49
+        width: 15
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 591a39c1fa7708c00800000000000000
+      internalID: 900851519456518549
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Keyboard Letters and Symbols 1_83
+      rect:
+        serializedVersion: 2
+        x: 80
+        y: 49
+        width: 15
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3b1602023126404c0800000000000000
+      internalID: -4322221908085939789
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Keyboard Letters and Symbols 1_84
+      rect:
+        serializedVersion: 2
+        x: 96
+        y: 49
+        width: 15
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ad537581135581aa0800000000000000
+      internalID: -6190104018470619686
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Keyboard Letters and Symbols 1_85
+      rect:
+        serializedVersion: 2
+        x: 112
+        y: 49
+        width: 15
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 306692cbb56c04700800000000000000
+      internalID: 522635654076130819
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Keyboard Letters and Symbols 1_86
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 33
+        width: 15
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: deac1fd9a96491810800000000000000
+      internalID: 1736496761216813805
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Keyboard Letters and Symbols 1_87
+      rect:
+        serializedVersion: 2
+        x: 16
+        y: 33
+        width: 15
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fbc2ffa5e32313230800000000000000
+      internalID: 3616727219151252671
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Keyboard Letters and Symbols 1_88
+      rect:
+        serializedVersion: 2
+        x: 32
+        y: 33
+        width: 15
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9e0aac760bb6070b0800000000000000
+      internalID: -5732963920242892567
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Keyboard Letters and Symbols 1_89
+      rect:
+        serializedVersion: 2
+        x: 48
+        y: 33
+        width: 15
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: dea33707d9cfee740800000000000000
+      internalID: 5183357974276684525
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Keyboard Letters and Symbols 1_90
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 33
+        width: 15
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 41622219df3556f70800000000000000
+      internalID: 9179835763991389716
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Keyboard Letters and Symbols 1_91
+      rect:
+        serializedVersion: 2
+        x: 80
+        y: 33
+        width: 15
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: efc7fd8e88128c6d0800000000000000
+      internalID: -2970087082344612610
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Keyboard Letters and Symbols 1_92
+      rect:
+        serializedVersion: 2
+        x: 96
+        y: 33
+        width: 15
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 10c15c0ec89849580800000000000000
+      internalID: -8821274531952518143
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Keyboard Letters and Symbols 1_93
+      rect:
+        serializedVersion: 2
+        x: 112
+        y: 33
+        width: 15
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 652f893dc38ee1210800000000000000
+      internalID: 1305736289929720406
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Keyboard Letters and Symbols 1_94
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 17
+        width: 15
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 79dde05e790f53850800000000000000
+      internalID: 6356250984277007767
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Keyboard Letters and Symbols 1_95
+      rect:
+        serializedVersion: 2
+        x: 16
+        y: 17
+        width: 15
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4f0f455cdc124e8c0800000000000000
+      internalID: -3971011803771244300
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Keyboard Letters and Symbols 1_96
+      rect:
+        serializedVersion: 2
+        x: 32
+        y: 17
+        width: 15
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 963b84f792e3af550800000000000000
+      internalID: 6195332585351590761
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Keyboard Letters and Symbols 1_97
+      rect:
+        serializedVersion: 2
+        x: 48
+        y: 17
+        width: 15
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 72096de292bcfe8e0800000000000000
+      internalID: -1661886359736512473
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Keyboard Letters and Symbols 1_98
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 17
+        width: 15
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 199643a198f9c6330800000000000000
+      internalID: 3705512004618054033
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Keyboard Letters and Symbols 1_99
+      rect:
+        serializedVersion: 2
+        x: 80
+        y: 17
+        width: 15
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bd579c619686c62f0800000000000000
+      internalID: -978292218483083813
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Keyboard Letters and Symbols 1_100
+      rect:
+        serializedVersion: 2
+        x: 96
+        y: 17
+        width: 15
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3bdd7148da696c560800000000000000
+      internalID: 7333714715209096627
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Keyboard Letters and Symbols 1_101
+      rect:
+        serializedVersion: 2
+        x: 112
+        y: 17
+        width: 15
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f670f504b98ba9660800000000000000
+      internalID: 7393424715221501807
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Keyboard Letters and Symbols 1_102
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 1
+        width: 15
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a3f88bcf8b5625d80800000000000000
+      internalID: -8263430521083097286
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Keyboard Letters and Symbols 1_103
+      rect:
+        serializedVersion: 2
+        x: 16
+        y: 1
+        width: 15
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3f78884c8b41a5840800000000000000
+      internalID: 5213502302438590451
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Keyboard Letters and Symbols 1_104
+      rect:
+        serializedVersion: 2
+        x: 32
+        y: 1
+        width: 15
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7bf566230461ad890800000000000000
+      internalID: -7432603770042294345
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Keyboard Letters and Symbols 1_105
+      rect:
+        serializedVersion: 2
+        x: 48
+        y: 1
+        width: 15
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3bf99c492e1647c20800000000000000
+      internalID: 3203292860754010035
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Keyboard Letters and Symbols 1_106
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 1
+        width: 15
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fd600d0be70cea0a0800000000000000
+      internalID: -6868340731328592161
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Keyboard Letters and Symbols 1_107
+      rect:
+        serializedVersion: 2
+        x: 80
+        y: 1
+        width: 15
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fc78ccfac57ea7400800000000000000
+      internalID: 322824708582836175
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      Keyboard Letters and Symbols 1_0: -5488351582058154879
+      Keyboard Letters and Symbols 1_1: -6589816360027187000
+      Keyboard Letters and Symbols 1_10: -1574119068738141068
+      Keyboard Letters and Symbols 1_100: 7333714715209096627
+      Keyboard Letters and Symbols 1_101: 7393424715221501807
+      Keyboard Letters and Symbols 1_102: -8263430521083097286
+      Keyboard Letters and Symbols 1_103: 5213502302438590451
+      Keyboard Letters and Symbols 1_104: -7432603770042294345
+      Keyboard Letters and Symbols 1_105: 3203292860754010035
+      Keyboard Letters and Symbols 1_106: -6868340731328592161
+      Keyboard Letters and Symbols 1_107: 322824708582836175
+      Keyboard Letters and Symbols 1_11: -2222604910440047259
+      Keyboard Letters and Symbols 1_12: 505055552390477280
+      Keyboard Letters and Symbols 1_13: 5347515533871591392
+      Keyboard Letters and Symbols 1_14: -6916675663865904051
+      Keyboard Letters and Symbols 1_15: -2094946271976515999
+      Keyboard Letters and Symbols 1_16: -6816785305166705703
+      Keyboard Letters and Symbols 1_17: 1044549019126145385
+      Keyboard Letters and Symbols 1_18: -3855152721690477978
+      Keyboard Letters and Symbols 1_19: -5874319159992631522
+      Keyboard Letters and Symbols 1_2: 2430550356169613059
+      Keyboard Letters and Symbols 1_20: -408834124993053380
+      Keyboard Letters and Symbols 1_21: 4961499349049101752
+      Keyboard Letters and Symbols 1_22: -6314140166135191258
+      Keyboard Letters and Symbols 1_23: -6124182679275282005
+      Keyboard Letters and Symbols 1_24: 1542857529990380426
+      Keyboard Letters and Symbols 1_25: 1896169077137689033
+      Keyboard Letters and Symbols 1_26: -2379723288348210334
+      Keyboard Letters and Symbols 1_27: 8843766775244373770
+      Keyboard Letters and Symbols 1_28: 5405208666172701364
+      Keyboard Letters and Symbols 1_29: 94701078102910146
+      Keyboard Letters and Symbols 1_3: 6094465542944080406
+      Keyboard Letters and Symbols 1_30: -8157140417435704604
+      Keyboard Letters and Symbols 1_31: 8923241005975960210
+      Keyboard Letters and Symbols 1_32: 2473268651078313036
+      Keyboard Letters and Symbols 1_33: 5492406813792252258
+      Keyboard Letters and Symbols 1_34: 8315793514297406645
+      Keyboard Letters and Symbols 1_35: 7896430239279875275
+      Keyboard Letters and Symbols 1_36: -5657854943273782731
+      Keyboard Letters and Symbols 1_37: 9035627566101049427
+      Keyboard Letters and Symbols 1_38: 1680894859696895557
+      Keyboard Letters and Symbols 1_39: 4402459977002731972
+      Keyboard Letters and Symbols 1_4: 6992939999117541484
+      Keyboard Letters and Symbols 1_40: -5554330180449051908
+      Keyboard Letters and Symbols 1_41: -6574186406512867279
+      Keyboard Letters and Symbols 1_42: 8982105735769211704
+      Keyboard Letters and Symbols 1_43: 5075631605332009126
+      Keyboard Letters and Symbols 1_44: 4093240466999044618
+      Keyboard Letters and Symbols 1_45: -5031681270697973334
+      Keyboard Letters and Symbols 1_46: -2787149301829672043
+      Keyboard Letters and Symbols 1_47: 6791604403974265853
+      Keyboard Letters and Symbols 1_48: -6376459730195935157
+      Keyboard Letters and Symbols 1_49: -8322298003889675274
+      Keyboard Letters and Symbols 1_5: 5945240466593631613
+      Keyboard Letters and Symbols 1_50: -8991380168738098813
+      Keyboard Letters and Symbols 1_51: -7939229448248497199
+      Keyboard Letters and Symbols 1_52: 469045478845846300
+      Keyboard Letters and Symbols 1_53: -5570105724152303830
+      Keyboard Letters and Symbols 1_54: -6803346318339842382
+      Keyboard Letters and Symbols 1_55: 6049456904873528347
+      Keyboard Letters and Symbols 1_56: 1191738760361173922
+      Keyboard Letters and Symbols 1_57: 7678289681125893431
+      Keyboard Letters and Symbols 1_58: -3740537232944727692
+      Keyboard Letters and Symbols 1_59: 979720132375211157
+      Keyboard Letters and Symbols 1_6: 1004657944484661768
+      Keyboard Letters and Symbols 1_60: -221942686181245938
+      Keyboard Letters and Symbols 1_61: -6504237688763576131
+      Keyboard Letters and Symbols 1_62: -5954717837885496451
+      Keyboard Letters and Symbols 1_63: -2289630064046872400
+      Keyboard Letters and Symbols 1_64: -6440531937522226391
+      Keyboard Letters and Symbols 1_65: 1145689403092019497
+      Keyboard Letters and Symbols 1_66: 4000501836392480255
+      Keyboard Letters and Symbols 1_67: -6419628834849607286
+      Keyboard Letters and Symbols 1_68: -8812451261265376929
+      Keyboard Letters and Symbols 1_69: 2751346378195455812
+      Keyboard Letters and Symbols 1_7: 6928709597278074014
+      Keyboard Letters and Symbols 1_70: -356622851965752628
+      Keyboard Letters and Symbols 1_71: 8520511753401473629
+      Keyboard Letters and Symbols 1_72: -8721719661803337202
+      Keyboard Letters and Symbols 1_73: -7568329794316252397
+      Keyboard Letters and Symbols 1_74: -8853992622507593509
+      Keyboard Letters and Symbols 1_75: 5878538486042662058
+      Keyboard Letters and Symbols 1_76: 9203684261223670514
+      Keyboard Letters and Symbols 1_77: -5977254009304735230
+      Keyboard Letters and Symbols 1_78: -140990518114825724
+      Keyboard Letters and Symbols 1_79: 9045548230573382295
+      Keyboard Letters and Symbols 1_8: -6858184983782429704
+      Keyboard Letters and Symbols 1_80: -3289506566771431477
+      Keyboard Letters and Symbols 1_81: -6284820045869285848
+      Keyboard Letters and Symbols 1_82: 900851519456518549
+      Keyboard Letters and Symbols 1_83: -4322221908085939789
+      Keyboard Letters and Symbols 1_84: -6190104018470619686
+      Keyboard Letters and Symbols 1_85: 522635654076130819
+      Keyboard Letters and Symbols 1_86: 1736496761216813805
+      Keyboard Letters and Symbols 1_87: 3616727219151252671
+      Keyboard Letters and Symbols 1_88: -5732963920242892567
+      Keyboard Letters and Symbols 1_89: 5183357974276684525
+      Keyboard Letters and Symbols 1_9: 6721065168041825604
+      Keyboard Letters and Symbols 1_90: 9179835763991389716
+      Keyboard Letters and Symbols 1_91: -2970087082344612610
+      Keyboard Letters and Symbols 1_92: -8821274531952518143
+      Keyboard Letters and Symbols 1_93: 1305736289929720406
+      Keyboard Letters and Symbols 1_94: 6356250984277007767
+      Keyboard Letters and Symbols 1_95: -3971011803771244300
+      Keyboard Letters and Symbols 1_96: 6195332585351590761
+      Keyboard Letters and Symbols 1_97: -1661886359736512473
+      Keyboard Letters and Symbols 1_98: 3705512004618054033
+      Keyboard Letters and Symbols 1_99: -978292218483083813
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
