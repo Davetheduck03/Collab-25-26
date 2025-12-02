@@ -17,7 +17,28 @@ public class MainMenuManager : MonoBehaviour
     {
         SetupStartState();
     }
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            HandleEscape();
+        }
+    }
 
+    private void HandleEscape()
+    {
+        if (settingsMenu.alpha == 1f)
+        {
+            SwitchPanel(settingsMenu, mainMenu);
+            return;
+        }
+
+        if (creditsMenu.alpha == 1f)
+        {
+            SwitchPanel(creditsMenu, mainMenu);
+            return;
+        }
+    }
     private void SetupStartState()
     {
         fadeTransition.alpha = 1f;

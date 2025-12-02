@@ -83,7 +83,7 @@ public class SettingMenu : MonoBehaviour
         var keyTMP = newItem.transform.Find("KeyText").GetComponent<TextMeshProUGUI>();
         keyTMP.text = title;
         keyTMP.fontSize = 36;
-        keyTMP.fontStyle = FontStyles.Bold;
+        //keyTMP.fontStyle = FontStyles.Bold;
         keyTMP.color = new Color(1f, 0.85f, 0.4f);
         newItem.transform.Find("DescriptionText").GetComponent<TextMeshProUGUI>().text = "";
     }
