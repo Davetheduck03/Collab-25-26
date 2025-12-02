@@ -36,6 +36,7 @@ public class DamageTable : ScriptableObject
     /// Ensures all rows are aligned with the attack type list.
     /// Adds missing multipliers and trims extras if necessary.
     /// </summary>
+
     public void InitializeTable()
     {
         foreach (var row in rows)
