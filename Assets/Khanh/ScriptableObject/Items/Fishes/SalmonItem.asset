@@ -15,7 +15,7 @@ MonoBehaviour:
   ID: 11
   displayName: Salmon
   description: 
-  Sprite: {fileID: 0}
+  Sprite: {fileID: 21300000, guid: d0a070fba38d62f468b3110fd8fcb81f, type: 3}
   type: 4
   isStackable: 1
   maxStack: 10
