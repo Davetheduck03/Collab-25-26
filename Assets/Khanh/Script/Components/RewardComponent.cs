@@ -11,9 +11,13 @@ public class RewardComponent : UnitComponent
         if (data is EnemySO enemyData)
         {
             expReward = enemyData.experienceReward;
-            price = enemyData.price;
             rarity = enemyData.rarity;
         }
+    }
+
+    public void GrantRewards()
+    {
+
     }
 
 }

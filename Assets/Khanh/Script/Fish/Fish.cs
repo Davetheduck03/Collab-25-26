@@ -71,11 +71,6 @@ public class Fish : BaseUnit
 
         name = unitData.UnitName;
         _spriteRenderer.sprite = unitData.inGameSprite;
-
-        if (unitData is EnemySO enemySO)
-        {
-            Debug.Log($"{name} price: {enemySO.price} | rarity: {enemySO.rarity}");
-        }
     }
 
     private void GotCaught()
@@ -167,10 +162,17 @@ public class Fish : BaseUnit
         if (healthComponent.currentHealth <= 0)
         {
             StopCoroutine(fightCoroutine);
-            Debug.Log("Fish defeated!");
+            OnFishDefeated();
         }
     }
 
+    private void OnFishDefeated()
+    {
+        if (unitData is EnemySO enemySO && enemySO.itemData != null)
+        {
+            InventoryController.Instance.AddItem(enemySO.itemData, 1, enemySO.GeneratePrice());
+        }
+    }
 
     private void PlayerPressedLeft(DamageComponent damageComponent)
     {
@@ -205,6 +207,8 @@ public class Fish : BaseUnit
 
         ResetExpectations();
     }
+
+
 
     private void PlayerPressedParry()
     {

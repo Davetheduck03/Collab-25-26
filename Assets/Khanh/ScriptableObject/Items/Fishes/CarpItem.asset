@@ -17,6 +17,6 @@ MonoBehaviour:
   description: 
   Sprite: {fileID: 21300000, guid: de4f71ef54d3fdd4bbe3e9248200ebd0, type: 3}
   type: 4
-  isStackable: 1
+  isStackable: 0
   maxStack: 10
   sellPrice: 0

@@ -3,6 +3,8 @@ using UnityEngine.InputSystem;
 
 public class InventoryFix : MonoBehaviour
 {
+    public EnemySO EnemySO;
+
     void Update()
     {
         if (Keyboard.current.digit1Key.wasPressedThisFrame)
@@ -13,7 +15,7 @@ public class InventoryFix : MonoBehaviour
 
         if (Keyboard.current.digit2Key.wasPressedThisFrame)
         {
-            InventoryUI.Instance.inventory.AddItem(InventoryController.Instance.GetItemFromID(13), 1);
+            InventoryUI.Instance.inventory.AddItem(InventoryController.Instance.GetItemFromID(13), 1, EnemySO.GeneratePrice());
             Debug.Log("Added Item ID 13");
         }
 

@@ -1,18 +1,30 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using System;
 
 public class InventoryItem
 {
     public ItemData data;
     public int quantity;
 
-    public InventoryItem (ItemData itemData, int amount)
+    public int sellPrice;
+    public string uniqueId;
+
+    public InventoryItem(ItemData itemData, int amount)
     {
         data = itemData;
         quantity = amount;
+        uniqueId = Guid.NewGuid().ToString();
+    }
+
+    public InventoryItem(ItemData itemData, int amount, int price)
+    {
+        data = itemData;
+        quantity = amount;
+        sellPrice = price;
+        uniqueId = Guid.NewGuid().ToString();
     }
 }
 
@@ -52,8 +64,18 @@ public class InventoryController : MonoBehaviour
         RefreshUIEvent?.Invoke();
     }
 
-    public void AddItem(ItemData itemData, int amount = 1)
+
+    public void AddItem(ItemData itemData, int amount = 1, int price = 0)
     {
+        if(itemData is FishItemData)
+        {
+            var newItem = new InventoryItem(itemData, 1, price);
+            items.Add(newItem);
+            Debug.Log($"Added {itemData.displayName} worth {price} gold!");
+            RefreshUIEvent?.Invoke();
+            return;
+        }
+
         if (!itemData.isStackable)
         {
             for (int i = 0; i < amount; i++)

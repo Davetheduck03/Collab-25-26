@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "New Enemy Data", menuName = "FishyWishy/New Enemy Stat")]
@@ -8,18 +7,17 @@ public class EnemySO : UnitSO
     [Header("Enemy Specific Info")]
     public float experienceReward;
     public Rarity rarity;
-    [SerializeField]private int minPrice;
-    [SerializeField]private int maxPrice;
-    public int price;
 
-    private void OnEnable()
-    {
-        SetPrice();
-    }
+    [Header("Price Range")]
+    [SerializeField] private int minPrice;
+    [SerializeField] private int maxPrice;
 
-    public void SetPrice()
+    [Header("Item Drop")]
+    public FishItemData itemData;
+
+    public int GeneratePrice()
     {
-        price = UnityEngine.Random.Range(minPrice, maxPrice);
+        return Random.Range(minPrice, maxPrice + 1);
     }
 }
 

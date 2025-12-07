@@ -12,17 +12,19 @@ public class ItemSlotUI : MonoBehaviour
 
     public void SetItem(InventoryItem item, InventoryController inv)
     {
-        Debug.Log($"SetItem called for: {item.data.displayName}");
-        Debug.Log($"Icon object active: {icon.gameObject.activeInHierarchy}");
-        Debug.Log($"Icon enabled before: {icon.enabled}");
-
         currentItem = item;
         inventory = inv;
 
         icon.enabled = true;
         icon.sprite = item.data.Sprite;
-
-        quantityText.text = item.data.isStackable ? item.quantity.ToString() : "";
+        if (item.data.type == ItemType.Fish)
+        {
+            quantityText.text = $"{item.sellPrice}g";
+        }
+        else 
+        { 
+            quantityText.text = item.data.isStackable ? item.quantity.ToString() : "";
+        }
     }
 
     public void SetEmpty()
