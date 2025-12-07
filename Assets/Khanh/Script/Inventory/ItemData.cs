@@ -19,4 +19,9 @@ public class ItemData : ScriptableObject
     public ItemType type;
     public bool isStackable;
     public int maxStack;
+
+    public virtual void Sell()
+    {
+        
+    }
 }

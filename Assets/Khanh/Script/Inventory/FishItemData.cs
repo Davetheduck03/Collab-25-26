@@ -7,9 +7,9 @@ public class FishItemData : ItemData
 
     public int price;
 
-    public virtual void OnSell()
+    public override void Sell()
     {
-        // Custom behavior when the fish item is sold
-        Debug.Log($"Sold fish item");
+        base.Sell();
+
     }
 }
