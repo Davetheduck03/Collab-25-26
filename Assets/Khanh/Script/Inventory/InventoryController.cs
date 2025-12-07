@@ -1,6 +1,8 @@
 ﻿using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.InputSystem;
+using System;
 
 public class InventoryItem
 {
@@ -17,20 +19,37 @@ public class InventoryItem
 
 public class InventoryController : MonoBehaviour
 {
-    public ItemDatabase database;
+    public static InventoryController Instance;
 
+    public ItemDatabase database;
+    public static event Action RefreshUIEvent;
     public List<InventoryItem> items = new();
     private Dictionary<int, InventoryItem> map = new();
+
+    private void Awake()
+    {
+        Instance = this;
+    }
+
+    public ItemData GetItemFromID(int ID)
+    {
+        ItemData item = database.GetItem(ID);
+        return item;
+    }
 
     private void Start()
     {
         database.Initialize();
 
-        // Initialize dictionary for runtime inventory
         foreach (var invItem in items)
         {
             map[invItem.data.ID] = invItem;
         }
+    }
+
+    private void OnEnable()
+    {
+        RefreshUIEvent?.Invoke();
     }
 
     public void AddItem(ItemData itemData, int amount = 1)
@@ -41,23 +60,33 @@ public class InventoryController : MonoBehaviour
             {
                 items.Add(new InventoryItem(itemData, 1));
             }
+            RefreshUIEvent?.Invoke();
             return;
         }
 
-        var existing = items.Find(i => i.data == itemData);
+        int remaining = amount;
 
-        if (existing != null)
+        while (remaining > 0)
         {
-            existing.quantity += amount;
+            var existing = items.Find(i => i.data == itemData && i.quantity < itemData.maxStack);
 
-            if (existing.quantity > itemData.maxStack)
-                existing.quantity = itemData.maxStack;
-        }
-        else
-        {
-            items.Add(new InventoryItem(itemData, amount));
+            if (existing != null)
+            {
+                int spaceAvailable = itemData.maxStack - existing.quantity;
+                int toAdd = Mathf.Min(spaceAvailable, remaining);
+
+                existing.quantity += toAdd;
+                remaining -= toAdd;
+            }
+            else
+            {
+                int stackAmount = Mathf.Min(remaining, itemData.maxStack);
+                items.Add(new InventoryItem(itemData, stackAmount));
+                remaining -= stackAmount;
+            }
         }
 
+        RefreshUIEvent?.Invoke();
     }
 
     public void UseItem(ItemData itemData)
@@ -85,5 +114,7 @@ public class InventoryController : MonoBehaviour
         existing.quantity--;
         if (existing.quantity <= 0)
             items.Remove(existing);
+
+        RefreshUIEvent?.Invoke();
     }
 }

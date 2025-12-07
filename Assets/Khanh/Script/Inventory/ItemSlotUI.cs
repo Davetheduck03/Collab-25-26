@@ -10,15 +10,12 @@ public class ItemSlotUI : MonoBehaviour
     private InventoryItem currentItem;
     private InventoryController inventory;
 
-    public void SetEmpty()
-    {
-        currentItem = null;
-        icon.enabled = false;
-        quantityText.text = "";
-    }
-
     public void SetItem(InventoryItem item, InventoryController inv)
     {
+        Debug.Log($"SetItem called for: {item.data.displayName}");
+        Debug.Log($"Icon object active: {icon.gameObject.activeInHierarchy}");
+        Debug.Log($"Icon enabled before: {icon.enabled}");
+
         currentItem = item;
         inventory = inv;
 
@@ -26,6 +23,13 @@ public class ItemSlotUI : MonoBehaviour
         icon.sprite = item.data.Sprite;
 
         quantityText.text = item.data.isStackable ? item.quantity.ToString() : "";
+    }
+
+    public void SetEmpty()
+    {
+        currentItem = null;
+        icon.enabled = false;  // Deactivate instead of just disabling
+        quantityText.text = "";
     }
 
     public void OnClick()

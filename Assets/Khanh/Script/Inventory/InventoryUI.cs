@@ -7,7 +7,7 @@ public class InventoryUI : MonoBehaviour
     public static InventoryUI Instance;
 
     [Header("Inventory Settings")]
-    public int slotCount = 30;
+    public int slotCount = 40;
 
     [Header("References")]
     public InventoryController inventory;
@@ -26,6 +26,16 @@ public class InventoryUI : MonoBehaviour
     {
         GenerateSlots();
         RefreshUI();
+    }
+
+    private void OnEnable()
+    {
+        InventoryController.RefreshUIEvent += RefreshUI;
+    }
+
+    private void OnDisable()
+    {
+        InventoryController.RefreshUIEvent -= RefreshUI;
     }
 
     void GenerateSlots()
