@@ -31,6 +31,7 @@ public class InventoryUI : MonoBehaviour
     private void OnEnable()
     {
         InventoryController.RefreshUIEvent += RefreshUI;
+        RefreshUI();
     }
 
     private void OnDisable()

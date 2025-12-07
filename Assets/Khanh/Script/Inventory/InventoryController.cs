@@ -111,6 +111,15 @@ public class InventoryController : MonoBehaviour
         RefreshUIEvent?.Invoke();
     }
 
+    public void RemoveItem(InventoryItem item)
+    {
+        if (items.Contains(item))
+        {
+            items.Remove(item);
+            RefreshUIEvent?.Invoke();
+        }
+    }
+
     public void UseItem(ItemData itemData)
     {
         var existing = items.Find(i => i.data == itemData);
