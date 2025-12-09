@@ -1563,6 +1563,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 772fd486d1149f04ca1984d6adf0c1ec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  damage: 0
+  damageType: {fileID: 0}
 --- !u!114 &1747472656
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1575,6 +1577,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 62d706a8ba4773d438ea95c7cabcc571, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentHealth: 0
   isDamagable: 1
 --- !u!1 &1770530493
 GameObject:
@@ -1866,10 +1869,13 @@ MonoBehaviour:
   maxLineLength: 10
   maxHorizontalRange: 3
   lineSpeed: 2
-  fastSinkMultiplier: 2
   naturalSinkRate: 0.5
+  pullSpeed: 4
+  bobAmount: 0.1
+  bobSpeed: 3
   hook: {fileID: 1955198878}
   lineOrigin: {fileID: 536913366}
+  damageComponent: {fileID: 0}
 --- !u!212 &1955198884
 SpriteRenderer:
   m_ObjectHideFlags: 0

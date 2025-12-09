@@ -17,10 +17,19 @@ public class Fish : BaseUnit
     private float maxHP;
     private float nextThreshold;
 
-
     public static event Action<float> OnFishHealthThresholdReached;
 
+    [Header("Components")]
+    [SerializeField] private GameObject m_Boat;
+    [SerializeField] private DamageComponent damageComponent;
+    public HealthComponent healthComponent;
+    public MovementComponent movementComponent;
 
+    // --- NEW: Reference to the Minigame Script ---
+    [Header("UI System")]
+    [SerializeField] private ParryMinigame parryMinigame;
+
+    private Coroutine fightCoroutine;
 
     private void OnEnable()
     {
@@ -37,16 +46,6 @@ public class Fish : BaseUnit
         CastLineControl.OnPlayerAttackRight -= PlayerPressedRight;
         CastLineControl.OnPlayerParry -= PlayerPressedParry;
     }
-
-
-
-    [SerializeField] private GameObject m_Boat;
-
-    private Coroutine fightCoroutine;
-
-    [SerializeField] private DamageComponent damageComponent;
-    public HealthComponent healthComponent;
-    public MovementComponent movementComponent;
 
     public void Initialize()
     {
@@ -87,6 +86,9 @@ public class Fish : BaseUnit
         {
             int action = Random.Range(0, 3);
 
+            // Important: Reset previous states/UI before starting new action
+            ResetExpectations();
+
             switch (action)
             {
                 case 0:
@@ -104,40 +106,34 @@ public class Fish : BaseUnit
         }
     }
 
-    // The fish will turn right and only take damage when player attacks right, attack player when player attacks left
     private void OnTurnRight()
     {
         if (!isCaught) return;
 
         expectingRight = true;
-        expectingLeft = false;
-        expectingParry = false;
-
         Debug.Log("Fish Turn Right! Player must ATTACK RIGHT!");
     }
 
-    // The fish will turn left and only take damage when player attacks left, attack player when player attacks right
     private void OnTurnLeft()
     {
         if (!isCaught) return;
 
         expectingLeft = true;
-        expectingRight = false;
-        expectingParry = false;
-
         Debug.Log("Fish Turn Left! Player must ATTACK LEFT!");
     }
 
-    // The fish will attack the player and player have to parry to avoid damage
     private void OnAttack()
     {
         if (!isCaught) return;
 
         expectingParry = true;
-        expectingLeft = false;
-        expectingRight = false;
-
         Debug.Log("Fish Attacks! Player must PARRY!");
+
+        if (parryMinigame != null)
+        {
+            // PASS 'this.transform' so the bar knows who to follow
+            parryMinigame.StartMinigame(this.transform);
+        }
     }
 
     private void ResetExpectations()
@@ -145,17 +141,23 @@ public class Fish : BaseUnit
         expectingLeft = false;
         expectingRight = false;
         expectingParry = false;
+
+        // --- NEW: Ensure minigame closes if time runs out or state changes ---
+        if (parryMinigame != null)
+        {
+            parryMinigame.StopMinigame();
+        }
     }
 
+    // ... [Rest of your Health Code stays the same] ...
     private void CheckForHealthThreshold()
     {
         float hpPercent = healthComponent.currentHealth / maxHP;
 
         if (healthComponent.currentHealth <= nextThreshold)
         {
-            float normalizedPercent = healthComponent.currentHealth / maxHP; // 0.8, 0.6, 0.4, 0.2, 0.0
+            float normalizedPercent = healthComponent.currentHealth / maxHP;
             OnFishHealthThresholdReached?.Invoke(normalizedPercent);
-
             nextThreshold -= maxHP * 0.2f;
         }
 
@@ -187,7 +189,6 @@ public class Fish : BaseUnit
             Debug.Log("Wrong input! Player takes damage!");
             this.damageComponent.TryDealDamage(m_Boat);
         }
-
         ResetExpectations();
     }
 
@@ -204,25 +205,43 @@ public class Fish : BaseUnit
             Debug.Log("Wrong input! Player takes damage!");
             this.damageComponent.TryDealDamage(m_Boat);
         }
-
         ResetExpectations();
     }
 
-
-
+    // --- UPDATED: Parry Logic ---
     private void PlayerPressedParry()
     {
         if (expectingParry)
         {
-            Debug.Log("Perfect Parry!");
+            ParryMinigame.Result result = ParryMinigame.Result.Miss;
+
+            // Check the minigame result
+            if (parryMinigame != null)
+            {
+                result = parryMinigame.CheckParry();
+            }
+
+            if (result == ParryMinigame.Result.Perfect)
+            {
+                Debug.Log("Perfect Parry! No damage taken.");
+                // Optional: Deal 'counter' damage or stun the fish here
+            }
+            else if (result == ParryMinigame.Result.Normal)
+            {
+                Debug.Log("Normal Parry. Damage blocked.");
+            }
+            else
+            {
+                Debug.Log("Parry Missed (Red/Yellow zone missed)! Player takes damage!");
+                damageComponent.TryDealDamage(m_Boat);
+            }
         }
         else
         {
-            Debug.Log("Failed Parry! Player takes damage!");
+            Debug.Log("Used Parry at wrong time! Player takes damage!");
             damageComponent.TryDealDamage(m_Boat);
         }
 
-        ResetExpectations();
+        ResetExpectations(); // This also closes the UI via StopMinigame()
     }
-
 }
