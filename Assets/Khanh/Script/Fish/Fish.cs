@@ -27,7 +27,6 @@ public class Fish : BaseUnit
 
     // --- NEW: Reference to the Minigame Script ---
     [Header("UI System")]
-    [SerializeField] private ParryMinigame parryMinigame;
 
     private Coroutine fightCoroutine;
 
@@ -129,11 +128,6 @@ public class Fish : BaseUnit
         expectingParry = true;
         Debug.Log("Fish Attacks! Player must PARRY!");
 
-        if (parryMinigame != null)
-        {
-            // PASS 'this.transform' so the bar knows who to follow
-            parryMinigame.StartMinigame(this.transform);
-        }
     }
 
     private void ResetExpectations()
@@ -142,11 +136,6 @@ public class Fish : BaseUnit
         expectingRight = false;
         expectingParry = false;
 
-        // --- NEW: Ensure minigame closes if time runs out or state changes ---
-        if (parryMinigame != null)
-        {
-            parryMinigame.StopMinigame();
-        }
     }
 
     // ... [Rest of your Health Code stays the same] ...
@@ -211,36 +200,6 @@ public class Fish : BaseUnit
     // --- UPDATED: Parry Logic ---
     private void PlayerPressedParry()
     {
-        if (expectingParry)
-        {
-            ParryMinigame.Result result = ParryMinigame.Result.Miss;
-
-            // Check the minigame result
-            if (parryMinigame != null)
-            {
-                result = parryMinigame.CheckParry();
-            }
-
-            if (result == ParryMinigame.Result.Perfect)
-            {
-                Debug.Log("Perfect Parry! No damage taken.");
-                // Optional: Deal 'counter' damage or stun the fish here
-            }
-            else if (result == ParryMinigame.Result.Normal)
-            {
-                Debug.Log("Normal Parry. Damage blocked.");
-            }
-            else
-            {
-                Debug.Log("Parry Missed (Red/Yellow zone missed)! Player takes damage!");
-                damageComponent.TryDealDamage(m_Boat);
-            }
-        }
-        else
-        {
-            Debug.Log("Used Parry at wrong time! Player takes damage!");
-            damageComponent.TryDealDamage(m_Boat);
-        }
 
         ResetExpectations(); // This also closes the UI via StopMinigame()
     }
