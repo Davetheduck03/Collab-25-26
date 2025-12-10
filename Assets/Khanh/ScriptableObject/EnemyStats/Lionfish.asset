@@ -26,4 +26,4 @@ MonoBehaviour:
   rarity: 0
   minPrice: 25
   maxPrice: 30
-  price: 0
+  itemData: {fileID: 11400000, guid: 20010f8759432a740acb1fd4a25eca3a, type: 2}

@@ -15,7 +15,8 @@ MonoBehaviour:
   ID: 1
   displayName: Wooden Rod
   description: 
-  Sprite: {fileID: 0}
+  Sprite: {fileID: 1394084962936611395, guid: 296ae14298d718847a421292e36701f8, type: 3}
   type: 1
   isStackable: 0
   maxStack: 1
+  runtimeUID: 

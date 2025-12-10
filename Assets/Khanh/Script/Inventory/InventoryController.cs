@@ -1,63 +1,123 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class InventoryItem
 {
     public ItemData data;
     public int quantity;
 
-    public InventoryItem (ItemData itemData, int amount)
+    public int sellPrice;
+    public string uniqueId;
+
+    public InventoryItem(ItemData itemData, int amount)
     {
         data = itemData;
         quantity = amount;
+        uniqueId = Guid.NewGuid().ToString();
+    }
+
+    public InventoryItem(ItemData itemData, int amount, int price)
+    {
+        data = itemData;
+        quantity = amount;
+        sellPrice = price;
+        uniqueId = Guid.NewGuid().ToString();
     }
 }
 
 
 public class InventoryController : MonoBehaviour
 {
-    public ItemDatabase database;
+    public static InventoryController Instance;
 
+    public ItemDatabase database;
+    public static event Action RefreshUIEvent;
     public List<InventoryItem> items = new();
     private Dictionary<int, InventoryItem> map = new();
+
+    private void Awake()
+    {
+        Instance = this;
+    }
+
+    public ItemData GetItemFromID(int ID)
+    {
+        ItemData item = database.GetItem(ID);
+        return item;
+    }
 
     private void Start()
     {
         database.Initialize();
 
-        // Initialize dictionary for runtime inventory
         foreach (var invItem in items)
         {
             map[invItem.data.ID] = invItem;
         }
     }
 
-    public void AddItem(ItemData itemData, int amount = 1)
+    private void OnEnable()
     {
+        RefreshUIEvent?.Invoke();
+    }
+
+
+    public void AddItem(ItemData itemData, int amount = 1, int price = 0)
+    {
+        if(itemData is FishItemData)
+        {
+            var newItem = new InventoryItem(itemData, 1, price);
+            items.Add(newItem);
+            Debug.Log($"Added {itemData.displayName} worth {price} gold!");
+            RefreshUIEvent?.Invoke();
+            return;
+        }
+
         if (!itemData.isStackable)
         {
             for (int i = 0; i < amount; i++)
             {
                 items.Add(new InventoryItem(itemData, 1));
             }
+            RefreshUIEvent?.Invoke();
             return;
         }
 
-        var existing = items.Find(i => i.data == itemData);
+        int remaining = amount;
 
-        if (existing != null)
+        while (remaining > 0)
         {
-            existing.quantity += amount;
+            var existing = items.Find(i => i.data == itemData && i.quantity < itemData.maxStack);
 
-            if (existing.quantity > itemData.maxStack)
-                existing.quantity = itemData.maxStack;
+            if (existing != null)
+            {
+                int spaceAvailable = itemData.maxStack - existing.quantity;
+                int toAdd = Mathf.Min(spaceAvailable, remaining);
+
+                existing.quantity += toAdd;
+                remaining -= toAdd;
+            }
+            else
+            {
+                int stackAmount = Mathf.Min(remaining, itemData.maxStack);
+                items.Add(new InventoryItem(itemData, stackAmount));
+                remaining -= stackAmount;
+            }
         }
-        else
+
+        RefreshUIEvent?.Invoke();
+    }
+
+    public void RemoveItem(InventoryItem item)
+    {
+        if (items.Contains(item))
         {
-            items.Add(new InventoryItem(itemData, amount));
+            items.Remove(item);
+            RefreshUIEvent?.Invoke();
         }
-
     }
 
     public void UseItem(ItemData itemData)
@@ -85,5 +145,7 @@ public class InventoryController : MonoBehaviour
         existing.quantity--;
         if (existing.quantity <= 0)
             items.Remove(existing);
+
+        RefreshUIEvent?.Invoke();
     }
 }

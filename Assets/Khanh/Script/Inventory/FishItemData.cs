@@ -3,10 +3,13 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "FishItemData", menuName = "FishyWishy/ItemData/FishItemData")]
 public class FishItemData : ItemData
 {
-    public float sellPrice;
+    public EnemySO fishData;
 
-    public virtual void OnSell()
+    public int price;
+
+    public override void Sell()
     {
+        base.Sell();
 
     }
 }
