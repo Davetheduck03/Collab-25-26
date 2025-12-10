@@ -97,28 +97,20 @@ public class SettingMenu : MonoBehaviour
         }
     }
 
-    // ONE METHOD – SAFE & CLEAN
     private void AddInstruction(string keyText, string description, params Sprite[] icons)
     {
         if (keyInstructionPrefab == null || keyInstructionContainer == null) return;
 
         GameObject obj = Instantiate(keyInstructionPrefab, keyInstructionContainer);
-
-        // Find IconsContainer – safe version
         Transform iconsContainer = obj.transform.Find("IconsContainer");
-        if (iconsContainer == null)
-        {
-            Debug.LogError("[SettingMenu] Prefab is missing 'IconsContainer' GameObject! Check prefab structure!");
-            return;
-        }
+        if (iconsContainer == null) return;
 
-        // Clear old icons
         foreach (Transform child in iconsContainer)
             Destroy(child.gameObject);
 
-        // Add icons + slashes
         bool hasAnyIcon = false;
-        if (icons != null)
+
+        if (icons != null && icons.Length > 0)
         {
             for (int i = 0; i < icons.Length; i++)
             {
@@ -127,15 +119,26 @@ public class SettingMenu : MonoBehaviour
 
                 hasAnyIcon = true;
 
-                // Icon GameObject
                 GameObject iconGO = new GameObject("Icon", typeof(Image));
                 iconGO.transform.SetParent(iconsContainer, false);
+
                 Image img = iconGO.GetComponent<Image>();
                 img.sprite = sp;
                 img.preserveAspect = true;
+
                 RectTransform rt = iconGO.GetComponent<RectTransform>();
-                rt.sizeDelta = new Vector2(48, 48);
-                // Slash (except after last icon)
+
+                // SPECIAL BIG SIZE FOR TAB, SHIFT, SPACE
+                if (sp == iconTab || sp == iconShift || sp == iconSpace)
+                {
+                    rt.sizeDelta = new Vector2(80, 50);  // Big keys
+                }
+                else
+                {
+                    rt.sizeDelta = new Vector2(48, 48);  // Normal keys (W A S D F R etc.)
+                }
+
+                // SLASH between icons
                 if (i < icons.Length - 1)
                 {
                     GameObject slash = new GameObject("Slash", typeof(TextMeshProUGUI));
@@ -145,21 +148,19 @@ public class SettingMenu : MonoBehaviour
                     tmp.fontSize = 28;
                     tmp.alignment = TextAlignmentOptions.Center;
                     tmp.color = new Color(1f, 1f, 1f, 0.9f);
+
+                    slash.GetComponent<RectTransform>().sizeDelta = new Vector2(40, 48);
                 }
             }
         }
 
-        // Show/hide IconsContainer
         iconsContainer.gameObject.SetActive(hasAnyIcon);
 
-        // Set texts – safe
-        TextMeshProUGUI keyTMP = obj.transform.Find("KeyText")?.GetComponent<TextMeshProUGUI>();
-        TextMeshProUGUI descTMP = obj.transform.Find("DescriptionText")?.GetComponent<TextMeshProUGUI>();
-
-        if (keyTMP != null) keyTMP.text = keyText;
-        if (descTMP != null) descTMP.text = description;
+        var keyTMP = obj.transform.Find("KeyText")?.GetComponent<TextMeshProUGUI>();
+        var descTMP = obj.transform.Find("DescriptionText")?.GetComponent<TextMeshProUGUI>();
+        if (keyTMP) keyTMP.text = keyText;
+        if (descTMP) descTMP.text = description;
     }
-
     private void AddCategoryLabel(string title, Sprite icon = null)
     {
         if (keyInstructionPrefab == null || keyInstructionContainer == null) return;
