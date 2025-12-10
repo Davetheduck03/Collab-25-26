@@ -14,6 +14,8 @@ public class Fish : BaseUnit
     private bool expectingRight = false;
     private bool expectingParry = false;
 
+    private bool isResolvingAttack = false;
+
     private float maxHP;
     private float nextThreshold;
 
@@ -27,6 +29,7 @@ public class Fish : BaseUnit
 
     // --- NEW: Reference to the Minigame Script ---
     [Header("UI System")]
+    public Parry parryMinigame;
 
     private Coroutine fightCoroutine;
 
@@ -83,10 +86,12 @@ public class Fish : BaseUnit
     {
         while (isCaught && healthComponent.currentHealth > 0)
         {
-            int action = Random.Range(0, 3);
+            yield return new WaitUntil(() => !isResolvingAttack);
 
-            // Important: Reset previous states/UI before starting new action
+            int action = Random.Range(0, 3);
             ResetExpectations();
+
+            float waitTime = Random.Range(1f, 3f);
 
             switch (action)
             {
@@ -100,11 +105,14 @@ public class Fish : BaseUnit
                     OnAttack();
                     break;
             }
-            float waitTime = Random.Range(1f, 3f);
-            yield return new WaitForSeconds(waitTime);
+
+            // Only wait the standard delay if we aren't locked in an attack resolution
+            if (!isResolvingAttack)
+            {
+                yield return new WaitForSeconds(waitTime);
+            }
         }
     }
-
     private void OnTurnRight()
     {
         if (!isCaught) return;
@@ -128,6 +136,56 @@ public class Fish : BaseUnit
         expectingParry = true;
         Debug.Log("Fish Attacks! Player must PARRY!");
 
+        float speed = GetSpeedFromRarity();
+
+        // 2. Determine duration (give less time for harder rarities?)
+        float duration = 2.5f; // Fixed duration for now, or make it variable
+
+        // 3. Start Minigame with a callback
+        parryMinigame.BeginParry(speed, duration, OnParryFinished);
+    }
+
+    private void OnParryFinished(bool isSuccess)
+    {
+        if (isSuccess)
+        {
+            Debug.Log("Player successfully parried the fish!");
+            // Optional: Deal small "Counter" damage to fish?
+            // damageComponent.TryDealDamage(this.gameObject); 
+        }
+        else
+        {
+            Debug.Log("Parry failed! Boat takes damage.");
+            damageComponent.TryDealDamage(m_Boat);
+        }
+
+        ResetExpectations();
+
+        // Add a small delay before resuming the fight loop so it's not instant
+        StartCoroutine(ResumeFightAfterDelay(1f));
+    }
+
+    private IEnumerator ResumeFightAfterDelay(float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        isResolvingAttack = false; // RESUME the fight loop
+    }
+
+    private float GetSpeedFromRarity()
+    {
+        if (unitData is EnemySO enemyData)
+        {
+            switch (enemyData.rarity)
+            {
+                case Rarity.Common: return 200f;
+                case Rarity.Uncommon: return 250f;
+                case Rarity.Rare: return 300f;
+                case Rarity.Epic: return 350f;
+                case Rarity.Legendary: return 450f;
+                case Rarity.Mythic: return 600f;
+            }
+        }
+        return 200f; // Default
     }
 
     private void ResetExpectations()
@@ -200,7 +258,7 @@ public class Fish : BaseUnit
     // --- UPDATED: Parry Logic ---
     private void PlayerPressedParry()
     {
-
-        ResetExpectations(); // This also closes the UI via StopMinigame()
+        if (expectingParry)
+        parryMinigame.CheckResult();
     }
 }
