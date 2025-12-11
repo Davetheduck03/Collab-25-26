@@ -181,8 +181,7 @@ public class Fish : BaseUnit
                 case Rarity.Uncommon: return 250f;
                 case Rarity.Rare: return 300f;
                 case Rarity.Epic: return 350f;
-                case Rarity.Legendary: return 450f;
-                case Rarity.Mythic: return 600f;
+                case Rarity.Mythic: return 450f;
             }
         }
         return 200f; // Default

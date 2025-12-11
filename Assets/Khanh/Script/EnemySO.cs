@@ -27,6 +27,5 @@ public enum Rarity
     Uncommon,
     Rare,
     Epic,
-    Legendary,
     Mythic
 }

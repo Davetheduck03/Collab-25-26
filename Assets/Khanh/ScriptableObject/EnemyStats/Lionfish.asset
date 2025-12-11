@@ -23,7 +23,7 @@ MonoBehaviour:
   defenseTypes: []
   armor: 0
   experienceReward: 20
-  rarity: 0
+  rarity: 3
   minPrice: 25
   maxPrice: 30
   itemData: {fileID: 11400000, guid: 20010f8759432a740acb1fd4a25eca3a, type: 2}

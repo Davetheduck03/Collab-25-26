@@ -130,7 +130,6 @@ public class ItemTooltipUI : MonoBehaviour
             Rarity.Uncommon => Color.green,
             Rarity.Rare => new Color(0.3f, 0.5f, 1f),
             Rarity.Epic => new Color(0.6f, 0.2f, 0.8f),
-            Rarity.Legendary => new Color(1f, 0.5f, 0f),
             Rarity.Mythic => new Color(1f, 0.2f, 0.2f),
             _ => Color.white
         };
