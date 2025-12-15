@@ -2,8 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-
-
 public class HealthComponent : UnitComponent
 {
     public float currentHealth;
@@ -28,14 +26,19 @@ public class HealthComponent : UnitComponent
         float finalDamage = this.data.CalculateDamageTaken(baseAmount, d_Data.damageType);
         currentHealth -= finalDamage;
 
+        // --- NEW: Trigger Popup ---
+        if (DamagePopupManager.Instance != null)
+        {
+            DamagePopupManager.Instance.ShowDamage(finalDamage, transform.position);
+        }
+
         Debug.Log($"{gameObject.name} took {finalDamage} {data.damageType} damage. Remaining HP: {currentHealth}");
+
         if (currentHealth <= 0)
         {
             Die();
         }
     }
-
-
 
     private void Die()
     {
