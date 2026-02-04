@@ -14,7 +14,7 @@ public class MovementComponent : UnitComponent
         movement_Speed = data.speed;
     }
 
-    public float rayDistance = 0.5f;
+    public float rayDistance = 0.8f;
     public LayerMask wallLayer;
     private Vector2 direction = Vector2.right;
     private Rigidbody2D rb;
@@ -26,7 +26,7 @@ public class MovementComponent : UnitComponent
 
     void Update()
     {
-        rb.MovePosition(rb.position + direction * movement_Speed * Time.deltaTime);
+         rb.linearVelocity = direction * movement_Speed;
         RaycastHit2D hit = Physics2D.Raycast(transform.position, direction, rayDistance, wallLayer);
         Debug.DrawRay(transform.position, direction * rayDistance, Color.red);
         if (hit.collider != null)
@@ -38,10 +38,9 @@ public class MovementComponent : UnitComponent
     void Flip()
     {
         direction *= -1;
+
         Vector3 scale = transform.localScale;
         scale.x *= -1;
         transform.localScale = scale;
     }
-
-
 }
