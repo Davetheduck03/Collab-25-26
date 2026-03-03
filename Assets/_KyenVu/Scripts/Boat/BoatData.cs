@@ -5,19 +5,18 @@ using System.Collections.Generic;
 public class BoatData : MonoBehaviour
 {
     public List<UnitComponent> components;
-    public UnitSO m_BoatSO;
 
     private void Start()
     {
-        Initialtize();
+        Initialize();
     }
 
-    private void Initialtize()
+    private void Initialize()
     {
         GetComponents(components);
-        foreach(var component in components)
+        foreach (var component in components)
         {
-            component.BoatSetUp(m_BoatSO);
+            component.BoatSetUp();
         }
     }
 }

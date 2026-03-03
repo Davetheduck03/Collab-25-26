@@ -4,9 +4,8 @@ using UnityEngine;
 
 public class DamageComponent : UnitComponent
 {
-    [SerializeField]private float damage;
-    [SerializeField]private DamageType damageType;
-
+    [SerializeField] private float damage;
+    [SerializeField] private DamageType damageType;
 
     protected override void OnInitialize()
     {
@@ -17,7 +16,6 @@ public class DamageComponent : UnitComponent
     protected override void OnBoatSetUp()
     {
         damage = UpgradeManager.Instance.ComputeStat(UpgradeType.Attack);
-        damageType = null;
     }
 
     public void TryDealDamage(GameObject target)
@@ -29,7 +27,6 @@ public class DamageComponent : UnitComponent
                 DamageData damageData = new DamageData(damage, damageType, this.gameObject);
                 health.TakeDamage(damageData);
             }
-            else return;
         }
     }
 }

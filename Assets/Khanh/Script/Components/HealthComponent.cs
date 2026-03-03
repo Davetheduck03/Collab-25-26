@@ -16,6 +16,7 @@ public class HealthComponent : UnitComponent
     protected override void OnBoatSetUp()
     {
         currentHealth = UpgradeManager.Instance.ComputeStat(UpgradeType.Health);
+        isDamagable = true;
     }
 
     public void TakeDamage(DamageData d_Data)
@@ -23,21 +24,19 @@ public class HealthComponent : UnitComponent
         if (!isDamagable) return;
 
         float baseAmount = d_Data.amount;
-        float finalDamage = this.data.CalculateDamageTaken(baseAmount, d_Data.damageType);
+        float finalDamage = (data != null)
+            ? data.CalculateDamageTaken(baseAmount, d_Data.damageType)
+            : baseAmount;
+
         currentHealth -= finalDamage;
 
-        // --- NEW: Trigger Popup ---
         if (DamagePopupManager.Instance != null)
-        {
             DamagePopupManager.Instance.ShowDamage(finalDamage, transform.position);
-        }
 
-        Debug.Log($"{gameObject.name} took {finalDamage} {data.damageType} damage. Remaining HP: {currentHealth}");
+        Debug.Log($"{gameObject.name} took {finalDamage} damage. Remaining HP: {currentHealth}");
 
         if (currentHealth <= 0)
-        {
             Die();
-        }
     }
 
     private void Die()
