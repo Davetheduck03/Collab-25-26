@@ -21,8 +21,10 @@ public class Fish : BaseUnit
 
     public static event Action<float> OnFishHealthThresholdReached;
 
+    public GameObject m_Boat;
+    //ref to the boat
+
     [Header("Components")]
-    [SerializeField] private GameObject m_Boat;
     [SerializeField] private DamageComponent damageComponent;
     public HealthComponent healthComponent;
     public MovementComponent movementComponent;
@@ -54,7 +56,11 @@ public class Fish : BaseUnit
         _spriteRenderer = GetComponent<SpriteRenderer>();
         ApplyScriptableData();
         GetComponents(components);
-        m_Boat = GameObject.Find("Boat");
+        //m_Boat = GameObject.Find("Boat");
+
+        if (m_Boat == null)
+            Debug.LogError("[Fish] Could not find GameObject named 'Boat' in scene!");
+
 
         foreach (var comp in components)
         {
