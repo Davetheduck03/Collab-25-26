@@ -1,21 +1,17 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class ScreenSwitcher : MonoBehaviour, I_Interactable
+// We remove the interface because InteractableObject handles the interaction now.
+public class ScreenSwitcher : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-        
-    }
+    [Header("Scene Settings")]
+    [Tooltip("Type the exact name of the scene you want to load")]
+    public string sceneToLoad = "2D scene";
 
-    public void Interact()
+    // This is the public method we will trigger from the UnityEvent
+    public void SwitchScene()
     {
-        SceneManager.LoadScene("2D scene");
-    }
-    // Update is called once per frame
-    void Update()
-    {
-        
+        Debug.Log($"Loading scene: {sceneToLoad}");
+        SceneManager.LoadScene(sceneToLoad);
     }
 }

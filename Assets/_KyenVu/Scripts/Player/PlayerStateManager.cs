@@ -61,14 +61,14 @@ public class PlayerStateManager : MonoBehaviour
             moveInput = context.ReadValue<Vector2>();
         }
 
-        if (context.action.name == "Interact" /*&& context.performed*/)
+        if (context.action.name == "Interact" && context.started)
         {
             OnInteractPressed?.Invoke();
             Debug.Log("Player pressed interact");
 
             if (currentInteractable != null)
             {
-                currentInteractable.Interact();
+                currentInteractable.Interaction();
                 SwitchState(InteractState); 
             }
         }
