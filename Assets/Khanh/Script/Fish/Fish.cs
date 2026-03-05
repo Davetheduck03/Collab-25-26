@@ -49,6 +49,7 @@ public class Fish : BaseUnit
         CastLineControl.OnPlayerAttackLeft -= PlayerPressedLeft;
         CastLineControl.OnPlayerAttackRight -= PlayerPressedRight;
         CastLineControl.OnPlayerParry -= PlayerPressedParry;
+        isCaught = false; // ensure non-active fish never respond to input
     }
 
     public void Initialize()
@@ -56,11 +57,15 @@ public class Fish : BaseUnit
         _spriteRenderer = GetComponent<SpriteRenderer>();
         ApplyScriptableData();
         GetComponents(components);
-        //m_Boat = GameObject.Find("Boat");
+
+        m_Boat = GameObject.FindWithTag("Boat");
+        if (m_Boat == null)
+            m_Boat = GameObject.Find("Boat"); // fallback if tag not yet set
 
         if (m_Boat == null)
-            Debug.LogError("[Fish] Could not find GameObject named 'Boat' in scene!");
-
+            Debug.LogError("[Fish] Could not find Boat scene instance! Ensure the Boat GameObject has the 'Boat' tag or is named 'Boat'.");
+        else
+            Debug.Log($"[Fish] m_Boat resolved to scene instance: '{m_Boat.name}' (ID: {m_Boat.GetInstanceID()})");
 
         foreach (var comp in components)
         {
@@ -80,8 +85,11 @@ public class Fish : BaseUnit
         _spriteRenderer.sprite = unitData.inGameSprite;
     }
 
-    private void GotCaught()
+    private void GotCaught(GameObject caughtObject)
     {
+        // Only the fish that was physically hooked should start fighting
+        if (caughtObject != gameObject) return;
+
         isCaught = true;
         maxHP = healthComponent.currentHealth;
         nextThreshold = maxHP * 0.8f;
@@ -140,6 +148,7 @@ public class Fish : BaseUnit
         if (!isCaught) return;
 
         expectingParry = true;
+        isResolvingAttack = true; // Bug fix: lock the fight loop until parry is resolved
         Debug.Log("Fish Attacks! Player must PARRY!");
 
         float speed = GetSpeedFromRarity();
@@ -230,6 +239,8 @@ public class Fish : BaseUnit
 
     private void PlayerPressedLeft(DamageComponent damageComponent)
     {
+        if (!isCaught) return; // only the active hooked fish responds
+
         if (expectingLeft)
         {
             Debug.Log("Correct! Player hits the fish!");
@@ -246,6 +257,8 @@ public class Fish : BaseUnit
 
     private void PlayerPressedRight(DamageComponent damageComponent)
     {
+        if (!isCaught) return; // only the active hooked fish responds
+
         if (expectingRight)
         {
             Debug.Log("Correct! Player hits the fish!");
@@ -263,7 +276,9 @@ public class Fish : BaseUnit
     // --- UPDATED: Parry Logic ---
     private void PlayerPressedParry()
     {
+        if (!isCaught) return; // only the active hooked fish responds
+
         if (expectingParry)
-        parryMinigame.CheckResult();
+            parryMinigame.CheckResult();
     }
 }
