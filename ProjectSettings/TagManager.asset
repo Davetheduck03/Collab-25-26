@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Fish
   - Wall
+  - Boat
   layers:
   - Default
   - TransparentFX
