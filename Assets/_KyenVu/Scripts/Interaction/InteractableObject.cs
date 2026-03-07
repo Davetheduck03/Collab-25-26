@@ -1,9 +1,9 @@
 using UnityEngine;
 using UnityEngine.Events; // Required for UnityEvents
 
-public class InteractableObject : MonoBehaviour, I_Interaction
+public class InteractableObject : MonoBehaviour, I_Interactable
 {
-    public enum InteractType { Dialogue, Item, Door, SavePoint }
+    public enum InteractType { Dialogue, Item, Door, Shop }
 
     [Header("Interaction Settings")]
     public InteractType interactType;
