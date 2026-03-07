@@ -8,30 +8,35 @@ public class Fish : BaseUnit
 {
     private SpriteRenderer _spriteRenderer;
     private bool isCaught = false;
-    private bool facingRight = false;
-    private bool facingLeft = false;
     private bool expectingLeft = false;
     private bool expectingRight = false;
     private bool expectingParry = false;
 
     private bool isResolvingAttack = false;
+    private bool isWaitingForInput = false;
+    private bool isCooldown = false;
 
     private float maxHP;
     private float nextThreshold;
 
+    // NEW: Keep track of the active Q/E prompt so we can delete it
+    private GameObject currentPrompt;
+
     public static event Action<float> OnFishHealthThresholdReached;
 
     public GameObject m_Boat;
-    //ref to the boat
 
     [Header("Components")]
     [SerializeField] private DamageComponent damageComponent;
     public HealthComponent healthComponent;
     public MovementComponent movementComponent;
 
-    // --- NEW: Reference to the Minigame Script ---
     [Header("UI System")]
     public Parry parryMinigame;
+
+    [Header("Damage Feedback")]
+    public Color damageColor = Color.red;
+    private Color originalColor = Color.white;
 
     private Coroutine fightCoroutine;
 
@@ -49,23 +54,24 @@ public class Fish : BaseUnit
         CastLineControl.OnPlayerAttackLeft -= PlayerPressedLeft;
         CastLineControl.OnPlayerAttackRight -= PlayerPressedRight;
         CastLineControl.OnPlayerParry -= PlayerPressedParry;
-        isCaught = false; // ensure non-active fish never respond to input
+        isCaught = false;
     }
 
     public void Initialize()
     {
         _spriteRenderer = GetComponent<SpriteRenderer>();
+
+        if (_spriteRenderer != null)
+        {
+            originalColor = _spriteRenderer.color;
+        }
+
         ApplyScriptableData();
         GetComponents(components);
 
         m_Boat = GameObject.FindWithTag("Boat");
         if (m_Boat == null)
-            m_Boat = GameObject.Find("Boat"); // fallback if tag not yet set
-
-        if (m_Boat == null)
-            Debug.LogError("[Fish] Could not find Boat scene instance! Ensure the Boat GameObject has the 'Boat' tag or is named 'Boat'.");
-        else
-            Debug.Log($"[Fish] m_Boat resolved to scene instance: '{m_Boat.name}' (ID: {m_Boat.GetInstanceID()})");
+            m_Boat = GameObject.Find("Boat");
 
         foreach (var comp in components)
         {
@@ -75,19 +81,13 @@ public class Fish : BaseUnit
 
     private void ApplyScriptableData()
     {
-        if (unitData == null)
-        {
-            Debug.LogWarning($"[Fish] No UnitSO assigned on {name}");
-            return;
-        }
-
+        if (unitData == null) return;
         name = unitData.UnitName;
         _spriteRenderer.sprite = unitData.inGameSprite;
     }
 
     private void GotCaught(GameObject caughtObject)
     {
-        // Only the fish that was physically hooked should start fighting
         if (caughtObject != gameObject) return;
 
         isCaught = true;
@@ -100,39 +100,48 @@ public class Fish : BaseUnit
     {
         while (isCaught && healthComponent.currentHealth > 0)
         {
-            yield return new WaitUntil(() => !isResolvingAttack);
+            yield return new WaitUntil(() => !isResolvingAttack && !isCooldown);
 
             int action = Random.Range(0, 3);
             ResetExpectations();
-
-            float waitTime = Random.Range(1f, 3f);
 
             switch (action)
             {
                 case 0:
                     OnTurnRight();
+                    isWaitingForInput = true;
                     break;
                 case 1:
                     OnTurnLeft();
+                    isWaitingForInput = true;
                     break;
                 case 2:
                     OnAttack();
                     break;
             }
 
-            // Only wait the standard delay if we aren't locked in an attack resolution
-            if (!isResolvingAttack)
+            if (action == 0 || action == 1)
             {
-                yield return new WaitForSeconds(waitTime);
+                yield return new WaitUntil(() => !isWaitingForInput);
             }
         }
     }
+
     private void OnTurnRight()
     {
         if (!isCaught) return;
 
         expectingRight = true;
-        Debug.Log("Fish Turn Right! Player must ATTACK RIGHT!");
+
+        transform.localScale = new Vector3(-Mathf.Abs(transform.localScale.x), transform.localScale.y, transform.localScale.z);
+
+        if (DamagePopupManager.Instance != null)
+        {
+            // NEW: Passed in 0.5f to make the letter smaller, and saved it to currentPrompt
+            currentPrompt = DamagePopupManager.Instance.ShowPrompt("E", transform.position, Color.yellow, 2.5f, 0.5f);
+        }
+
+        Debug.Log("Fish Turn Right! Player must ATTACK RIGHT (E)!");
     }
 
     private void OnTurnLeft()
@@ -140,7 +149,16 @@ public class Fish : BaseUnit
         if (!isCaught) return;
 
         expectingLeft = true;
-        Debug.Log("Fish Turn Left! Player must ATTACK LEFT!");
+
+        transform.localScale = new Vector3(Mathf.Abs(transform.localScale.x), transform.localScale.y, transform.localScale.z);
+
+        if (DamagePopupManager.Instance != null)
+        {
+            // NEW: Passed in 0.5f to make the letter smaller, and saved it to currentPrompt
+            currentPrompt = DamagePopupManager.Instance.ShowPrompt("Q", transform.position, Color.cyan, 2.5f, 0.5f);
+        }
+
+        Debug.Log("Fish Turn Left! Player must ATTACK LEFT (Q)!");
     }
 
     private void OnAttack()
@@ -148,15 +166,11 @@ public class Fish : BaseUnit
         if (!isCaught) return;
 
         expectingParry = true;
-        isResolvingAttack = true; // Bug fix: lock the fight loop until parry is resolved
-        Debug.Log("Fish Attacks! Player must PARRY!");
+        isResolvingAttack = true;
 
         float speed = GetSpeedFromRarity();
+        float duration = 2.5f;
 
-        // 2. Determine duration (give less time for harder rarities?)
-        float duration = 2.5f; // Fixed duration for now, or make it variable
-
-        // 3. Start Minigame with a callback
         parryMinigame.BeginParry(speed, duration, OnParryFinished);
     }
 
@@ -164,26 +178,43 @@ public class Fish : BaseUnit
     {
         if (isSuccess)
         {
-            Debug.Log("Player successfully parried the fish!");
-            // Optional: Deal small "Counter" damage to fish?
-            // damageComponent.TryDealDamage(this.gameObject); 
+            StartCoroutine(BlinkRoutine());
         }
         else
         {
-            Debug.Log("Parry failed! Boat takes damage.");
             damageComponent.TryDealDamage(m_Boat);
         }
 
         ResetExpectations();
-
-        // Add a small delay before resuming the fight loop so it's not instant
         StartCoroutine(ResumeFightAfterDelay(1f));
     }
 
     private IEnumerator ResumeFightAfterDelay(float delay)
     {
         yield return new WaitForSeconds(delay);
-        isResolvingAttack = false; // RESUME the fight loop
+        isResolvingAttack = false;
+    }
+
+    private IEnumerator InputCooldownRoutine()
+    {
+        isCooldown = true;
+        float randomCooldown = Random.Range(0.5f, 1.0f);
+        yield return new WaitForSeconds(randomCooldown);
+        isCooldown = false;
+    }
+
+    private IEnumerator BlinkRoutine()
+    {
+        if (_spriteRenderer != null)
+        {
+            _spriteRenderer.color = damageColor;
+            yield return new WaitForSeconds(0.1f);
+            _spriteRenderer.color = originalColor;
+            yield return new WaitForSeconds(0.1f);
+            _spriteRenderer.color = damageColor;
+            yield return new WaitForSeconds(0.1f);
+            _spriteRenderer.color = originalColor;
+        }
     }
 
     private float GetSpeedFromRarity()
@@ -199,7 +230,7 @@ public class Fish : BaseUnit
                 case Rarity.Mythic: return 450f;
             }
         }
-        return 200f; // Default
+        return 200f;
     }
 
     private void ResetExpectations()
@@ -208,13 +239,16 @@ public class Fish : BaseUnit
         expectingRight = false;
         expectingParry = false;
 
+        // NEW: Clean up any old prompts hanging around when expectations reset
+        if (currentPrompt != null)
+        {
+            Destroy(currentPrompt);
+            currentPrompt = null;
+        }
     }
 
-    // ... [Rest of your Health Code stays the same] ...
     private void CheckForHealthThreshold()
     {
-        float hpPercent = healthComponent.currentHealth / maxHP;
-
         if (healthComponent.currentHealth <= nextThreshold)
         {
             float normalizedPercent = healthComponent.currentHealth / maxHP;
@@ -233,50 +267,75 @@ public class Fish : BaseUnit
     {
         if (unitData is EnemySO enemySO && enemySO.itemData != null)
         {
-            InventoryController.Instance.AddItem(enemySO.itemData, 1, enemySO.GeneratePrice());
+            // InventoryController.Instance.AddItem(enemySO.itemData, 1, enemySO.GeneratePrice());
         }
     }
 
     private void PlayerPressedLeft(DamageComponent damageComponent)
     {
-        if (!isCaught) return; // only the active hooked fish responds
+        if (!isCaught || isCooldown || isResolvingAttack) return;
 
-        if (expectingLeft)
+        if (isWaitingForInput)
         {
-            Debug.Log("Correct! Player hits the fish!");
-            damageComponent.TryDealDamage(this.gameObject);
-            CheckForHealthThreshold();
+            isWaitingForInput = false;
+
+            // NEW: Instantly destroy the floating text letter when the player acts!
+            if (currentPrompt != null)
+            {
+                Destroy(currentPrompt);
+                currentPrompt = null;
+            }
+
+            if (expectingLeft)
+            {
+                damageComponent.TryDealDamage(this.gameObject);
+                StartCoroutine(BlinkRoutine());
+                CheckForHealthThreshold();
+            }
+            else
+            {
+                this.damageComponent.TryDealDamage(m_Boat);
+            }
+
+            ResetExpectations();
+            StartCoroutine(InputCooldownRoutine());
         }
-        else
-        {
-            Debug.Log("Wrong input! Player takes damage!");
-            this.damageComponent.TryDealDamage(m_Boat);
-        }
-        ResetExpectations();
     }
 
     private void PlayerPressedRight(DamageComponent damageComponent)
     {
-        if (!isCaught) return; // only the active hooked fish responds
+        if (!isCaught || isCooldown || isResolvingAttack) return;
 
-        if (expectingRight)
+        if (isWaitingForInput)
         {
-            Debug.Log("Correct! Player hits the fish!");
-            damageComponent.TryDealDamage(this.gameObject);
-            CheckForHealthThreshold();
+            isWaitingForInput = false;
+
+            // NEW: Instantly destroy the floating text letter when the player acts!
+            if (currentPrompt != null)
+            {
+                Destroy(currentPrompt);
+                currentPrompt = null;
+            }
+
+            if (expectingRight)
+            {
+                damageComponent.TryDealDamage(this.gameObject);
+                StartCoroutine(BlinkRoutine());
+                CheckForHealthThreshold();
+            }
+            else
+            {
+                this.damageComponent.TryDealDamage(m_Boat);
+            }
+
+            ResetExpectations();
+            StartCoroutine(InputCooldownRoutine());
         }
-        else
-        {
-            Debug.Log("Wrong input! Player takes damage!");
-            this.damageComponent.TryDealDamage(m_Boat);
-        }
-        ResetExpectations();
     }
 
-    // --- UPDATED: Parry Logic ---
     private void PlayerPressedParry()
     {
-        if (!isCaught) return; // only the active hooked fish responds
+        if (!isCaught) return;
 
         if (expectingParry)
             parryMinigame.CheckResult();
