@@ -1,12 +1,17 @@
 using UnityEngine;
+using UnityEngine.Events; 
 
 [System.Serializable]
 public class DialogueChoice
 {
     [Tooltip("The text the player will see on the button")]
     public string choiceText;
+
     [Tooltip("The Index of the Node this choice leads to. Set to -1 to end conversation.")]
     public int nextNodeIndex;
+
+    [Tooltip("Optional: Trigger an event when this choice is clicked!")]
+    public UnityEvent onChoiceSelected;
 }
 
 [System.Serializable]

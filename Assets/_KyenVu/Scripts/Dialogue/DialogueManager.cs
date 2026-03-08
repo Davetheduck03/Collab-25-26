@@ -129,9 +129,19 @@ public class DialogueManager : MonoBehaviour
 
                 int targetIndex = node.choices[i].nextNodeIndex;
 
-                // Remove old clicks and add the new jump destination
+                // NEW: Capture the event for this specific choice
+                UnityEngine.Events.UnityEvent onSelectEvent = node.choices[i].onChoiceSelected;
+
+                // Remove old clicks and add the new jump destination & event trigger
                 choiceButtons[i].onClick.RemoveAllListeners();
-                choiceButtons[i].onClick.AddListener(() => MakeChoice(targetIndex));
+                choiceButtons[i].onClick.AddListener(() =>
+                {
+                    // Fire the custom event if one was assigned!
+                    onSelectEvent?.Invoke();
+
+                    // Move to the next node (or end conversation)
+                    MakeChoice(targetIndex);
+                });
             }
             else
             {
@@ -140,7 +150,6 @@ public class DialogueManager : MonoBehaviour
             }
         }
     }
-
     public void MakeChoice(int targetNodeIndex)
     {
         isWaitingForChoice = false;
