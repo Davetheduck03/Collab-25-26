@@ -384,7 +384,7 @@ GameObject:
   - component: {fileID: 1490118677356859960}
   m_Layer: 0
   m_Name: Boat
-  m_TagString: Untagged
+  m_TagString: Boat
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -695,5 +695,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dea370806ebf08c4ea311688b54f190f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  components: []
-  m_BoatSO: {fileID: 11400000, guid: fdf40a154b981c14b8284147c154f47a, type: 2}
+  components:
+  - {fileID: 1011332621484721403}
+  - {fileID: 8907051596897159350}

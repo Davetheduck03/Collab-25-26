@@ -17,7 +17,7 @@ MonoBehaviour:
   inGameSprite: {fileID: 21300000, guid: 21f8c7f301527e4488e9bd238273b62c, type: 3}
   health: 120
   speed: 3
-  damage: 15
+  damage: 1
   stamina: 55
   damageType: {fileID: 0}
   defenseTypes: []

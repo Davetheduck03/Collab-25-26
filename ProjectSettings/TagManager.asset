@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Fish
   - Wall
+  - Boat
   layers:
   - Default
   - TransparentFX
@@ -45,6 +46,9 @@ TagManager:
     locked: 0
   - name: UI
     uniqueID: 3448470929
+    locked: 0
+  - name: Building
+    uniqueID: 1830985449
     locked: 0
   - name: Player
     uniqueID: 2998876445

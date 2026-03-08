@@ -5,7 +5,9 @@ public class PlayerIdleState : PlayerBaseState
     public override void EnterState(PlayerStateManager player)
     {
         player.StateText.text = "Idle State";
-        player.animator.SetBool("isRunning", false);
+
+        // Set magnitude to 0 to trigger the Idle blend/state
+        player.animator.SetFloat("MoveMagnitude", 0f);
         player.rb.linearVelocity = Vector2.zero;
     }
 

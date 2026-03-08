@@ -45,7 +45,7 @@ public class CastLineControl : MonoBehaviour
 
     // Events
     public static event Action OnFishingFinished;
-    public static event Action OnFishCaught;
+    public static event Action<GameObject> OnFishCaught; // passes the caught fish so only it responds
     public static event Action<DamageComponent> OnPlayerAttackLeft;
     public static event Action<DamageComponent> OnPlayerAttackRight;
     public static event Action OnPlayerParry;
@@ -211,7 +211,7 @@ public class CastLineControl : MonoBehaviour
 
             caughtFish.transform.SetParent(hook.transform);
 
-            OnFishCaught?.Invoke();
+            OnFishCaught?.Invoke(caughtFish); // pass which fish was caught
         }
     }
 

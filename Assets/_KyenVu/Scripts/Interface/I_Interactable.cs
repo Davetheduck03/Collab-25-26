@@ -1,9 +1,6 @@
-using UnityEngine;
-
 public interface I_Interactable
 {
-    public void Interact()
-    {
-
-    }
+    void Interaction();
+    void ShowPrompt();
+    void HidePrompt();
 }

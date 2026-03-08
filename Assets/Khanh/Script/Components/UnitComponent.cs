@@ -8,9 +8,6 @@ public abstract class UnitComponent : MonoBehaviour
     protected UnitSO data;
     protected PlayerStats playerData;
 
-    /// <summary>
-    /// Called by BaseUnit on Awake.
-    /// </summary>
     public void Setup(BaseUnit unit, UnitSO data)
     {
         this.unit = unit;
@@ -18,15 +15,11 @@ public abstract class UnitComponent : MonoBehaviour
         OnInitialize();
     }
 
-    public void BoatSetUp(UnitSO _)
+    public void BoatSetUp()
     {
-        this.data = _;
         OnBoatSetUp();
     }
 
-    /// <summary>
-    /// Override this in child components to initialize from data.
-    /// </summary>
     protected virtual void OnInitialize() { }
     protected virtual void OnBoatSetUp() { }
 }

@@ -61,14 +61,14 @@ public class PlayerStateManager : MonoBehaviour
             moveInput = context.ReadValue<Vector2>();
         }
 
-        if (context.action.name == "Interact" /*&& context.performed*/)
+        if (context.action.name == "Interact" && context.started)
         {
             OnInteractPressed?.Invoke();
             Debug.Log("Player pressed interact");
 
             if (currentInteractable != null)
             {
-                currentInteractable.Interact();
+                currentInteractable.Interaction();
                 SwitchState(InteractState); 
             }
         }
@@ -81,6 +81,9 @@ public class PlayerStateManager : MonoBehaviour
         {
             Debug.Log("Player entered interactable: " + interactable);
             currentInteractable = interactable;
+
+           
+            currentInteractable.ShowPrompt();
         }
     }
 
@@ -89,6 +92,9 @@ public class PlayerStateManager : MonoBehaviour
         I_Interactable interactable = collision.GetComponent<I_Interactable>();
         if (interactable != null && interactable == currentInteractable)
         {
+          
+            currentInteractable.HidePrompt();
+
             currentInteractable = null;
         }
     }
@@ -98,5 +104,13 @@ public class PlayerStateManager : MonoBehaviour
         currentState.ExitState(this);
         currentState = state;
         currentState.EnterState(this);
+    }
+    public void EndInteraction()
+    {
+        if (currentState == InteractState)
+        {
+            Debug.Log("Forcing player out of Interact State back to Idle.");
+            SwitchState(IdleState);
+        }
     }
 }
