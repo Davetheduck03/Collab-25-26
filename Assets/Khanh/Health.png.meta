@@ -1,19 +1,10 @@
 fileFormatVersion: 2
-guid: 8515b0af0d95f8a43bc17f05fec9e938
+guid: 38b917262e1e6604f88ff8d02605eda6
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 9182157284707403512
-    second: Untitled-1_0
-  - first:
-      213: 4726436553962287433
-    second: Untitled-1_1
-  - first:
-      213: 9066870904737133126
-    second: Untitled-1_2
-  - first:
-      213: 8019484304366831122
-    second: Untitled-1_3
+      213: -8630923909508717717
+    second: Health_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -46,7 +37,7 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-    filterMode: 1
+    filterMode: 0
     aniso: 1
     mipBias: 0
     wrapU: 1
@@ -55,7 +46,7 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 2
+  spriteMode: 1
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
@@ -84,7 +75,7 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 1
+    textureCompression: 0
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -122,13 +113,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Untitled-1_0
+      name: Health_0
       rect:
         serializedVersion: 2
-        x: 870
-        y: 298
-        width: 658
-        height: 685
+        x: 0
+        y: 0
+        width: 207
+        height: 11
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -137,74 +128,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 8f600cab6639d6f70800000000000000
-      internalID: 9182157284707403512
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Untitled-1_1
-      rect:
-        serializedVersion: 2
-        x: 1307
-        y: 975
-        width: 133
-        height: 14
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 941f75c010da79140800000000000000
-      internalID: 4726436553962287433
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Untitled-1_2
-      rect:
-        serializedVersion: 2
-        x: 1517
-        y: 846
-        width: 6
-        height: 21
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 6427e2dac0ff3dd70800000000000000
-      internalID: 9066870904737133126
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Untitled-1_3
-      rect:
-        serializedVersion: 2
-        x: 1517
-        y: 731
-        width: 6
-        height: 16
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 2160b9b5c7eea4f60800000000000000
-      internalID: 8019484304366831122
+      spriteID: b63ae42de6cc83880800000000000000
+      internalID: -8630923909508717717
       vertices: []
       indices: 
       edges: []
@@ -213,7 +138,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: 5e97eb03825dee720800000000000000
     internalID: 0
     vertices: []
     indices: 
@@ -223,10 +148,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      Untitled-1_0: 9182157284707403512
-      Untitled-1_1: 4726436553962287433
-      Untitled-1_2: 9066870904737133126
-      Untitled-1_3: 8019484304366831122
+      Health_0: -8630923909508717717
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
