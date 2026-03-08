@@ -69,14 +69,23 @@ public class UpgradeManager : MonoBehaviour
 
     }
 
-    // Compute stat (as before)
+    private Dictionary<UpgradeType, float> augmentBonuses = new();
+
+    public void ApplyAugmentBonus(UpgradeType type, float amount)
+    {
+        augmentBonuses.TryGetValue(type, out float existing);
+        augmentBonuses[type] = existing + amount;
+        OnUpgradeSuccessful?.Invoke(type); // refreshes UI
+    }
+
     public float ComputeStat(UpgradeType type)
     {
         var entry = playerStatsConfig.GetUpgrade(type);
         if (entry == null) return 0f;
-
         int level = upgradeLevels.GetValueOrDefault(type, 1);
-        return entry.baseValue + (level - 1) * entry.incrementPerLevel;
+        float base_ = entry.baseValue + (level - 1) * entry.incrementPerLevel;
+        augmentBonuses.TryGetValue(type, out float bonus);
+        return base_ + bonus;
     }
 
     // UI helpers (unchanged, but use playerStatsConfig)

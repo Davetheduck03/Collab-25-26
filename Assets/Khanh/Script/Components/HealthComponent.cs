@@ -11,6 +11,10 @@ public class HealthComponent : UnitComponent
     // Subscribe to this to handle death without destroying the GameObject (e.g. the Boat)
     public event Action OnDeath;
 
+    // Static event — fires on ANY HealthComponent after damage is applied.
+    // Used by AugmentTriggerManager (I AM THE ASCENDED, Adrenaline Rush, etc.)
+    public static event Action<HealthComponent> OnDamageTaken;
+
     protected override void OnInitialize()
     {
         currentHealth = data.health;
@@ -57,6 +61,9 @@ public class HealthComponent : UnitComponent
 
         // Bug fix: clamp health at 0 so it never goes negative
         currentHealth = Mathf.Max(0f, currentHealth - finalDamage);
+
+        // Notify augment triggers (e.g. I AM THE ASCENDED)
+        OnDamageTaken?.Invoke(this);
 
         if (DamagePopupManager.Instance != null)
             DamagePopupManager.Instance.ShowDamage(finalDamage, transform.position);

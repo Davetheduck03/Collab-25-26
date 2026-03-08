@@ -26,6 +26,9 @@ public class Fish : BaseUnit
 
     public GameObject m_Boat;
 
+    /// <summary>Set by FishSpawner before Initialize(). Scales HP/damage by zone depth.</summary>
+    [HideInInspector] public float zoneStatScale = 1f;
+
     [Header("Components")]
     [SerializeField] private DamageComponent damageComponent;
     public HealthComponent healthComponent;
@@ -77,6 +80,13 @@ public class Fish : BaseUnit
         {
             comp.Setup(this, unitData);
         }
+
+        // Apply zone stat scaling: Fish Stats = Base * Biome(1) * Zone * 1.1
+        if (zoneStatScale != 1f && healthComponent != null)
+        {
+            healthComponent.currentHealth *= zoneStatScale;
+            Debug.Log($"[Fish] Zone scaled HP → {healthComponent.currentHealth} (scale: {zoneStatScale})");
+        }
     }
 
     private void ApplyScriptableData()
@@ -93,6 +103,13 @@ public class Fish : BaseUnit
         isCaught = true;
         maxHP = healthComponent.currentHealth;
         nextThreshold = maxHP * 0.8f;
+
+        // Face right at the start of combat
+        transform.localScale = new Vector3(
+            Mathf.Abs(transform.localScale.x),
+            transform.localScale.y,
+            transform.localScale.z);
+
         fightCoroutine = StartCoroutine(FightPattern());
     }
 
@@ -133,7 +150,7 @@ public class Fish : BaseUnit
 
         expectingRight = true;
 
-        transform.localScale = new Vector3(-Mathf.Abs(transform.localScale.x), transform.localScale.y, transform.localScale.z);
+        transform.localScale = new Vector3(Mathf.Abs(transform.localScale.x), transform.localScale.y, transform.localScale.z);
 
         if (DamagePopupManager.Instance != null)
         {
@@ -150,7 +167,7 @@ public class Fish : BaseUnit
 
         expectingLeft = true;
 
-        transform.localScale = new Vector3(Mathf.Abs(transform.localScale.x), transform.localScale.y, transform.localScale.z);
+        transform.localScale = new Vector3(-Mathf.Abs(transform.localScale.x), transform.localScale.y, transform.localScale.z);
 
         if (DamagePopupManager.Instance != null)
         {
@@ -263,12 +280,28 @@ public class Fish : BaseUnit
         }
     }
 
+    private bool isDefeated = false;
+
     private void OnFishDefeated()
     {
+        if (isDefeated) return;
+        isDefeated = true;
+
+        // Grant item drop
         if (unitData is EnemySO enemySO && enemySO.itemData != null)
         {
-            // InventoryController.Instance.AddItem(enemySO.itemData, 1, enemySO.GeneratePrice());
+            if (InventoryController.Instance != null)
+                InventoryController.Instance.AddItem(enemySO.itemData, 1, enemySO.GeneratePrice());
+            else
+                Debug.LogWarning("[Fish] InventoryController.Instance is null — item not added.");
         }
+
+        // Grant EXP via RewardComponent
+        var reward = GetComponent<RewardComponent>();
+        if (reward != null)
+            reward.GrantRewards();
+        else
+            Debug.LogWarning("[Fish] No RewardComponent found — EXP not granted.");
     }
 
     private void PlayerPressedLeft(DamageComponent damageComponent)

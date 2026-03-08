@@ -33,6 +33,9 @@ public class CastLineControl : MonoBehaviour
     private GameObject caughtFish;
 
     private float currentLineLength = 0f;
+
+    /// <summary>Current hook depth in feet — used by ZoneManager.</summary>
+    public float CurrentDepth => currentLineLength;
     private float currentHorizontalOffset = 0f;
 
     private bool autoReeling = false;
