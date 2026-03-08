@@ -23,6 +23,7 @@ public class Fish : BaseUnit
     private GameObject currentPrompt;
 
     public static event Action<float> OnFishHealthThresholdReached;
+    public static event Action OnFishDefeatedEvent;
 
     public GameObject m_Boat;
 
@@ -155,7 +156,7 @@ public class Fish : BaseUnit
         if (DamagePopupManager.Instance != null)
         {
             // NEW: Passed in 0.5f to make the letter smaller, and saved it to currentPrompt
-            currentPrompt = DamagePopupManager.Instance.ShowPrompt("E", transform.position, Color.yellow, 2.5f, 0.5f);
+            currentPrompt = DamagePopupManager.Instance.ShowPrompt("E", transform.position, Color.yellow, 0.8f, 0.5f);
         }
 
         Debug.Log("Fish Turn Right! Player must ATTACK RIGHT (E)!");
@@ -172,7 +173,7 @@ public class Fish : BaseUnit
         if (DamagePopupManager.Instance != null)
         {
             // NEW: Passed in 0.5f to make the letter smaller, and saved it to currentPrompt
-            currentPrompt = DamagePopupManager.Instance.ShowPrompt("Q", transform.position, Color.cyan, 2.5f, 0.5f);
+            currentPrompt = DamagePopupManager.Instance.ShowPrompt("Q", transform.position, Color.cyan, 0.8f, 0.5f);
         }
 
         Debug.Log("Fish Turn Left! Player must ATTACK LEFT (Q)!");
@@ -302,6 +303,9 @@ public class Fish : BaseUnit
             reward.GrantRewards();
         else
             Debug.LogWarning("[Fish] No RewardComponent found — EXP not granted.");
+
+        
+        OnFishDefeatedEvent?.Invoke();
     }
 
     private void PlayerPressedLeft(DamageComponent damageComponent)

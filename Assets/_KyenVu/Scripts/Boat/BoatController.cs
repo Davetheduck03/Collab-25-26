@@ -47,10 +47,8 @@ public class BoatController : MonoBehaviour
 
     private void OnBoatMove(InputValue value)
     {
-        if (canMove)
-            moveInput = value.Get<Vector2>();
+        moveInput = value.Get<Vector2>();
     }
-
     private void OnFish()
     {
         if (!isFishing)
