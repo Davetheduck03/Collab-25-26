@@ -775,6 +775,14 @@ PrefabInstance:
       propertyPath: m_SortingLayerID
       value: -1296090851
       objectReference: {fileID: 0}
+    - target: {fileID: 5833222417146928977, guid: 5e9af00395f093043b075560b050fd04, type: 3}
+      propertyPath: m_SortingLayer
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 5833222417146928977, guid: 5e9af00395f093043b075560b050fd04, type: 3}
+      propertyPath: m_SortingLayerID
+      value: -1296090851
+      objectReference: {fileID: 0}
     - target: {fileID: 7643141176957904409, guid: 5e9af00395f093043b075560b050fd04, type: 3}
       propertyPath: m_Name
       value: Boat
