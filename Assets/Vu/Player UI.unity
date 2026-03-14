@@ -7214,8 +7214,8 @@ MonoBehaviour:
   openSaturation: -80
   closeSaturation: 0
   saturationTweenDuration: 0.3
-  inventoryButtons: []
-  statsButtons: []
+  inventoryButton: {fileID: 0}
+  statsButton: {fileID: 0}
   playAnimationOnSwitch: 1
   switchAnimationDurationMultiplier: 1
 --- !u!114 &1118170096
