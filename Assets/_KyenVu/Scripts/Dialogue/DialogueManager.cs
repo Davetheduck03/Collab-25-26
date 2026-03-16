@@ -12,6 +12,8 @@ public class DialogueManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI nameText;
     [SerializeField] private TextMeshProUGUI dialogueText;
 
+    [SerializeField] private Image portraitImage;
+
     [Header("Choices UI")]
     [SerializeField] private GameObject choicesContainer; // Parent object holding the buttons
     [SerializeField] private Button[] choiceButtons;      // Array of your 3 or 4 buttons
@@ -36,13 +38,26 @@ public class DialogueManager : MonoBehaviour
         if (choicesContainer != null) choicesContainer.SetActive(false);
     }
 
-    public void StartDialogue(string npcName, DialogueNode[] nodes)
+    public void StartDialogue(string npcName, Sprite portrait, DialogueNode[] nodes)
     {
         isDialogueActive = true;
         isWaitingForChoice = false;
         dialoguePanel.SetActive(true);
         nameText.text = npcName;
 
+        if (portraitImage != null)
+        {
+            if (portrait != null)
+            {
+                portraitImage.sprite = portrait;
+                portraitImage.gameObject.SetActive(true);
+            }
+            else
+            {
+                // Hide the portrait UI if the NPC has no image
+                portraitImage.gameObject.SetActive(false);
+            }
+        }
         currentNodes = nodes;
         currentNodeIndex = 0; // Always start at Node 0
 
@@ -169,7 +184,15 @@ public class DialogueManager : MonoBehaviour
         isDialogueActive = false;
         isWaitingForChoice = false;
         dialoguePanel.SetActive(false);
-        choicesContainer.SetActive(false);
+        if (choicesContainer != null) choicesContainer.SetActive(false);
+
         Debug.Log("End of conversation.");
+
+        // NEW: Find the player and tell them to exit the InteractState!
+        PlayerStateManager player = Object.FindFirstObjectByType<PlayerStateManager>();
+        if (player != null)
+        {
+            player.EndInteraction();
+        }
     }
 }

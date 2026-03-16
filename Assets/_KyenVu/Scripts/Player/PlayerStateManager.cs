@@ -66,10 +66,10 @@ public class PlayerStateManager : MonoBehaviour
             OnInteractPressed?.Invoke();
             Debug.Log("Player pressed interact");
 
-            if (currentInteractable != null)
+            if (currentState != InteractState && currentInteractable != null)
             {
                 currentInteractable.Interaction();
-                SwitchState(InteractState); 
+                SwitchState(InteractState);
             }
         }
     }
