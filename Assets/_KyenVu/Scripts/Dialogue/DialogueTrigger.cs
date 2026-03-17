@@ -32,6 +32,7 @@ public class DialogueTrigger : MonoBehaviour
 {
     [Header("NPC Data")]
     public string npcName = "Mysterious Stranger";
+    public Sprite npcPortrait;
 
     [Header("Conversation Nodes")]
     [Tooltip("Index 0 is always the starting dialogue.")]
@@ -39,6 +40,6 @@ public class DialogueTrigger : MonoBehaviour
 
     public void TriggerDialogue()
     {
-        DialogueManager.Instance.StartDialogue(npcName, dialogueNodes);
+        DialogueManager.Instance.StartDialogue(npcName, npcPortrait, dialogueNodes);
     }
 }
