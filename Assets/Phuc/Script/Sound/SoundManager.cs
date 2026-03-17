@@ -63,7 +63,9 @@ namespace Phuc.SoundSystem
             }
             //------------------------------------------------------
             Instance = this;
-            DontDestroyOnLoad(gameObject);
+            //------------------THIS LINE GOT ISSUES-------------------
+            // DontDestroyOnLoad(gameObject);
+            //-------------------------------------------
             InitializeSources();
             InitializeDictionaries();
         }

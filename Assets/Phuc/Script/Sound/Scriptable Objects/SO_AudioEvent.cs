@@ -6,12 +6,12 @@ namespace Phuc.SoundSystem
     
     public enum SfxSoundType
     {
-        Hook,
+        Hooked_the_fish,
         Fish,
         Boat,
-        Rod,
-
-        Player
+        Rod_casted,
+        Player,
+        Village_running
         //Add more SFX type if needed
     }
     public enum BgmSoundType
