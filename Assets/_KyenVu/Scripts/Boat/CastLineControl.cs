@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 using System;
+using Phuc.SoundSystem;
 
 [RequireComponent(typeof(LineRenderer))]
 public class CastLineControl : MonoBehaviour
@@ -224,7 +225,7 @@ public class CastLineControl : MonoBehaviour
             isCatching = true;
             caughtFish = collision.gameObject;
             baseCatchLength = currentLineLength;
-
+            SoundManager.PlaySfx(SfxSoundType.Hooked_the_fish);
             caughtFish.transform.SetParent(hook.transform);
 
             OnFishCaught?.Invoke(caughtFish);
