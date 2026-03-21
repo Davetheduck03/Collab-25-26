@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: Salmon
   m_EditorClassIdentifier: 
   UnitName: Salmon
-  Icon: {fileID: 0}
-  inGameSprite: {fileID: 21300000, guid: a957b85268384af459c7164be7fb745e, type: 3}
+  Icon: {fileID: -6861241007099928419, guid: 09c9987f002402740a75882feca480c9, type: 3}
+  inGameSprite: {fileID: -6861241007099928419, guid: 09c9987f002402740a75882feca480c9, type: 3}
   health: 60
   speed: 3
   damage: 1
