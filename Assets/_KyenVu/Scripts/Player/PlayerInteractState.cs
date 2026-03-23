@@ -5,7 +5,6 @@ public class PlayerInteractState : PlayerBaseState
     public override void EnterState(PlayerStateManager player)
     {
         player.StateText.text = "Interact State";
-        player.animator.SetTrigger("interact");
         
         // Ensure the player completely stops moving
         player.rb.linearVelocity = Vector2.zero; 

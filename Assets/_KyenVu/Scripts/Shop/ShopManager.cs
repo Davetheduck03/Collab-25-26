@@ -23,18 +23,21 @@ public class ShopManager : MonoBehaviour
     {
         ShopCanvas.SetActive(true);
         TavernPanel.SetActive(true);
+        Invoke(nameof(LockPlayer), 0.05f); // Tiny delay to let the Dialogue Box finish closing
     }
 
     public void OpenFishShop()
     {
         ShopCanvas.SetActive(true);
         FishShopPanel.SetActive(true);
+        Invoke(nameof(LockPlayer), 0.05f);
     }
 
     public void OpenUpgradeStall()
     {
         ShopCanvas.SetActive(true);
         UpgradeStallPanel.SetActive(true);
+        Invoke(nameof(LockPlayer), 0.05f);
     }
 
     // --- CLOSE METHODS (Trigger these from UI 'X' Buttons) ---
@@ -58,6 +61,19 @@ public class ShopManager : MonoBehaviour
         ShopCanvas.SetActive(false);
         UpgradeStallPanel.SetActive(false);
         FreePlayer();
+    }
+
+    // --- PLAYER STATE CONTROLS ---
+
+    // NEW: Helper method to lock the player in place while shopping
+    private void LockPlayer()
+    {
+        PlayerStateManager player = Object.FindFirstObjectByType<PlayerStateManager>();
+        if (player != null)
+        {
+            // Forces the player back into the frozen Interact State
+            player.SwitchState(player.InteractState);
+        }
     }
 
     // Helper method to let the player walk again

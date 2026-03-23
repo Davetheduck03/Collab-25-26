@@ -1,6 +1,6 @@
 using System.Collections;
-using UnityEngine;
 using TMPro;
+using UnityEngine;
 using UnityEngine.UI; // Required for Buttons
 
 public class DialogueManager : MonoBehaviour
@@ -16,8 +16,8 @@ public class DialogueManager : MonoBehaviour
 
     [Header("Choices UI")]
     [SerializeField] private GameObject choicesContainer; // Parent object holding the buttons
-    [SerializeField] private Button[] choiceButtons;      // Array of your 3 or 4 buttons
-    [SerializeField] private TextMeshProUGUI[] choiceTexts; // The text inside those buttons
+    // NEW: We replaced the arrays with a single prefab
+    [SerializeField] private GameObject choiceButtonPrefab;
 
     [Header("Settings")]
     [SerializeField] private float typingSpeed = 0.02f;
@@ -25,6 +25,9 @@ public class DialogueManager : MonoBehaviour
     private DialogueNode[] currentNodes;
     private int currentNodeIndex;
     private bool isTyping = false;
+    private string currentFormattedSentence;
+
+    private UnityEngine.Events.UnityEvent currentDialogueEndEvent;
 
     public bool isDialogueActive { get; private set; }
     public bool isWaitingForChoice { get; private set; }
@@ -38,13 +41,14 @@ public class DialogueManager : MonoBehaviour
         if (choicesContainer != null) choicesContainer.SetActive(false);
     }
 
-    public void StartDialogue(string npcName, Sprite portrait, DialogueNode[] nodes)
+    public void StartDialogue(string npcName, Sprite portrait, DialogueNode[] nodes, UnityEngine.Events.UnityEvent onEndEvent = null)
     {
         isDialogueActive = true;
         isWaitingForChoice = false;
         dialoguePanel.SetActive(true);
         nameText.text = npcName;
 
+        currentDialogueEndEvent = onEndEvent;
         if (portraitImage != null)
         {
             if (portrait != null)
@@ -69,51 +73,68 @@ public class DialogueManager : MonoBehaviour
         currentNodeIndex = nodeIndex;
         DialogueNode node = currentNodes[currentNodeIndex];
 
-        choicesContainer.SetActive(false); // Hide buttons while typing
-        StartCoroutine(TypeSentence(node.sentence));
+        choicesContainer.SetActive(false);
+
+        currentFormattedSentence = node.sentence;
+
+        // CHANGED: Now we make sure 'isMission' is true before generating mission text!
+        if (node.isMission && node.missionDetails != null)
+        {
+            currentFormattedSentence = GenerateMissionText(node.missionDetails);
+        }
+
+        StartCoroutine(TypeSentence(currentFormattedSentence));
     }
 
     public void DisplayNextSentence()
     {
-        // Don't allow skipping if we are waiting for a button click!
         if (isWaitingForChoice) return;
 
         DialogueNode node = currentNodes[currentNodeIndex];
 
-        // 1. If currently typing, press E to instantly finish text
         if (isTyping)
         {
             StopAllCoroutines();
-            dialogueText.text = node.sentence;
+
+            dialogueText.text = currentFormattedSentence;
+
+            // NEW: Instantly reveal all characters when the player skips!
+            dialogueText.maxVisibleCharacters = 99999;
+
             isTyping = false;
 
-            // If this node has choices, show them now that typing finished!
             if (node.choices.Length > 0) ShowChoices();
             return;
         }
 
-        // 2. If it's a normal node with no choices, go to the next index
         if (node.choices.Length == 0)
         {
-            if (node.nextNodeIndex == -1)
-            {
-                EndDialogue();
-            }
-            else
-            {
-                DisplayNode(node.nextNodeIndex);
-            }
+            if (node.nextNodeIndex == -1) EndDialogue();
+            else DisplayNode(node.nextNodeIndex);
         }
     }
 
     private IEnumerator TypeSentence(string sentence)
     {
         isTyping = true;
-        dialogueText.text = "";
 
-        foreach (char letter in sentence.ToCharArray())
+        // 1. Give TMP the full text immediately so it parses the <color> and <b> tags!
+        dialogueText.text = sentence;
+
+        // 2. Hide all the text initially
+        dialogueText.maxVisibleCharacters = 0;
+
+        // Force TMP to update its mesh so we can count the actual visible characters (ignoring tags)
+        dialogueText.ForceMeshUpdate();
+        int totalVisibleCharacters = dialogueText.textInfo.characterCount;
+        int currentVisibleCharacters = 0;
+
+        // 3. Slowly reveal the text
+        while (currentVisibleCharacters < totalVisibleCharacters)
         {
-            dialogueText.text += letter;
+            currentVisibleCharacters++;
+            dialogueText.maxVisibleCharacters = currentVisibleCharacters;
+
             yield return new WaitForSeconds(typingSpeed);
         }
 
@@ -131,39 +152,65 @@ public class DialogueManager : MonoBehaviour
         isWaitingForChoice = true;
         choicesContainer.SetActive(true);
 
+        // NEW: Destroy old buttons left over from previous choices
+        foreach (Transform child in choicesContainer.transform)
+        {
+            Destroy(child.gameObject);
+        }
+
         DialogueNode node = currentNodes[currentNodeIndex];
 
-        // Loop through our UI buttons and assign the choice data
-        for (int i = 0; i < choiceButtons.Length; i++)
+        // NEW: Loop through the exact number of choices and spawn a button for each
+        for (int i = 0; i < node.choices.Length; i++)
         {
-            if (i < node.choices.Length)
+            // Spawn the button prefab as a child of the choices container
+            GameObject buttonObj = Instantiate(choiceButtonPrefab, choicesContainer.transform);
+
+            // Get the Button and Text components from the spawned object
+            Button buttonComp = buttonObj.GetComponent<Button>();
+            TextMeshProUGUI textComp = buttonObj.GetComponentInChildren<TextMeshProUGUI>();
+
+            // Set the text
+            if (textComp != null)
             {
-                // We have a choice for this button
-                choiceButtons[i].gameObject.SetActive(true);
-                choiceTexts[i].text = node.choices[i].choiceText;
-
-                int targetIndex = node.choices[i].nextNodeIndex;
-
-                // NEW: Capture the event for this specific choice
-                UnityEngine.Events.UnityEvent onSelectEvent = node.choices[i].onChoiceSelected;
-
-                // Remove old clicks and add the new jump destination & event trigger
-                choiceButtons[i].onClick.RemoveAllListeners();
-                choiceButtons[i].onClick.AddListener(() =>
-                {
-                    // Fire the custom event if one was assigned!
-                    onSelectEvent?.Invoke();
-
-                    // Move to the next node (or end conversation)
-                    MakeChoice(targetIndex);
-                });
+                textComp.text = node.choices[i].choiceText;
             }
-            else
+
+            int targetIndex = node.choices[i].nextNodeIndex;
+            UnityEngine.Events.UnityEvent onSelectEvent = node.choices[i].onChoiceSelected;
+
+            // Add the listener to the newly spawned button
+            buttonComp.onClick.AddListener(() =>
             {
-                // Hide extra buttons we don't need
-                choiceButtons[i].gameObject.SetActive(false);
-            }
+                // Fire the custom event if one was assigned!
+                onSelectEvent?.Invoke();
+
+                // Move to the next node (or end conversation)
+                MakeChoice(targetIndex);
+            });
         }
+    }
+    private string GenerateMissionText(MissionSO mission)
+    {
+        // 1. Mission Name & Description
+        string text = $"<b><color=#FFD700>Mission: {mission.missionName}</color></b>\n";
+        text += $"{mission.description}\n";
+
+        // 2. Objectives List
+        text += "<b><color=#FF8C00>Objectives:</color></b>\n";
+        foreach (var obj in mission.objectives)
+        {
+            text += $"- {obj.missionType.ToString()} {obj.GetTargetID()} x{obj.targetAmount}\n";
+        }
+
+        // 3. Rewards List
+        text += "<b><color=#00FF7F>Rewards:</color></b>\n";
+        if (mission.goldReward > 0) text += $"- {mission.goldReward} Gold\n";
+
+        // Uncomment below if you added the ItemReward fields to MissionSO!
+        // if (mission.itemReward != null) text += $"- {mission.itemReward.name} x{mission.itemRewardAmount}\n";
+
+        return text;
     }
     public void MakeChoice(int targetNodeIndex)
     {
@@ -188,7 +235,10 @@ public class DialogueManager : MonoBehaviour
 
         Debug.Log("End of conversation.");
 
-        // NEW: Find the player and tell them to exit the InteractState!
+        // NEW: Fire the end event before clearing it!
+        currentDialogueEndEvent?.Invoke();
+        currentDialogueEndEvent = null;
+
         PlayerStateManager player = Object.FindFirstObjectByType<PlayerStateManager>();
         if (player != null)
         {

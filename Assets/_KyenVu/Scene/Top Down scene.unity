@@ -168,10 +168,7 @@ MonoBehaviour:
   dialogueText: {fileID: 1716974596}
   portraitImage: {fileID: 940250526}
   choicesContainer: {fileID: 1970447198}
-  choiceButtons:
-  - {fileID: 1175459304}
-  choiceTexts:
-  - {fileID: 1516326326}
+  choiceButtonPrefab: {fileID: 781608486794495559, guid: 25489c370f65c9c45a20009f6f622f8f, type: 3}
   typingSpeed: 0.02
 --- !u!1 &34654713
 GameObject:
@@ -880,7 +877,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &301857971
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -942,7 +939,7 @@ Canvas:
   m_AdditionalShaderChannelsFlag: 25
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: -846496367
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_TargetDisplay: 0
 --- !u!224 &301857974
 RectTransform:
@@ -1600,47 +1597,159 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   npcName: Fish shop owner
   npcPortrait: {fileID: 1189642416080252567, guid: c13ec87e9a5cc0640957ebd90f064d35, type: 3}
-  dialogueNodes:
-  - sentence: Hi welcome to my fish shop, what do you want
-    choices:
-    - choiceText: I want to sell fish
-      nextNodeIndex: -1
-      onChoiceSelected:
-        m_PersistentCalls:
-          m_Calls:
-          - m_Target: {fileID: 1345374056}
-            m_TargetAssemblyTypeName: ShopManager, Assembly-CSharp
-            m_MethodName: OpenFishShop
-            m_Mode: 1
-            m_Arguments:
-              m_ObjectArgument: {fileID: 0}
-              m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-              m_IntArgument: 0
-              m_FloatArgument: 0
-              m_StringArgument: 
-              m_BoolArgument: 0
-            m_CallState: 2
-    - choiceText: Mission
-      nextNodeIndex: 2
-      onChoiceSelected:
-        m_PersistentCalls:
-          m_Calls:
-          - m_Target: {fileID: 21192305}
-            m_TargetAssemblyTypeName: DialogueManager, Assembly-CSharp
-            m_MethodName: DisplayNextSentence
-            m_Mode: 1
-            m_Arguments:
-              m_ObjectArgument: {fileID: 0}
-              m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-              m_IntArgument: 0
-              m_FloatArgument: 0
-              m_StringArgument: 
-              m_BoolArgument: 0
-            m_CallState: 2
-    nextNodeIndex: 0
-  - sentence: Here's the mission
-    choices: []
-    nextNodeIndex: -1
+  dialogueSets:
+  - note: First Encounter
+    requiredEncounterLevel: 0
+    dialogueNodes:
+    - sentence: Hi, welcome to my lovely fish shop. How can I help you ?
+      isMission: 0
+      missionDetails: {fileID: 0}
+      choices:
+      - choiceText: I want to sell fiss
+        nextNodeIndex: -1
+        onChoiceSelected:
+          m_PersistentCalls:
+            m_Calls:
+            - m_Target: {fileID: 1345374056}
+              m_TargetAssemblyTypeName: ShopManager, Assembly-CSharp
+              m_MethodName: OpenFishShop
+              m_Mode: 1
+              m_Arguments:
+                m_ObjectArgument: {fileID: 0}
+                m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+                m_IntArgument: 0
+                m_FloatArgument: 0
+                m_StringArgument: 
+                m_BoolArgument: 0
+              m_CallState: 2
+            - m_Target: {fileID: 895863892}
+              m_TargetAssemblyTypeName: MissionManager, Assembly-CSharp
+              m_MethodName: IncreaseEncounter
+              m_Mode: 5
+              m_Arguments:
+                m_ObjectArgument: {fileID: 0}
+                m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+                m_IntArgument: 0
+                m_FloatArgument: 0
+                m_StringArgument: Fish shop owner
+                m_BoolArgument: 0
+              m_CallState: 2
+      - choiceText: How can I fish ?
+        nextNodeIndex: 1
+        onChoiceSelected:
+          m_PersistentCalls:
+            m_Calls: []
+      nextNodeIndex: 0
+    - sentence: First you need to buy a fishing rod
+      isMission: 0
+      missionDetails: {fileID: 0}
+      choices:
+      - choiceText: Buy fishing rod
+        nextNodeIndex: 2
+        onChoiceSelected:
+          m_PersistentCalls:
+            m_Calls: []
+      nextNodeIndex: 0
+    - sentence: 'First mission: Buy wooden fishing rod'
+      isMission: 0
+      missionDetails: {fileID: 0}
+      choices:
+      - choiceText: Accept mission
+        nextNodeIndex: -1
+        onChoiceSelected:
+          m_PersistentCalls:
+            m_Calls:
+            - m_Target: {fileID: 895863892}
+              m_TargetAssemblyTypeName: MissionManager, Assembly-CSharp
+              m_MethodName: StartMission
+              m_Mode: 2
+              m_Arguments:
+                m_ObjectArgument: {fileID: 11400000, guid: e632e629250c5064e8402583090354ef, type: 2}
+                m_ObjectArgumentAssemblyTypeName: MissionSO, Assembly-CSharp
+                m_IntArgument: 0
+                m_FloatArgument: 0
+                m_StringArgument: 
+                m_BoolArgument: 0
+              m_CallState: 2
+      - choiceText: Nah, I'm good
+        nextNodeIndex: 0
+        onChoiceSelected:
+          m_PersistentCalls:
+            m_Calls: []
+      nextNodeIndex: 0
+    onDialogueEnd:
+      m_PersistentCalls:
+        m_Calls: []
+  - note: Second Encounter
+    requiredEncounterLevel: 1
+    dialogueNodes:
+    - sentence: Welcome back, how's you doin
+      isMission: 0
+      missionDetails: {fileID: 0}
+      choices:
+      - choiceText: I want to sell fiss
+        nextNodeIndex: -1
+        onChoiceSelected:
+          m_PersistentCalls:
+            m_Calls:
+            - m_Target: {fileID: 1345374056}
+              m_TargetAssemblyTypeName: ShopManager, Assembly-CSharp
+              m_MethodName: OpenFishShop
+              m_Mode: 1
+              m_Arguments:
+                m_ObjectArgument: {fileID: 0}
+                m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+                m_IntArgument: 0
+                m_FloatArgument: 0
+                m_StringArgument: 
+                m_BoolArgument: 0
+              m_CallState: 2
+      - choiceText: How can I fish ?
+        nextNodeIndex: 1
+        onChoiceSelected:
+          m_PersistentCalls:
+            m_Calls: []
+      nextNodeIndex: 0
+    - sentence: First you need to buy a fishing rod
+      isMission: 0
+      missionDetails: {fileID: 0}
+      choices:
+      - choiceText: Buy fishing rod
+        nextNodeIndex: 2
+        onChoiceSelected:
+          m_PersistentCalls:
+            m_Calls: []
+      nextNodeIndex: 0
+    - sentence: 'First mission: Buy wooden fishing rod'
+      isMission: 0
+      missionDetails: {fileID: 0}
+      choices:
+      - choiceText: Accept mission
+        nextNodeIndex: -1
+        onChoiceSelected:
+          m_PersistentCalls:
+            m_Calls:
+            - m_Target: {fileID: 895863892}
+              m_TargetAssemblyTypeName: MissionManager, Assembly-CSharp
+              m_MethodName: StartMission
+              m_Mode: 2
+              m_Arguments:
+                m_ObjectArgument: {fileID: 11400000, guid: e632e629250c5064e8402583090354ef, type: 2}
+                m_ObjectArgumentAssemblyTypeName: MissionSO, Assembly-CSharp
+                m_IntArgument: 0
+                m_FloatArgument: 0
+                m_StringArgument: 
+                m_BoolArgument: 0
+              m_CallState: 2
+      - choiceText: Nah, I'm good
+        nextNodeIndex: 0
+        onChoiceSelected:
+          m_PersistentCalls:
+            m_Calls: []
+      nextNodeIndex: 0
+    onDialogueEnd:
+      m_PersistentCalls:
+        m_Calls: []
 --- !u!1 &520120337
 GameObject:
   m_ObjectHideFlags: 0
@@ -1677,7 +1786,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 0}
-  m_AnchoredPosition: {x: 7.18, y: 219.28998}
+  m_AnchoredPosition: {x: 7.18, y: 219.28992}
   m_SizeDelta: {x: 770.69, y: 113.66}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &520120339
@@ -1735,7 +1844,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &562501515
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1985,50 +2094,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   npcName: Tavern Owner
   npcPortrait: {fileID: -6538402314087054748, guid: f44d8c18792866f4a954aaf03c05cef0, type: 3}
-  dialogueNodes:
-  - sentence: Hi welcome to my fish shop, what do you want
-    choices:
-    - choiceText: I want to sell fish
-      nextNodeIndex: -1
-      onChoiceSelected:
-        m_PersistentCalls:
-          m_Calls:
-          - m_Target: {fileID: 1345374056}
-            m_TargetAssemblyTypeName: ShopManager, Assembly-CSharp
-            m_MethodName: OpenTavern
-            m_Mode: 1
-            m_Arguments:
-              m_ObjectArgument: {fileID: 0}
-              m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-              m_IntArgument: 0
-              m_FloatArgument: 0
-              m_StringArgument: 
-              m_BoolArgument: 0
-            m_CallState: 2
-    - choiceText: Mission
-      nextNodeIndex: 2
-      onChoiceSelected:
-        m_PersistentCalls:
-          m_Calls:
-          - m_Target: {fileID: 21192305}
-            m_TargetAssemblyTypeName: DialogueManager, Assembly-CSharp
-            m_MethodName: DisplayNextSentence
-            m_Mode: 1
-            m_Arguments:
-              m_ObjectArgument: {fileID: 0}
-              m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-              m_IntArgument: 0
-              m_FloatArgument: 0
-              m_StringArgument: 
-              m_BoolArgument: 0
-            m_CallState: 2
-    nextNodeIndex: 0
-  - sentence: Here's the vodka
-    choices: []
-    nextNodeIndex: -1
-  - sentence: Here's the mission
-    choices: []
-    nextNodeIndex: -1
+  dialogueSets: []
 --- !u!1 &624034007
 GameObject:
   m_ObjectHideFlags: 0
@@ -2299,9 +2365,9 @@ RectTransform:
   - {fileID: 855777711}
   m_Father: {fileID: 1782454388}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 282.79, y: -50}
   m_SizeDelta: {x: 565.58, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &683344492
@@ -3236,6 +3302,51 @@ PrefabInstance:
       addedObject: {fileID: 718352558}
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e31b9ec64bbc2bf43a3a60740eca2487, type: 3}
+--- !u!1 &895863890
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 895863891}
+  - component: {fileID: 895863892}
+  m_Layer: 0
+  m_Name: Mission Manager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &895863891
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 895863890}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1955255851}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &895863892
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 895863890}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bb1b535c6529cbe44aeec96b8398e1e2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  activeMissions: []
 --- !u!1 &896465247
 GameObject:
   m_ObjectHideFlags: 0
@@ -3906,139 +4017,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1161958419}
   m_CullTransparentMesh: 1
---- !u!1 &1175459302
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1175459303}
-  - component: {fileID: 1175459306}
-  - component: {fileID: 1175459305}
-  - component: {fileID: 1175459304}
-  m_Layer: 5
-  m_Name: Button
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!224 &1175459303
-RectTransform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1175459302}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 1516326325}
-  m_Father: {fileID: 1970447199}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 513, y: 46}
-  m_SizeDelta: {x: 200, y: 50}
-  m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &1175459304
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1175459302}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Navigation:
-    m_Mode: 3
-    m_WrapAround: 0
-    m_SelectOnUp: {fileID: 0}
-    m_SelectOnDown: {fileID: 0}
-    m_SelectOnLeft: {fileID: 0}
-    m_SelectOnRight: {fileID: 0}
-  m_Transition: 1
-  m_Colors:
-    m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
-    m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
-    m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
-    m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
-    m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
-    m_ColorMultiplier: 1
-    m_FadeDuration: 0.1
-  m_SpriteState:
-    m_HighlightedSprite: {fileID: 0}
-    m_PressedSprite: {fileID: 0}
-    m_SelectedSprite: {fileID: 0}
-    m_DisabledSprite: {fileID: 0}
-  m_AnimationTriggers:
-    m_NormalTrigger: Normal
-    m_HighlightedTrigger: Highlighted
-    m_PressedTrigger: Pressed
-    m_SelectedTrigger: Selected
-    m_DisabledTrigger: Disabled
-  m_Interactable: 1
-  m_TargetGraphic: {fileID: 1175459305}
-  m_OnClick:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: 
-        m_MethodName: 
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: 
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
---- !u!114 &1175459305
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1175459302}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
-  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
-  m_Maskable: 1
-  m_OnCullStateChanged:
-    m_PersistentCalls:
-      m_Calls: []
-  m_Sprite: {fileID: 8967021286587414309, guid: 764b9d7429f0a0648b6615fc0da05d0b, type: 3}
-  m_Type: 1
-  m_PreserveAspect: 0
-  m_FillCenter: 1
-  m_FillMethod: 4
-  m_FillAmount: 1
-  m_FillClockwise: 1
-  m_FillOrigin: 0
-  m_UseSpriteMesh: 0
-  m_PixelsPerUnitMultiplier: 1
---- !u!222 &1175459306
-CanvasRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1175459302}
-  m_CullTransparentMesh: 1
 --- !u!1 &1197186851
 GameObject:
   m_ObjectHideFlags: 0
@@ -4072,9 +4050,9 @@ RectTransform:
   - {fileID: 1720173265}
   m_Father: {fileID: 1782454388}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 282.79, y: -270}
   m_SizeDelta: {x: 565.58, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1197186853
@@ -4150,7 +4128,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 228.08002, y: -161.47}
+  m_AnchoredPosition: {x: 228.08008, y: -161.46997}
   m_SizeDelta: {x: 80, y: 80}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &1222124834
@@ -37811,142 +37789,6 @@ Tilemap:
     e31: 0
     e32: 0
     e33: 1
---- !u!1 &1516326324
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1516326325}
-  - component: {fileID: 1516326327}
-  - component: {fileID: 1516326326}
-  m_Layer: 5
-  m_Name: Text (TMP)
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!224 &1516326325
-RectTransform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1516326324}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 1175459303}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
-  m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &1516326326
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1516326324}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
-  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
-  m_Maskable: 1
-  m_OnCullStateChanged:
-    m_PersistentCalls:
-      m_Calls: []
-  m_text: Button
-  m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8db2455f50bb4fe40be0a92165b8d21d, type: 2}
-  m_sharedMaterial: {fileID: -532953460481378604, guid: 8db2455f50bb4fe40be0a92165b8d21d, type: 2}
-  m_fontSharedMaterials: []
-  m_fontMaterial: {fileID: 0}
-  m_fontMaterials: []
-  m_fontColor32:
-    serializedVersion: 2
-    rgba: 4294967295
-  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
-  m_enableVertexGradient: 0
-  m_colorMode: 3
-  m_fontColorGradient:
-    topLeft: {r: 1, g: 1, b: 1, a: 1}
-    topRight: {r: 1, g: 1, b: 1, a: 1}
-    bottomLeft: {r: 1, g: 1, b: 1, a: 1}
-    bottomRight: {r: 1, g: 1, b: 1, a: 1}
-  m_fontColorGradientPreset: {fileID: 0}
-  m_spriteAsset: {fileID: 0}
-  m_tintAllSprites: 0
-  m_StyleSheet: {fileID: 0}
-  m_TextStyleHashCode: -1183493901
-  m_overrideHtmlColors: 0
-  m_faceColor:
-    serializedVersion: 2
-    rgba: 4294967295
-  m_fontSize: 24
-  m_fontSizeBase: 24
-  m_fontWeight: 400
-  m_enableAutoSizing: 0
-  m_fontSizeMin: 18
-  m_fontSizeMax: 72
-  m_fontStyle: 0
-  m_HorizontalAlignment: 2
-  m_VerticalAlignment: 512
-  m_textAlignment: 65535
-  m_characterSpacing: 0
-  m_wordSpacing: 0
-  m_lineSpacing: 0
-  m_lineSpacingMax: 0
-  m_paragraphSpacing: 0
-  m_charWidthMaxAdj: 0
-  m_TextWrappingMode: 1
-  m_wordWrappingRatios: 0.4
-  m_overflowMode: 0
-  m_linkedTextComponent: {fileID: 0}
-  parentLinkedComponent: {fileID: 0}
-  m_enableKerning: 0
-  m_ActiveFontFeatures: 6e72656b
-  m_enableExtraPadding: 0
-  checkPaddingRequired: 0
-  m_isRichText: 1
-  m_EmojiFallbackSupport: 1
-  m_parseCtrlCharacters: 1
-  m_isOrthographic: 1
-  m_isCullingEnabled: 0
-  m_horizontalMapping: 0
-  m_verticalMapping: 0
-  m_uvLineOffset: 0
-  m_geometrySortingOrder: 0
-  m_IsTextObjectScaleStatic: 0
-  m_VertexBufferAutoSizeReduction: 0
-  m_useMaxVisibleDescender: 1
-  m_pageToDisplay: 1
-  m_margin: {x: 0, y: 0, z: 0, w: 0}
-  m_isUsingLegacyAnimationComponent: 0
-  m_isVolumetricText: 0
-  m_hasFontAssetChanged: 0
-  m_baseMaterial: {fileID: 0}
-  m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
---- !u!222 &1516326327
-CanvasRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1516326324}
-  m_CullTransparentMesh: 1
 --- !u!1 &1549581853
 GameObject:
   m_ObjectHideFlags: 0
@@ -38273,50 +38115,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   npcName: Upgrade Stall Owner
   npcPortrait: {fileID: 3960905257129193107, guid: 4015029925ff4a941afafb8f32cd340b, type: 3}
-  dialogueNodes:
-  - sentence: Hi welcome to my fish shop, what do you want
-    choices:
-    - choiceText: I want to sell fish
-      nextNodeIndex: -1
-      onChoiceSelected:
-        m_PersistentCalls:
-          m_Calls:
-          - m_Target: {fileID: 1345374056}
-            m_TargetAssemblyTypeName: ShopManager, Assembly-CSharp
-            m_MethodName: OpenUpgradeStall
-            m_Mode: 1
-            m_Arguments:
-              m_ObjectArgument: {fileID: 0}
-              m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-              m_IntArgument: 0
-              m_FloatArgument: 0
-              m_StringArgument: 
-              m_BoolArgument: 0
-            m_CallState: 2
-    - choiceText: Mission
-      nextNodeIndex: 2
-      onChoiceSelected:
-        m_PersistentCalls:
-          m_Calls:
-          - m_Target: {fileID: 21192305}
-            m_TargetAssemblyTypeName: DialogueManager, Assembly-CSharp
-            m_MethodName: DisplayNextSentence
-            m_Mode: 1
-            m_Arguments:
-              m_ObjectArgument: {fileID: 0}
-              m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-              m_IntArgument: 0
-              m_FloatArgument: 0
-              m_StringArgument: 
-              m_BoolArgument: 0
-            m_CallState: 2
-    nextNodeIndex: 0
-  - sentence: Here's the vodka
-    choices: []
-    nextNodeIndex: -1
-  - sentence: Here's the mission
-    choices: []
-    nextNodeIndex: -1
+  dialogueSets: []
 --- !u!1 &1716974594
 GameObject:
   m_ObjectHideFlags: 0
@@ -38351,8 +38150,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0.000061035156, y: 75.98001}
-  m_SizeDelta: {x: -320.01, y: -151.96}
+  m_AnchoredPosition: {x: 0.000061035156, y: 55.949997}
+  m_SizeDelta: {x: -320.01, y: -111.89}
   m_Pivot: {x: 0, y: 0.5}
 --- !u!114 &1716974596
 MonoBehaviour:
@@ -38401,10 +38200,10 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 50
+  m_fontSize: 72
   m_fontSizeBase: 50
   m_fontWeight: 400
-  m_enableAutoSizing: 0
+  m_enableAutoSizing: 1
   m_fontSizeMin: 18
   m_fontSizeMax: 72
   m_fontStyle: 0
@@ -38757,7 +38556,7 @@ Transform:
   m_GameObject: {fileID: 1772100196}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.38664448, y: -7.20148, z: 0}
+  m_LocalPosition: {x: -0.35183978, y: -7.20155, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -39036,9 +38835,9 @@ RectTransform:
   - {fileID: 1233217751}
   m_Father: {fileID: 1782454388}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 282.79, y: -160}
   m_SizeDelta: {x: 565.58, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1800138583
@@ -39112,9 +38911,9 @@ RectTransform:
   - {fileID: 159641872}
   m_Father: {fileID: 1782454388}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 282.79, y: -490}
   m_SizeDelta: {x: 565.58, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1809400993
@@ -39271,9 +39070,9 @@ RectTransform:
   - {fileID: 1120506790}
   m_Father: {fileID: 1782454388}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 282.79, y: -380}
   m_SizeDelta: {x: 565.58, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1880772183
@@ -39466,6 +39265,7 @@ Transform:
   - {fileID: 21192304}
   - {fileID: 1345374057}
   - {fileID: 1939268569}
+  - {fileID: 895863891}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1970447198
@@ -39479,6 +39279,7 @@ GameObject:
   - component: {fileID: 1970447199}
   - component: {fileID: 1970447201}
   - component: {fileID: 1970447200}
+  - component: {fileID: 1970447202}
   m_Layer: 5
   m_Name: Panel
   m_TagString: Untagged
@@ -39497,14 +39298,13 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 1175459303}
+  m_Children: []
   m_Father: {fileID: 1751041712}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -160, y: -68.520035}
-  m_SizeDelta: {x: -320.01, y: -137.04}
+  m_AnchoredPosition: {x: -160, y: -88.553}
+  m_SizeDelta: {x: -320.01, y: -177.1}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1970447200
 MonoBehaviour:
@@ -39544,6 +39344,32 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1970447198}
   m_CullTransparentMesh: 1
+--- !u!114 &1970447202
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1970447198}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 30649d3a9faa99c48a7b1166b86bf2a0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Padding:
+    m_Left: 0
+    m_Right: 0
+    m_Top: 0
+    m_Bottom: 0
+  m_ChildAlignment: 4
+  m_Spacing: 0
+  m_ChildForceExpandWidth: 1
+  m_ChildForceExpandHeight: 1
+  m_ChildControlWidth: 0
+  m_ChildControlHeight: 0
+  m_ChildScaleWidth: 0
+  m_ChildScaleHeight: 0
+  m_ReverseArrangement: 0
 --- !u!1 &1975768971
 GameObject:
   m_ObjectHideFlags: 0
@@ -42396,7 +42222,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &2016765485
 MonoBehaviour:
   m_ObjectHideFlags: 0
