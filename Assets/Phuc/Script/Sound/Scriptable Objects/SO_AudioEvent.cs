@@ -11,7 +11,8 @@ namespace Phuc.SoundSystem
         Boat,
         Rod_casted,
         Player,
-        Village_running
+        Village_running,
+        EXPERIMENTAL
         //Add more SFX type if needed
     }
     public enum BgmSoundType
