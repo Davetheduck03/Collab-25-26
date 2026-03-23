@@ -4,6 +4,7 @@ using UnityEngine;
 public class PlaySoundButton : MonoBehaviour
 {
     private int playingBGM = 0;
+    private int playingSFX = 0;
     [SerializeField] private SoundManager _soundManager;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -18,7 +19,7 @@ public class PlaySoundButton : MonoBehaviour
     }
 
     //Other script can call this method with a parameter 
-    public void OnChangingBGM(BgmSoundType name)
+    public void OnChangingBGM()
     {
         // if (playingBGM == 0)
         // {
@@ -62,20 +63,42 @@ public class PlaySoundButton : MonoBehaviour
                 playingBGM++;
                 break;
             case 2:
-                SoundManager.PlayBGM(BgmSoundType.Reel_em_in);
+                SoundManager.PlayBGM(BgmSoundType.Marketplace_demo3);
                 playingBGM = 0;
                 break;
         }
     }
 
-    public void TestPlaySFXButton(SfxSoundType type)
+    public void TestPlaySFXButton()
     {
-        SoundManager.PlaySfx(type);
+        // switch (playingBGM)
+        // {
+        //     case 0:
+        //         // CAN BE CALLED FROM ANY SCRIPTS
+        //         SoundManager.PlaySfx(SfxSoundType.Boat);
+        //         // ---------------------------------
+        //         playingSFX++;
+        //         break;
+        //     case 1:
+        //         SoundManager.PlaySfx(SfxSoundType.Village_running);
+        //         playingSFX++;
+        //         break;
+        //     case 2:
+        //         SoundManager.PlaySfx(SfxSoundType.Rod_casted);
+        //         playingSFX = 0;
+        //         break;
+        // }
+        SoundManager.PlaySfx(SfxSoundType.EXPERIMENTAL);
     }
     // If you want to stop playing 
     public void OnStoppingBGM()
     {
         SoundManager.StopBgmMusic();
+    }
+
+    public void OnStoppingSfx()
+    {
+        SoundManager.StopSfx();
     }
     // public void PlaySFX(AudioClip clip)
     // {
