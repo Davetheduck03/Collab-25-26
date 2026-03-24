@@ -14,8 +14,8 @@ public class MissionPanelUI : MonoBehaviour
     // Animation settings
     [Header("Panel Animation")]
     [SerializeField] private float _animationDuration = 0.35f;
-    [SerializeField] private Ease _openEase = Ease.OutBack;   // bouncy pop-in
-    [SerializeField] private Ease _closeEase = Ease.InBack;   // nice shrink
+    [SerializeField] private Ease _openEase = Ease.OutBack;
+    [SerializeField] private Ease _closeEase = Ease.InBack;
 
     private CanvasGroup _canvasGroup;
     private Vector3 _originalScale;
@@ -29,27 +29,20 @@ public class MissionPanelUI : MonoBehaviour
 
         _originalScale = transform.localScale;
 
-        // Start closed
+        // CHANGED: We removed SetActive(false) so the script stays awake to listen for the 'M' key!
         _canvasGroup.alpha = 0f;
-        transform.localScale = _originalScale * 0.7f; // slightly smaller when closed
-        gameObject.SetActive(false);
+        _canvasGroup.blocksRaycasts = false;
+        _canvasGroup.interactable = false;
+        transform.localScale = _originalScale * 0.7f;
     }
 
-    // Call this to open the panel (e.g. from a button or Input.GetKeyDown(KeyCode.M))
     public void OpenPanel()
     {
         if (_isOpen) return;
-
-        gameObject.SetActive(true);
         _isOpen = true;
 
-        // Kill any existing tweens on this panel
         transform.DOKill();
         _canvasGroup.DOKill();
-
-        // Pop-in animation
-        _canvasGroup.alpha = 0f;
-        transform.localScale = _originalScale * 0.7f;
 
         Sequence openSeq = DOTween.Sequence();
         openSeq.Append(transform.DOScale(_originalScale, _animationDuration).SetEase(_openEase));
@@ -59,14 +52,18 @@ public class MissionPanelUI : MonoBehaviour
             _canvasGroup.blocksRaycasts = true;
             _canvasGroup.interactable = true;
         });
+
+        // Force a refresh the exact moment it opens
+        SyncRows();
+        RefreshAllRows();
+        UpdateEmptyState();
     }
 
-    // Call this to close the panel
     public void ClosePanel()
     {
         if (!_isOpen) return;
-
         _isOpen = false;
+
         _canvasGroup.blocksRaycasts = false;
         _canvasGroup.interactable = false;
 
@@ -76,17 +73,13 @@ public class MissionPanelUI : MonoBehaviour
         Sequence closeSeq = DOTween.Sequence();
         closeSeq.Append(transform.DOScale(_originalScale * 0.7f, _animationDuration).SetEase(_closeEase));
         closeSeq.Join(_canvasGroup.DOFade(0f, _animationDuration));
-        closeSeq.OnComplete(() =>
-        {
-            gameObject.SetActive(false);
-        });
+        // CHANGED: Removed SetActive(false) here as well!
     }
 
     private void Update()
     {
         if (MissionManager.Instance == null) return;
 
-        // Simple keyboard toggle with M key
         if (Input.GetKeyDown(KeyCode.M))
         {
             if (_isOpen)
@@ -95,9 +88,13 @@ public class MissionPanelUI : MonoBehaviour
                 OpenPanel();
         }
 
-        SyncRows();
-        RefreshAllRows();
-        UpdateEmptyState();
+        // CHANGED: Only recalculate the UI lists if the panel is currently visible to save performance
+        if (_isOpen)
+        {
+            SyncRows();
+            RefreshAllRows();
+            UpdateEmptyState();
+        }
     }
 
     private void SyncRows()
