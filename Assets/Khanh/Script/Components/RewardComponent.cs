@@ -17,7 +17,14 @@ public class RewardComponent : UnitComponent
 
     public void GrantRewards()
     {
-
+        if (ExperienceManager.Instance != null)
+        {
+            ExperienceManager.Instance.AddExperience(expReward);
+        }
+        else
+        {
+            Debug.LogWarning("[RewardComponent] ExperienceManager not found — EXP not granted.");
+        }
     }
 
 }

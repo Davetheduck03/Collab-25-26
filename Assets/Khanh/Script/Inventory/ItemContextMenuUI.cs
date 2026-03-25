@@ -158,6 +158,13 @@ public class ItemContextMenuUI : MonoBehaviour
         Debug.Log($"Sold {currentItem.data.displayName} for {sellPrice}g");
 
         inventory.RemoveItem(currentItem);
+
+        // Add gold to the player's wallet — this also triggers QuotaManager via OnCurrencyAdded
+        if (CurrencyManager.Instance != null)
+            CurrencyManager.Instance.AddCurrency(sellPrice);
+        else
+            Debug.LogWarning("[ItemContextMenuUI] CurrencyManager.Instance is null — gold not added!");
+
         OnItemSold?.Invoke(currentItem, sellPrice);
         Hide();
     }

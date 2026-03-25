@@ -10,6 +10,9 @@ public class PlayerCurrencyData
 }
 public class CurrencyManager : GameSingleton<CurrencyManager>
 {
+    /// <summary>Fires whenever gold is successfully added. Used by QuotaManager to track run earnings.</summary>
+    public static event Action<int> OnCurrencyAdded;
+
     private PlayerCurrencyData playerData;
     private string savePath;
 
@@ -54,6 +57,7 @@ public class CurrencyManager : GameSingleton<CurrencyManager>
             playerData.currency += amount;
             SaveCurrency();  // Save after change
             Debug.Log("Added " + amount + ". New total: " + playerData.currency);
+            OnCurrencyAdded?.Invoke(amount);
         }
     }
 

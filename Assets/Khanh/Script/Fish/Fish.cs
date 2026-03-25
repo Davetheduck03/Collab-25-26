@@ -23,8 +23,12 @@ public class Fish : BaseUnit
     private GameObject currentPrompt;
 
     public static event Action<float> OnFishHealthThresholdReached;
+    public static event Action OnFishDefeatedEvent;
 
     public GameObject m_Boat;
+
+    /// <summary>Set by FishSpawner before Initialize(). Scales HP/damage by zone depth.</summary>
+    [HideInInspector] public float zoneStatScale = 1f;
 
     [Header("Components")]
     [SerializeField] private DamageComponent damageComponent;
@@ -77,6 +81,13 @@ public class Fish : BaseUnit
         {
             comp.Setup(this, unitData);
         }
+
+        // Apply zone stat scaling: Fish Stats = Base * Biome(1) * Zone * 1.1
+        if (zoneStatScale != 1f && healthComponent != null)
+        {
+            healthComponent.currentHealth *= zoneStatScale;
+            Debug.Log($"[Fish] Zone scaled HP → {healthComponent.currentHealth} (scale: {zoneStatScale})");
+        }
     }
 
     private void ApplyScriptableData()
@@ -93,6 +104,13 @@ public class Fish : BaseUnit
         isCaught = true;
         maxHP = healthComponent.currentHealth;
         nextThreshold = maxHP * 0.8f;
+
+        // Face right at the start of combat
+        transform.localScale = new Vector3(
+            Mathf.Abs(transform.localScale.x),
+            transform.localScale.y,
+            transform.localScale.z);
+
         fightCoroutine = StartCoroutine(FightPattern());
     }
 
@@ -133,12 +151,12 @@ public class Fish : BaseUnit
 
         expectingRight = true;
 
-        transform.localScale = new Vector3(-Mathf.Abs(transform.localScale.x), transform.localScale.y, transform.localScale.z);
+        transform.localScale = new Vector3(Mathf.Abs(transform.localScale.x), transform.localScale.y, transform.localScale.z);
 
         if (DamagePopupManager.Instance != null)
         {
             // NEW: Passed in 0.5f to make the letter smaller, and saved it to currentPrompt
-            currentPrompt = DamagePopupManager.Instance.ShowPrompt("E", transform.position, Color.yellow, 2.5f, 0.5f);
+            currentPrompt = DamagePopupManager.Instance.ShowPrompt("E", transform.position, Color.yellow, 0.8f, 0.5f);
         }
 
         Debug.Log("Fish Turn Right! Player must ATTACK RIGHT (E)!");
@@ -150,12 +168,12 @@ public class Fish : BaseUnit
 
         expectingLeft = true;
 
-        transform.localScale = new Vector3(Mathf.Abs(transform.localScale.x), transform.localScale.y, transform.localScale.z);
+        transform.localScale = new Vector3(-Mathf.Abs(transform.localScale.x), transform.localScale.y, transform.localScale.z);
 
         if (DamagePopupManager.Instance != null)
         {
             // NEW: Passed in 0.5f to make the letter smaller, and saved it to currentPrompt
-            currentPrompt = DamagePopupManager.Instance.ShowPrompt("Q", transform.position, Color.cyan, 2.5f, 0.5f);
+            currentPrompt = DamagePopupManager.Instance.ShowPrompt("Q", transform.position, Color.cyan, 0.8f, 0.5f);
         }
 
         Debug.Log("Fish Turn Left! Player must ATTACK LEFT (Q)!");
@@ -263,12 +281,38 @@ public class Fish : BaseUnit
         }
     }
 
+    private bool isDefeated = false;
+
     private void OnFishDefeated()
     {
+        if (isDefeated) return;
+        isDefeated = true;
+
+        // Grant item drop
         if (unitData is EnemySO enemySO && enemySO.itemData != null)
         {
-            // InventoryController.Instance.AddItem(enemySO.itemData, 1, enemySO.GeneratePrice());
+            if (InventoryController.Instance != null)
+                InventoryController.Instance.AddItem(enemySO.itemData, 1, enemySO.GeneratePrice());
+            else
+                Debug.LogWarning("[Fish] InventoryController.Instance is null — item not added.");
         }
+
+        // --- NEW: MISSION SYSTEM PROGRESS ---
+        if (MissionManager.Instance != null && unitData != null)
+        {
+            // This tells the Mission Manager you caught 1 fish of this specific name!
+            MissionManager.Instance.ProgressMission(MissionType.Fish, unitData.UnitName, 1);
+        }
+
+        // Grant EXP via RewardComponent
+        var reward = GetComponent<RewardComponent>();
+        if (reward != null)
+            reward.GrantRewards();
+        else
+            Debug.LogWarning("[Fish] No RewardComponent found — EXP not granted.");
+
+
+        OnFishDefeatedEvent?.Invoke();
     }
 
     private void PlayerPressedLeft(DamageComponent damageComponent)

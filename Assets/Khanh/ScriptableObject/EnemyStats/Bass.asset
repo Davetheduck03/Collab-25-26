@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: Bass
   m_EditorClassIdentifier: 
   UnitName: Bass
-  Icon: {fileID: 21300000, guid: 4c10221b4e1e3fe4392ab2f8b41dc04f, type: 3}
-  inGameSprite: {fileID: 21300000, guid: 4c10221b4e1e3fe4392ab2f8b41dc04f, type: 3}
+  Icon: {fileID: -8720549234139205794, guid: 0342237721db1e94487ca0a33d2cde51, type: 3}
+  inGameSprite: {fileID: -8720549234139205794, guid: 0342237721db1e94487ca0a33d2cde51, type: 3}
   health: 40
   speed: 3
   damage: 1

@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 using System;
+using Phuc.SoundSystem;
 
 public class BoatController : MonoBehaviour
 {
@@ -47,10 +48,8 @@ public class BoatController : MonoBehaviour
 
     private void OnBoatMove(InputValue value)
     {
-        if (canMove)
-            moveInput = value.Get<Vector2>();
+        moveInput = value.Get<Vector2>();
     }
-
     private void OnFish()
     {
         if (!isFishing)
@@ -61,7 +60,9 @@ public class BoatController : MonoBehaviour
             canMove = false;
             rb.linearVelocity = Vector2.zero;
             // Notify others (like CastLineControl) that fishing has started
+            SoundManager.PlaySfx(SfxSoundType.Rod_casted);
             OnFishingStarted?.Invoke();
+            
         }
     }
 

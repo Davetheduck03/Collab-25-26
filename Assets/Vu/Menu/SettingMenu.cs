@@ -156,8 +156,8 @@ public class SettingMenu : MonoBehaviour
 
         iconsContainer.gameObject.SetActive(hasAnyIcon);
 
-        var keyTMP = obj.transform.Find("KeyText")?.GetComponent<TextMeshProUGUI>();
-        var descTMP = obj.transform.Find("DescriptionText")?.GetComponent<TextMeshProUGUI>();
+        var keyTMP = obj.transform.Find("keyText")?.GetComponent<TextMeshProUGUI>();
+        var descTMP = obj.transform.Find("descriptionText")?.GetComponent<TextMeshProUGUI>();
         if (keyTMP) keyTMP.text = keyText;
         if (descTMP) descTMP.text = description;
     }
@@ -188,8 +188,8 @@ public class SettingMenu : MonoBehaviour
 
         iconsContainer.gameObject.SetActive(icon != null);
 
-        TextMeshProUGUI keyTMP = obj.transform.Find("KeyText")?.GetComponent<TextMeshProUGUI>();
-        TextMeshProUGUI descTMP = obj.transform.Find("DescriptionText")?.GetComponent<TextMeshProUGUI>();
+        TextMeshProUGUI keyTMP = obj.transform.Find("keyText")?.GetComponent<TextMeshProUGUI>();
+        TextMeshProUGUI descTMP = obj.transform.Find("descriptionText")?.GetComponent<TextMeshProUGUI>();
 
         if (keyTMP != null)
         {

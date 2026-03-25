@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 using System;
+using Phuc.SoundSystem;
 
 [RequireComponent(typeof(LineRenderer))]
 public class CastLineControl : MonoBehaviour
@@ -15,7 +16,7 @@ public class CastLineControl : MonoBehaviour
     public float naturalSinkRate = 0.5f;
 
     [Header("Auto-Pull Settings")]
-    public float pullSpeed = 4f; // speed when auto pulling
+    public float pullSpeed = 4f;
     public float bobAmount = 0.1f;
     public float bobSpeed = 3f;
 
@@ -30,22 +31,26 @@ public class CastLineControl : MonoBehaviour
     private bool isSinking = false;
     private bool isPulling = false;
 
+    // NEW: Track if the fish is currently dead
+    private bool fishIsDead = false;
+
     private GameObject caughtFish;
 
     private float currentLineLength = 0f;
+
+    public float CurrentDepth => currentLineLength;
     private float currentHorizontalOffset = 0f;
 
     private bool autoReeling = false;
     private float targetPullLength = 0f;
 
-    // Store line length at moment of catch
     private float baseCatchLength = 0f;
 
     [SerializeField] DamageComponent damageComponent;
 
     // Events
     public static event Action OnFishingFinished;
-    public static event Action<GameObject> OnFishCaught; // passes the caught fish so only it responds
+    public static event Action<GameObject> OnFishCaught;
     public static event Action<DamageComponent> OnPlayerAttackLeft;
     public static event Action<DamageComponent> OnPlayerAttackRight;
     public static event Action OnPlayerParry;
@@ -63,12 +68,15 @@ public class CastLineControl : MonoBehaviour
     {
         BoatController.OnFishingStarted += HandleFishingStarted;
         Fish.OnFishHealthThresholdReached += AutoPullTrigger;
+        // NEW: Listen for the fish death
+        Fish.OnFishDefeatedEvent += HandleFishDefeated;
     }
 
     private void OnDisable()
     {
         BoatController.OnFishingStarted -= HandleFishingStarted;
         Fish.OnFishHealthThresholdReached -= AutoPullTrigger;
+        Fish.OnFishDefeatedEvent -= HandleFishDefeated;
     }
 
     private void HandleFishingStarted()
@@ -76,8 +84,14 @@ public class CastLineControl : MonoBehaviour
         isFishing = true;
         isCatching = false;
         autoReeling = false;
+        fishIsDead = false;
         currentLineLength = 0f;
         currentHorizontalOffset = 0f;
+
+        // NEW: Reset all inputs so the hook doesn't get stuck pulling up!
+        isPulling = false;
+        isSinking = false;
+        moveInput = Vector2.zero;
 
         hook.SetActive(true);
         hook.transform.position = lineOrigin.position;
@@ -92,45 +106,57 @@ public class CastLineControl : MonoBehaviour
         UpdateHookPosition();
         UpdateLineRenderer();
 
-        if (isCatching && caughtFish != null && currentLineLength <= 0.05f)
-        {
-            FinishFishing();
-        }
+        // Removed the old buggy FinishFishing() check from here
     }
 
     private void HandleLineMovement()
     {
-        // While fighting disable player sink/pull
+        // While fighting
         if (isCatching)
         {
-            // Bobbing motion
-            float bob = Mathf.Sin(Time.time * bobSpeed) * bobAmount;
-            currentLineLength += bob * Time.deltaTime;
 
-            // Auto reel if needed
+            if (!fishIsDead)
+            {
+                float bob = Mathf.Sin(Time.time * bobSpeed) * bobAmount;
+                currentLineLength += bob * Time.deltaTime;
+            }
+
             if (autoReeling)
             {
                 currentLineLength = Mathf.MoveTowards(currentLineLength, targetPullLength, pullSpeed * Time.deltaTime);
 
                 if (Mathf.Abs(currentLineLength - targetPullLength) < 0.05f)
+                {
                     autoReeling = false;
+
+                    if (fishIsDead)
+                    {
+                        FinishFishing();
+                    }
+                }
             }
 
             currentLineLength = Mathf.Clamp(currentLineLength, 0f, maxLineLength);
             return;
         }
 
-        // Normal fishing movement
+        // Normal fishing movement (seeking fish)
         if (!isCatching)
         {
-            // horizontal movement
             currentHorizontalOffset += moveInput.x * moveSpeed * Time.deltaTime;
             currentHorizontalOffset = Mathf.Clamp(currentHorizontalOffset, -maxHorizontalRange, maxHorizontalRange);
 
-            // vertical movement
             if (isPulling)
             {
                 currentLineLength -= lineSpeed * Time.deltaTime;
+
+               
+                if (currentLineLength <= 0f)
+                {
+                    currentLineLength = 0f;
+                    FinishFishing();
+                    return; // Stop running movement logic for this frame
+                }
             }
             else if (isSinking)
             {
@@ -138,14 +164,13 @@ public class CastLineControl : MonoBehaviour
             }
             else
             {
-                currentLineLength += naturalSinkRate * Time.deltaTime; // natural slow sink
+                currentLineLength += naturalSinkRate * Time.deltaTime;
             }
 
             currentLineLength = Mathf.Clamp(currentLineLength, 0f, maxLineLength);
             return;
         }
     }
-
     private void UpdateHookPosition()
     {
         Vector3 targetPos =
@@ -164,20 +189,17 @@ public class CastLineControl : MonoBehaviour
 
     private void OnMove(InputValue value)
     {
-        if (!isFishing || isCatching) return;
+        
         moveInput = value.Get<Vector2>();
     }
 
     private void OnSink(InputValue value)
     {
-        if (!isFishing || isCatching) return;
         isSinking = value.isPressed;
-
     }
 
     private void OnPull(InputValue value)
     {
-        if (!isFishing || isCatching) return;
         isPulling = value.isPressed;
     }
 
@@ -208,21 +230,28 @@ public class CastLineControl : MonoBehaviour
             isCatching = true;
             caughtFish = collision.gameObject;
             baseCatchLength = currentLineLength;
-
+            SoundManager.PlaySfx(SfxSoundType.Hooked_the_fish);
             caughtFish.transform.SetParent(hook.transform);
 
-            OnFishCaught?.Invoke(caughtFish); // pass which fish was caught
+            OnFishCaught?.Invoke(caughtFish);
         }
     }
 
-    // AUTO-PULL triggered from Fish when HP crosses thresholds
     private void AutoPullTrigger(float hpPercent)
     {
         if (!isCatching) return;
 
-        float percentage = 1f - hpPercent;     // 20%, 40%, 60%, 80%
+        float percentage = 1f - hpPercent;
         targetPullLength = baseCatchLength * (1f - percentage);
 
+        autoReeling = true;
+    }
+
+    // NEW: Method to handle when the fish dies
+    private void HandleFishDefeated()
+    {
+        fishIsDead = true;
+        targetPullLength = 0f; // Force the line to reel all the way to the top
         autoReeling = true;
     }
 
@@ -231,13 +260,21 @@ public class CastLineControl : MonoBehaviour
         isFishing = false;
         isCatching = false;
         autoReeling = false;
+        fishIsDead = false;
 
         hook.SetActive(false);
         lineRenderer.enabled = false;
 
+        // NEW: Unparent and permanently destroy the dead fish
         if (caughtFish != null)
+        {
             caughtFish.transform.SetParent(null);
+            Destroy(caughtFish);
+            caughtFish = null;
+        }
 
+        // This event alerts BoatController to give movement back, 
+        // and CameraManager to return the camera to the boat!
         OnFishingFinished?.Invoke();
     }
 }
