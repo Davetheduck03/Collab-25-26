@@ -114,13 +114,14 @@ public class CastLineControl : MonoBehaviour
         // While fighting
         if (isCatching)
         {
-
+            // NEW: Only bob the line if the fish is still fighting!
             if (!fishIsDead)
             {
                 float bob = Mathf.Sin(Time.time * bobSpeed) * bobAmount;
                 currentLineLength += bob * Time.deltaTime;
             }
 
+            // Auto reel if needed
             if (autoReeling)
             {
                 currentLineLength = Mathf.MoveTowards(currentLineLength, targetPullLength, pullSpeed * Time.deltaTime);
@@ -129,6 +130,7 @@ public class CastLineControl : MonoBehaviour
                 {
                     autoReeling = false;
 
+                    // NEW: If the fish is completely dead and we finished reeling it in, end fishing!
                     if (fishIsDead)
                     {
                         FinishFishing();
@@ -149,14 +151,6 @@ public class CastLineControl : MonoBehaviour
             if (isPulling)
             {
                 currentLineLength -= lineSpeed * Time.deltaTime;
-
-               
-                if (currentLineLength <= 0f)
-                {
-                    currentLineLength = 0f;
-                    FinishFishing();
-                    return; // Stop running movement logic for this frame
-                }
             }
             else if (isSinking)
             {
@@ -171,6 +165,7 @@ public class CastLineControl : MonoBehaviour
             return;
         }
     }
+
     private void UpdateHookPosition()
     {
         Vector3 targetPos =
