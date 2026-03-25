@@ -12,6 +12,7 @@ namespace Phuc.SoundSystem
         Rod_casted,
         Player,
         Village_running,
+        FishShop,
         EXPERIMENTAL
         //Add more SFX type if needed
     }
