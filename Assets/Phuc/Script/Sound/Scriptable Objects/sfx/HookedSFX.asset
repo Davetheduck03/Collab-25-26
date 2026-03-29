@@ -10,8 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4bf9832bb31e07445a4b22ac33b38b72, type: 3}
-  m_Name: Village_running
+  m_Name: HookedSFX
   m_EditorClassIdentifier: 
-  type: 5
   clips:
-  - {fileID: 8300000, guid: 4ca13c633948a224489c4ccc23a67c6e, type: 3}
+  - {fileID: 8300000, guid: 824ff1e6067fd694ebbac09ba8eac06a, type: 3}
+  volume: 1
+  minPitch: 0.9
+  maxPitch: 1.1
+  minDistance: 1
+  maxDistance: 20

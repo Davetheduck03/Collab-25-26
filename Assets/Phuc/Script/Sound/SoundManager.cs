@@ -4,66 +4,31 @@ using System.Collections.Generic;
 using Random = UnityEngine.Random;
 using System.Collections;
 using UnityEngine.Audio;
+using UnityEngine.Pool;
 namespace Phuc.SoundSystem
 {
-    // public enum BgmSoundType
-    // {
-    //     //name matches the name of the file for easier reference
-    //     Forest_FishyWishy,
-    //     Reel_em_in,
-    //     Marketplace_demo3
-    // }
-    // public enum SfxSoundType
-    // {
-    //     Hook,
-    //     Fish,
-    //     Boat,
-    //     Rod,
-    //     Player
-    //     //Add more SFX type if needed
-    // }
-    //stores t he music file in the editor, it could need some adjustments for the SFX.
-    // [Serializable]
-    // public struct BgmSoundItem
-    // {
-    //     public BgmSoundType type;
-    //     public AudioClip clip;
-    // }
-    // [Serializable]
-    // public struct SfxSoundItem
-    // {
-    //     public SfxSoundType type;
-    //     public AudioClip[] clips;
-    // }
-    
-    
-    /*Flow: create an array in the inspector, while in runtime, it converts that into a dictionary
-     for better optimization*/
     [RequireComponent(typeof(AudioSource))]
     public class SoundManager : MonoBehaviour
     {
-        private float fadeDuration = 1.0f;
-        
-        private Coroutine _bgmFadeCoroutine;
         public static SoundManager Instance { get; private set; }
-        
-        // [SerializeField] private SfxSoundItem[] sfxLibrary;
-        [SerializeField] private List<SO_BGMEvent> so_bgmEvent;
-        [SerializeField] private List<SO_SFXEvent> so_sfxEvent; 
 
-        private static AudioSource Bgm_Source;
-        private static AudioSource Sfx_Source;
-
-        private Dictionary<BgmSoundType, SO_BGMEvent> _bgmDict = new();
-        private Dictionary<SfxSoundType, SO_SFXEvent> _sfxDict = new();
+        private AudioSource _bgmSource;
+        private SO_BGMEvent _currentBgm;
+        //new object pooling unity
+        private IObjectPool<AudioSource> _sfxPool;
+        //
+        private AudioSource _sfxSource;
+        private Coroutine _bgmFadeCoroutine;
 
         // saves timestamp
-        private Dictionary<BgmSoundType, float> _bgmResumeTimer = new Dictionary<BgmSoundType, float>();
-        private BgmSoundType _currentBgmType;
-        [Header("volume control")]
+        private Dictionary<SO_BGMEvent, float> _bgmResumeTimer = new Dictionary<SO_BGMEvent, float>();
+
+        [SerializeField] private int sfxPoolSize = 20;
+        [Header("volume control")] 
         [SerializeField] private AudioMixer mainMixer;
         [SerializeField] private AudioMixerGroup bgmGroup;
         [SerializeField] private AudioMixerGroup sfxGroup;
+
         private void Awake()
         {
             // --------------- FAILSAFE, DO NOT DELETE -----------------
@@ -72,39 +37,177 @@ namespace Phuc.SoundSystem
                 Destroy(gameObject);
                 return;
             }
+
             //------------------------------------------------------
             Instance = this;
             //------------------THIS LINE GOT ISSUES FOR NOW-------------------
-            // DontDestroyOnLoad(gameObject);
+            DontDestroyOnLoad(gameObject);
             //-------------------------------------------
-            InitializeSources();
-            InitializeDictionaries();
+            InitializeBGMSource();
+            SetUpAudioPool();
         }
 
-        private void InitializeSources()
+        
+        private void InitializeBGMSource()
         {
-            Bgm_Source = gameObject.AddComponent<AudioSource>();
-            Bgm_Source.outputAudioMixerGroup = bgmGroup;
-            Sfx_Source = gameObject.AddComponent<AudioSource>();
-            Sfx_Source.outputAudioMixerGroup = sfxGroup;
+            if (_bgmSource == null)
+            {
+                _bgmSource = gameObject.AddComponent<AudioSource>();    
+            }
+            _bgmSource.outputAudioMixerGroup = bgmGroup;
+        }
+        // test new Unity object pooling
+        private void SetUpAudioPool()
+        {
+            // Setup the pool logic
+            _sfxPool = new ObjectPool<AudioSource>(
+                createFunc: CreateNewSource,       // How to make a new one
+                actionOnGet: s => s.gameObject.SetActive(true),   // What to do when taken
+                actionOnRelease: s => s.gameObject.SetActive(false), // What to do when returned
+                actionOnDestroy: s => Destroy(s.gameObject),      // Clean up
+                collectionCheck: false, 
+                defaultCapacity: 10, 
+                maxSize: 20
+            );
+        }
+        private AudioSource CreateNewSource()
+        {
+            GameObject go = new GameObject("Pooled_SFX");
+            go.transform.SetParent(transform);
+            AudioSource s = go.AddComponent<AudioSource>();
+            s.playOnAwake = false;
+            s.outputAudioMixerGroup = sfxGroup;
+            return s;
+        }
+        
+
+
+        // Start is called once before the first execution of Update after the MonoBehaviour is created
+        void Start()
+        {
+
         }
 
-        //Put all of the music in the array to the dictionary
-        private void InitializeDictionaries()
+        public void PlayBGM(SO_BGMEvent so_bgmEvent)
         {
-                _bgmDict.Clear();
-            foreach (var bgm in so_bgmEvent)
+            if (Instance == null || so_bgmEvent == null)
             {
-                // in dictionary, this key -> holds this sound
-                _bgmDict[bgm.type] = bgm;
+                return;
             }
-            _sfxDict.Clear();
-            foreach (var sfx in so_sfxEvent)
+            
+            //if playing the same audio, ignore
+            if (Instance._currentBgm == so_bgmEvent && Instance._bgmSource.isPlaying)
             {
-                _sfxDict[sfx.type] = sfx;
+                return;
+            }
+
+            //Save the timestamps of the CURRENTLY playing BGM before it stops
+            if (Instance._currentBgm != null && Instance._bgmSource.isPlaying)
+            {
+                Instance._bgmResumeTimer[Instance._currentBgm] = Instance._bgmSource.time;
+            }
+
+            //Set the new current BGM
+            Instance._currentBgm = so_bgmEvent;
+
+            if (Instance._bgmFadeCoroutine != null) Instance.StopCoroutine(Instance._bgmFadeCoroutine);
+            Instance._bgmFadeCoroutine = Instance.StartCoroutine(Instance.FadeBGM(so_bgmEvent));
+        }
+
+        private IEnumerator FadeBGM(SO_BGMEvent bgm)
+        {
+            float fadeDuration = bgm.fadeDuration > 0 ? bgm.fadeDuration : 1.0f;
+            //fade out before fade in
+            if (_bgmSource.isPlaying)
+            {
+                float startVolume = _bgmSource.volume;
+                for (float t = 0; t < fadeDuration; t += Time.deltaTime)
+                {
+                    _bgmSource.volume = Mathf.Lerp(startVolume, 0, t / fadeDuration);
+                    yield return null;
+                }
+            }
+
+            _bgmSource.clip = bgm.clip;
+            _bgmSource.loop = bgm.loop;
+
+            // 3. CHECK FOR SAVED TIME
+            if (_bgmResumeTimer.TryGetValue(bgm, out float savedTime))
+            {
+                _bgmSource.time = savedTime % bgm.clip.length;
+            }
+            else
+            {
+                _bgmSource.time = 0;
+            }
+
+            _bgmSource.Play();
+
+            // Fade In
+            for (float t = 0; t < fadeDuration; t += Time.deltaTime)
+            {
+                _bgmSource.volume = Mathf.Lerp(0, bgm.volume, t / fadeDuration);
+                yield return null;
+            }
+
+            _bgmSource.volume = bgm.volume;
+        }
+
+        public void PlaySfx(SO_SFXEvent so, Vector3? position = null)
+        {
+            if (so == null) 
+            {
+                Debug.Log("From PlaySfx: data is null");
+                return;
+            }
+            AudioSource source = _sfxPool.Get();
+            
+            //if you want to make the sound coming from a specific game object, pass the position
+            if (position.HasValue)
+            {
+                source.transform.position = position.Value;
+                source.spatialBlend = 1.0f; 
+                source.minDistance = so.minDistance;
+                source.maxDistance = so.maxDistance;
+                source.rolloffMode = AudioRolloffMode.Logarithmic;
+            }
+            else
+            {
+                source.spatialBlend = 0.0f; //global sound effect
+            }
+            AudioClip clipToPlay = so.GetRandomClip();
+            source.pitch = Random.Range(so.minPitch, so.maxPitch);
+    
+            // 4. PlayOneShot requires the clip as a parameter
+            source.PlayOneShot(clipToPlay, so.volume);
+
+            // 5. We still need to return the source to the pool when the clip ends!
+            StartCoroutine(ReleaseSfxAfterPlaying(source, clipToPlay.length, source.pitch));
+        }
+
+        private IEnumerator ReleaseSfxAfterPlaying(AudioSource source, float length, float pitch)
+        {
+            yield return new WaitForSeconds(length / Mathf.Max(0.01f, pitch));
+            _sfxPool.Release(source);
+        }
+
+        public void StopBgmMusic()
+        {
+            if (Instance != null)
+            {
+                Instance._bgmSource.Stop();
             }
         }
-        // Method to call from UI Sliders
+
+        // public void StopSfx()
+        // {
+        //     if (Instance != null)
+        //     {
+        //         Instance._sfxSource.Stop();
+        //     }
+        // }
+        
+        //Method to call from UI Sliders
         public void SetBGMVolume(float volume)
         {
             // AudioMixer uses a logarithmic scale (-80dB to 20dB)
@@ -120,162 +223,12 @@ namespace Phuc.SoundSystem
             SetMixerVolume("SFXVolume", volume);
             Debug.Log($"Sfx volume {volume}");
         }
+
         private void SetMixerVolume(string parameterName, float sliderValue)
         {
             // Converts linear 0-1 to logarithmic dB scale
             float dB = Mathf.Log10(Mathf.Max(0.0001f, sliderValue)) * 20;
             mainMixer.SetFloat(parameterName, dB);
         }
-        
-        // Start is called once before the first execution of Update after the MonoBehaviour is created
-        void Start()
-        {
-
-        }
-        
-        public static void PlayBGM(BgmSoundType type)
-        {
-            if (!Instance._bgmDict.TryGetValue(type, out var bgm))
-            {
-                return;
-            }
-            if (Bgm_Source.clip == bgm.clip)
-            {
-                return;
-            }
-            // 1. Save the progress of the CURRENTLY playing BGM before it stops
-            if (Bgm_Source.clip != null)
-            {
-                Instance._bgmResumeTimer[Instance._currentBgmType] = Bgm_Source.time;
-            }
-            // 2. Set the new current type
-            Instance._currentBgmType = type;
-            
-            if (Instance._bgmFadeCoroutine != null) Instance.StopCoroutine(Instance._bgmFadeCoroutine);
-            Instance.StartCoroutine(Instance.FadeBGM(bgm));
-        }
-
-        private IEnumerator FadeBGM(SO_BGMEvent bgm)
-        {
-// Fade Out before fading in
-            float startVolume = Bgm_Source.volume;
-            for (float t = 0; t < fadeDuration; t += Time.deltaTime)
-            {
-                Bgm_Source.volume = Mathf.Lerp(startVolume, 0, t / fadeDuration);
-                yield return null;
-            }
-
-            //
-            Bgm_Source.clip = bgm.clip;
-            // 3. CHECK FOR SAVED TIME
-            if (_bgmResumeTimer.TryGetValue(_currentBgmType, out float savedTime))
-            {
-                // Wrap in try-catch or check length to prevent errors if clip changed length
-                Bgm_Source.time = savedTime % bgm.clip.length; 
-            }
-            else
-            {
-                Bgm_Source.time = 0;
-            }
-            Bgm_Source.Play();
-
-            // Fade In
-            for (float t = 0; t < fadeDuration; t += Time.deltaTime)
-            {
-                //linear interpolation testing 1st time, may need to tweak here
-                Bgm_Source.volume = Mathf.Lerp(0, 1.0f, t / fadeDuration);
-                yield return null;
-            }
-            Bgm_Source.volume = 1.0f;
-        }
-//made non-static for testing, rememeber to set it to static back.
-        public static void PlaySfx(SfxSoundType type)
-        {
-            if (Instance == null)
-            {
-                Debug.Log("soundmanager instance missing");
-                return;
-            }
-
-            if (!Instance._sfxDict.TryGetValue(type, out var sfxSO))
-            {
-                return;
-            }
-
-            if (sfxSO.clips != null && sfxSO.clips.Length > 0)
-            {
-                int index = Random.Range(0, sfxSO.clips.Length);
-                Sfx_Source.PlayOneShot(sfxSO.clips[index]);
-            }
-                // Instance.StartCoroutine(Instance.FadeAudio(1.0f, type));
-        }
-
-        // private IEnumerator FadeAudio(float targetVolume,SfxSoundType type )
-        // {
-            // if (!_sfxDict.TryGetValue(type, out var sfxSO))
-            // {
-            //     yield break;
-            // }
-            // float startVolume = Sfx_Source.volume;
-            // float elapsedTime = 0;
-            //
-            // while (elapsedTime < fadeDuration)
-            // {
-            //     elapsedTime += Time.deltaTime;
-            //     Sfx_Source.volume = Mathf.Lerp(startVolume, targetVolume, elapsedTime / fadeDuration);
-            //     yield return null;
-            // }
-            //
-            // Sfx_Source.volume = targetVolume;
-            //
-            // if (targetVolume == 0) Sfx_Source.Stop(); // Stop playback when fully faded out
-            // else if (!Sfx_Source.isPlaying)
-            // {
-            //     int index = Random.Range(0, sfxSO.clips.Length);
-            //     Sfx_Source.Play(sfxSO.clips[index]);   
-            //     //Sfx_Source.Play(); // Start playback when fading in
-            // }
-        //     
-        //     if (!_sfxDict.TryGetValue(type, out var sfxSO)) yield break;
-        //
-        //     float startVolume = Sfx_Source.volume;
-        //     float elapsedTime = 0;
-        //
-        //     // Optional: Assign the clip before starting the fade if it's not playing
-        //     if (!Sfx_Source.isPlaying && sfxSO.clips.Length > 0)
-        //     {
-        //         int index = Random.Range(0, sfxSO.clips.Length);
-        //         Sfx_Source.clip = sfxSO.clips[index];
-        //         Sfx_Source.Play();
-        //     }
-        //
-        //     while (elapsedTime < fadeDuration)
-        //     {
-        //         elapsedTime += Time.deltaTime;
-        //         Sfx_Source.volume = Mathf.Lerp(startVolume, targetVolume, elapsedTime / fadeDuration);
-        //         yield return null;
-        //     }
-        //
-        //     Sfx_Source.volume = targetVolume;
-        //     if (targetVolume == 0) Sfx_Source.Stop();
-        // }
-
-
-        public static void StopBgmMusic()
-        {
-            Bgm_Source.Stop();
-        }
-
-        public static void StopSfx()
-        {
-            Sfx_Source.Stop();;
-        }
-        // Update is called once per frame
-        void Update()
-        {
-
-        }
     }
-
-    
 }

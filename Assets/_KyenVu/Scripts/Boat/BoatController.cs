@@ -60,7 +60,7 @@ public class BoatController : MonoBehaviour
             canMove = false;
             rb.linearVelocity = Vector2.zero;
             // Notify others (like CastLineControl) that fishing has started
-            SoundManager.PlaySfx(SfxSoundType.Rod_casted);
+            // SoundManager.PlaySfx(SfxSoundType.Rod_casted);
             OnFishingStarted?.Invoke();
             
         }

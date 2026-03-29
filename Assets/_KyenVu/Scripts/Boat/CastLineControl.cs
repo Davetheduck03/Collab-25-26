@@ -230,7 +230,7 @@ public class CastLineControl : MonoBehaviour
             isCatching = true;
             caughtFish = collision.gameObject;
             baseCatchLength = currentLineLength;
-            SoundManager.PlaySfx(SfxSoundType.Hooked_the_fish);
+            // SoundManager.PlaySfx(SfxSoundType.Hooked_the_fish);
             caughtFish.transform.SetParent(hook.transform);
 
             OnFishCaught?.Invoke(caughtFish);
