@@ -191,7 +191,7 @@ namespace Phuc.SoundSystem
             _sfxPool.Release(source);
         }
 
-        public void StopBgmMusic()
+        public  void StopBgmMusic()
         {
             if (Instance != null)
             {

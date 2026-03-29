@@ -10,13 +10,13 @@ namespace Phuc.SoundSystem
         [SerializeField] private Vector2 GameObject_position = new Vector2();
 
         // Drag your ScriptableObject assets into these slots in the Inspector
-        [Header("BGM Library")] [SerializeField]
-        private SO_BGMEvent forestMusic;
+        [Header("BGM Library")] 
+        [SerializeField] private SO_BGMEvent forestMusic;
 
         [SerializeField] private SO_BGMEvent marketMusic;
 
-        [Header("SFX Library")] [SerializeField]
-        private SO_SFXEvent clickSfx;
+        [Header("SFX Library")] 
+        [SerializeField] private SO_SFXEvent castSfx;
 
         private int _bgmToggle = 0;
 
@@ -25,6 +25,7 @@ namespace Phuc.SoundSystem
             // Use the Instance to call the methods
             if (_bgmToggle == 0)
             {
+                //
                 SoundManager.Instance.PlayBGM(forestMusic);
                 _bgmToggle = 1;
             }
@@ -38,7 +39,7 @@ namespace Phuc.SoundSystem
         public void TestPlaySFXButton()
         {
             // Play as 2D (Global/UI)
-            SoundManager.Instance.PlaySfx(clickSfx);
+            SoundManager.Instance.PlaySfx(castSfx);
 
             // OR Play as 3D (at this button's position)
 
