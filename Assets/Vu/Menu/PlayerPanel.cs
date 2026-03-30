@@ -8,6 +8,9 @@ using System.Collections;
 
 public class PlayerPanel : MonoBehaviour
 {
+    // --- NEW: Singleton Instance ---
+    public static PlayerPanel Instance { get; private set; }
+
     [Header("Panels")]
     public GameObject statsPanel;
     public GameObject inventoryPanel;
@@ -15,7 +18,7 @@ public class PlayerPanel : MonoBehaviour
 
     [Header("Animation (Shared)")]
     public Image animationImage;
-    public Sprite[] openFrames; // Same as before for open/close
+    public Sprite[] openFrames;
     public float frameRate = 0.05f;
 
     [Header("Post Processing")]
@@ -32,12 +35,23 @@ public class PlayerPanel : MonoBehaviour
     public Button statsButton;
 
     [Header("Switching")]
-    public bool playAnimationOnSwitch = true; // Toggle this in Inspector to enable/disable
-    public float switchAnimationDurationMultiplier = 0.5f; // Make switch animations faster (e.g., half speed)
+    public bool playAnimationOnSwitch = true;
+    public float switchAnimationDurationMultiplier = 0.5f;
 
     private bool isMenuOpen = false;
     private bool playingAnimation = false;
     private GameObject activePanel;
+
+    // --- NEW: Awake method to set up the Instance ---
+    private void Awake()
+    {
+        if (Instance != null && Instance != this)
+        {
+            Destroy(gameObject); // Destroys duplicates if you reload the scene
+            return;
+        }
+        Instance = this;
+    }
 
     void Start()
     {
@@ -92,6 +106,12 @@ public class PlayerPanel : MonoBehaviour
         statsPanel.SetActive(activePanel == statsPanel);
         inventoryPanel.SetActive(activePanel == inventoryPanel);
 
+        // --- NEW: Force the inventory to redraw its items when opened! ---
+        if (activePanel == inventoryPanel && InventoryController.Instance != null)
+        {
+            InventoryController.Instance.ForceUIRefresh();
+        }
+
         if (isFullOpen)
         {
             if (gameUI) gameUI.SetActive(false);
@@ -106,8 +126,7 @@ public class PlayerPanel : MonoBehaviour
 
         playingAnimation = false;
     }
-
-    private IEnumerator CloseMenu()
+    public IEnumerator CloseMenu() // Changed to public in case you want to close it from another script!
     {
         playingAnimation = true;
         isMenuOpen = false;
@@ -157,6 +176,12 @@ public class PlayerPanel : MonoBehaviour
         activePanel = newPanel;
         activePanel.SetActive(true);
 
+        // --- NEW: Force the inventory to redraw its items when switching to it! ---
+        if (activePanel == inventoryPanel && InventoryController.Instance != null)
+        {
+            InventoryController.Instance.ForceUIRefresh();
+        }
+
         // Play open animation (forward)
         yield return StartCoroutine(PlayForwardAnimation(switchAnimationDurationMultiplier));
 
@@ -170,7 +195,7 @@ public class PlayerPanel : MonoBehaviour
         foreach (Sprite sprite in openFrames)
         {
             animationImage.sprite = sprite;
-            yield return new WaitForSecondsRealtime(frameRate / durationMultiplier); // Faster if multiplier >1, but here <1 makes slower—wait, invert if needed
+            yield return new WaitForSecondsRealtime(frameRate / durationMultiplier);
         }
         animationImage.gameObject.SetActive(false);
     }

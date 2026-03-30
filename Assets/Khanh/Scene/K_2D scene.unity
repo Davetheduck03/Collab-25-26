@@ -5801,7 +5801,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   slotCount: 40
-  inventory: {fileID: 1966237100}
   itemGrid: {fileID: 1009355184}
   slotPrefab: {fileID: 3107752576863203006, guid: af6f859eb0295ad46b0ca3b4d37e5c82, type: 3}
 --- !u!114 &1009355186
@@ -12448,51 +12447,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1987155005}
   m_CullTransparentMesh: 1
---- !u!1 &1991673652
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1991673653}
-  - component: {fileID: 1991673654}
-  m_Layer: 0
-  m_Name: CurrencyManager
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1991673653
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1991673652}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 4514067943290665131}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1991673654
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1991673652}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4598e227fba3a0140b4f0bfd63919062, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  persistAcrossScenes: 0
 --- !u!114 &1998076941 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 3892318497546864271, guid: b5033238f9c27244aacb6d9638ef5b4e, type: 3}
@@ -13839,17 +13793,9 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
-    m_AddedGameObjects:
-    - targetCorrespondingSourceObject: {fileID: 1453807116317416409, guid: b2e7b41b6a0c5564786a3836fc8e45b5, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1991673653}
+    m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b2e7b41b6a0c5564786a3836fc8e45b5, type: 3}
---- !u!4 &4514067943290665131 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 1453807116317416409, guid: b2e7b41b6a0c5564786a3836fc8e45b5, type: 3}
-  m_PrefabInstance: {fileID: 4514067943290665130}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &7086410311246567449
 PrefabInstance:
   m_ObjectHideFlags: 0

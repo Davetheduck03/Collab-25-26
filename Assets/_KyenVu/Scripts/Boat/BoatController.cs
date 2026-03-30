@@ -2,6 +2,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using System;
 using Phuc.SoundSystem;
+using UnityEngine.SceneManagement; // NEW: Required for switching scenes
 
 public class BoatController : MonoBehaviour
 {
@@ -11,6 +12,9 @@ public class BoatController : MonoBehaviour
 
     [Header("Fishing Settings")]
     public GameObject hook;
+
+    [Header("Scene Settings")]
+    public string returnSceneName = "Top Down scene";
 
     private Vector2 moveInput;
     private bool canMove = true;
@@ -35,7 +39,23 @@ public class BoatController : MonoBehaviour
         if (rb == null)
             rb = GetComponent<Rigidbody2D>();
         hook.SetActive(false);
-        
+    }
+
+    // --- NEW: Check for the H key to return to town ---
+    private void Update()
+    {
+        // Check if the H key was pressed this frame, and ensure we aren't currently fishing
+        if (Keyboard.current != null && Keyboard.current.hKey.wasPressedThisFrame)
+        {
+            if (!isFishing)
+            {
+                ReturnToTown();
+            }
+            else
+            {
+                Debug.Log("Can't return to town right now, you are fishing!");
+            }
+        }
     }
 
     private void FixedUpdate()
@@ -50,6 +70,7 @@ public class BoatController : MonoBehaviour
     {
         moveInput = value.Get<Vector2>();
     }
+
     private void OnFish()
     {
         if (!isFishing)
@@ -62,7 +83,15 @@ public class BoatController : MonoBehaviour
             // Notify others (like CastLineControl) that fishing has started
             // SoundManager.PlaySfx(SfxSoundType.Rod_casted);
             OnFishingStarted?.Invoke();
-            
+        }
+    }
+
+    // NEW: Optional method if you map a "Return" action in your PlayerInput component later
+    private void OnReturn()
+    {
+        if (!isFishing)
+        {
+            ReturnToTown();
         }
     }
 
@@ -71,5 +100,12 @@ public class BoatController : MonoBehaviour
         Debug.Log("Fishing finished! Returning to boat control.");
         isFishing = false;
         canMove = true;
+    }
+
+    // NEW: Method that actually loads the scene
+    private void ReturnToTown()
+    {
+        Debug.Log($"Returning to {returnSceneName}. Fish data is safe in the InventoryController!");
+        SceneManager.LoadScene(returnSceneName);
     }
 }

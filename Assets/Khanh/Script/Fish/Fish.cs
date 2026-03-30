@@ -297,10 +297,9 @@ public class Fish : BaseUnit
                 Debug.LogWarning("[Fish] InventoryController.Instance is null — item not added.");
         }
 
-        // --- NEW: MISSION SYSTEM PROGRESS ---
+        // --- ADD THIS BLOCK BACK IN: MISSION SYSTEM PROGRESS ---
         if (MissionManager.Instance != null && unitData != null)
         {
-            // This tells the Mission Manager you caught 1 fish of this specific name!
             MissionManager.Instance.ProgressMission(MissionType.Fish, unitData.UnitName, 1);
         }
 
@@ -310,7 +309,6 @@ public class Fish : BaseUnit
             reward.GrantRewards();
         else
             Debug.LogWarning("[Fish] No RewardComponent found — EXP not granted.");
-
 
         OnFishDefeatedEvent?.Invoke();
     }

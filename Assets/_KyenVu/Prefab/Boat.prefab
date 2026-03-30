@@ -549,6 +549,7 @@ MonoBehaviour:
   moveSpeed: 5
   rb: {fileID: 6169668856905073985}
   hook: {fileID: 6854517599184970778}
+  returnSceneName: Top Down scene
 --- !u!114 &1065128612490489921
 MonoBehaviour:
   m_ObjectHideFlags: 0

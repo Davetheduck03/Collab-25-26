@@ -10,7 +10,7 @@ public class InventoryUI : MonoBehaviour
     public int slotCount = 40;
 
     [Header("References")]
-    public InventoryController inventory;
+    // We no longer need the inspector reference because we are using the Singleton!
     public Transform itemGrid;
     public GameObject slotPrefab;
 
@@ -53,17 +53,22 @@ public class InventoryUI : MonoBehaviour
 
     public void RefreshUI()
     {
+        // Failsafe in case the controller hasn't loaded yet
+        if (InventoryController.Instance == null) return;
+
         foreach (var slot in slots)
             slot.SetEmpty();
 
-        List<InventoryItem> filtered = inventory.items;
+        // NEW: Pull directly from the persistent Singleton instance!
+        List<InventoryItem> filtered = InventoryController.Instance.items;
 
         if (currentFilter.HasValue)
             filtered = filtered.Where(i => i.data.type == currentFilter.Value).ToList();
 
         for (int i = 0; i < filtered.Count && i < slots.Count; i++)
         {
-            slots[i].SetItem(filtered[i], inventory);
+            // NEW: Pass the Singleton instance to the slot
+            slots[i].SetItem(filtered[i], InventoryController.Instance);
         }
     }
 

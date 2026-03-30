@@ -40,9 +40,20 @@ public class InventoryController : MonoBehaviour
 
     private void Awake()
     {
-        Instance = this;
+        if (Instance == null)
+        {
+            Instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
     }
-
+    public void ForceUIRefresh()
+    {
+        RefreshUIEvent?.Invoke();
+    }
     public ItemData GetItemFromID(int ID)
     {
         ItemData item = database.GetItem(ID);

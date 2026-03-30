@@ -355,7 +355,6 @@ MonoBehaviour:
   parrySlider: {fileID: 9056168072263093687}
   partlyParrySprite: {fileID: -5553220750088911077, guid: 4924d6d4eb0c01d4abf6c4d389800234, type: 3}
   perfectParrySprite: {fileID: 1434780766534248942, guid: 4924d6d4eb0c01d4abf6c4d389800234, type: 3}
-  oscillationSpeed: 20
   showGizmos: 1
   gizmoOffset: {x: 0, y: 100, z: 0}
   gizmoSize: {x: 200, y: 20}
