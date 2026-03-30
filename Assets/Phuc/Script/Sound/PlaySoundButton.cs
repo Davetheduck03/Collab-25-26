@@ -47,7 +47,7 @@ namespace Phuc.SoundSystem
 
         public void TestPlaySFXButtonWithPosition()
         {
-            SoundManager.Instance.PlaySfx(clickSfx, GameObject_position);
+            SoundManager.Instance.PlaySfx(castSfx, GameObject_position);
         }
 
         public void OnStoppingBGM()
