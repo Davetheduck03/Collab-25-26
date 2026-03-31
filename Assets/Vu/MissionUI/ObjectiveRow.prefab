@@ -52,7 +52,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   objectiveLabel: {fileID: 4984558139767512783}
   progressLabel: {fileID: 6295729558221872445}
-  progressBar: {fileID: 0}
+  progressBar: {fileID: 5215738037803506624}
   checkmark: {fileID: 627016949195257351}
 --- !u!1 &627016949195257351
 GameObject:

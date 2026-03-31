@@ -1,14 +1,13 @@
-using TMPro;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class ObjectiveUI : MonoBehaviour
 {
     [Header("References")]
     public TextMeshProUGUI objectiveLabel;
     public TextMeshProUGUI progressLabel;
-    public Slider progressBar;
+    public Image progressBar;
     public GameObject checkmark;
 
     public void Refresh(ObjectiveProgress progress)
@@ -17,13 +16,18 @@ public class ObjectiveUI : MonoBehaviour
 
         string targetName = obj.GetTargetID();
         string typeLabel = obj.missionType.ToString();
+
         objectiveLabel.text = $"{typeLabel}: {targetName}";
+        progressLabel.text = $"{progress.currentAmount} / {obj.targetAmount}";
 
-        int current = progress.currentAmount;
-        int target = obj.targetAmount;
-        progressLabel.text = $"{current} / {target}";
-
-        progressBar.value = Mathf.Clamp01((float)current / target);
+        if (obj.targetAmount > 0)
+        {
+            progressBar.fillAmount = (float)progress.currentAmount / obj.targetAmount;
+        }
+        else
+        {
+            progressBar.fillAmount = 0f;
+        }
 
         checkmark.SetActive(progress.isComplete);
     }
