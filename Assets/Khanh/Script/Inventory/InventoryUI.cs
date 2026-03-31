@@ -6,9 +6,6 @@ public class InventoryUI : MonoBehaviour
 {
     public static InventoryUI Instance;
 
-    [Header("Inventory Settings")]
-    public int slotCount = 40;
-
     [Header("References")]
     // We no longer need the inspector reference because we are using the Singleton!
     public Transform itemGrid;
@@ -31,24 +28,53 @@ public class InventoryUI : MonoBehaviour
     private void OnEnable()
     {
         InventoryController.RefreshUIEvent += RefreshUI;
+        EquipmentManager.OnEquipmentChanged += OnEquipmentChanged;
         RefreshUI();
     }
 
     private void OnDisable()
     {
         InventoryController.RefreshUIEvent -= RefreshUI;
+        EquipmentManager.OnEquipmentChanged -= OnEquipmentChanged;
+    }
+
+    private void OnEquipmentChanged()
+    {
+        // A new boat may have been equipped — rebuild the slot grid to match new capacity
+        RegenerateSlots();
+    }
+
+    private int GetCapacity()
+    {
+        if (InventoryController.Instance != null)
+            return InventoryController.Instance.MaxCapacity;
+        return 8;
     }
 
     void GenerateSlots()
     {
-        for (int i = 0; i < slotCount; i++)
+        int count = GetCapacity();
+        for (int i = 0; i < count; i++)
         {
             var obj = Instantiate(slotPrefab, itemGrid);
             var slot = obj.GetComponent<ItemSlotUI>();
             slot.SetEmpty();
-
             slots.Add(slot);
         }
+    }
+
+    public void RegenerateSlots()
+    {
+        // Destroy existing slot GameObjects
+        foreach (var slot in slots)
+        {
+            if (slot != null)
+                Destroy(slot.gameObject);
+        }
+        slots.Clear();
+
+        GenerateSlots();
+        RefreshUI();
     }
 
     public void RefreshUI()
@@ -59,7 +85,7 @@ public class InventoryUI : MonoBehaviour
         foreach (var slot in slots)
             slot.SetEmpty();
 
-        // NEW: Pull directly from the persistent Singleton instance!
+        // Pull directly from the persistent Singleton instance
         List<InventoryItem> filtered = InventoryController.Instance.items;
 
         if (currentFilter.HasValue)
@@ -67,7 +93,6 @@ public class InventoryUI : MonoBehaviour
 
         for (int i = 0; i < filtered.Count && i < slots.Count; i++)
         {
-            // NEW: Pass the Singleton instance to the slot
             slots[i].SetItem(filtered[i], InventoryController.Instance);
         }
     }

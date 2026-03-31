@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: Electric Eel
   m_EditorClassIdentifier: 
   UnitName: Electric Eel
-  Icon: {fileID: -4473934601847615277, guid: 1babbdaee2154cb42ba9c41e4b95841b, type: 3}
-  inGameSprite: {fileID: -4473934601847615277, guid: 1babbdaee2154cb42ba9c41e4b95841b, type: 3}
+  Icon: {fileID: 21300000, guid: c610ee9c85e4bda449f63d6ebd84115a, type: 3}
+  inGameSprite: {fileID: 21300000, guid: c610ee9c85e4bda449f63d6ebd84115a, type: 3}
   health: 90
   speed: 3
   damage: 1

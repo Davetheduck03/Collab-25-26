@@ -23,6 +23,14 @@ public class ItemDatabase : ScriptableObject
 
     public ItemData GetItem(int id)
     {
+        // Guard: Initialize() may not have been called yet if the Inventory
+        // panel was disabled at scene start (Start() is skipped on inactive objects).
+        if (lookup == null)
+        {
+            Debug.LogWarning("[ItemDatabase] lookup not initialised — calling Initialize() now.");
+            Initialize();
+        }
+
         if (lookup.TryGetValue(id, out var item))
             return item;
 

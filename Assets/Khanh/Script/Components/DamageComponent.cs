@@ -28,6 +28,26 @@ public class DamageComponent : UnitComponent
             Debug.LogWarning("[DamageComponent] UpgradeManager returned 0 for Attack — keeping serialized damage value.");
     }
 
+    /// <summary>
+    /// Re-reads Attack from UpgradeManager (which includes equipment bonuses).
+    /// Called by EquipmentComponent whenever equipment changes at runtime.
+    /// </summary>
+    public void Refresh()
+    {
+        if (UpgradeManager.Instance == null)
+        {
+            Debug.LogWarning("[DamageComponent] Refresh() skipped — UpgradeManager.Instance is null.");
+            return;
+        }
+
+        float computed = UpgradeManager.Instance.ComputeStat(UpgradeType.Attack);
+        if (computed > 0f)
+        {
+            damage = computed;
+            Debug.Log($"[DamageComponent] Refreshed damage to {damage} after equipment change.");
+        }
+    }
+
     public void TryDealDamage(GameObject target)
     {
         if (target.TryGetComponent<HealthComponent>(out HealthComponent health))

@@ -71,18 +71,18 @@ public class ItemContextMenuUI : MonoBehaviour
 
             case ItemType.Equippable:
                 CreateButton("Equip", OnEquipClicked);
-                CreateButton("Sell", OnSellClicked);
                 CreateButton("Drop", OnDropClicked);
+                // Sell button intentionally removed — use OnItemSold / OnSellClicked externally
                 break;
 
             case ItemType.Fish:
-                CreateButton($"Sell ({item.sellPrice}g)", OnSellClicked);
                 CreateButton("Drop", OnDropClicked);
+                // Sell button intentionally removed — use OnItemSold / OnSellClicked externally
                 break;
 
             case ItemType.Material:
-                CreateButton("Sell", OnSellClicked);
                 CreateButton("Drop", OnDropClicked);
+                // Sell button intentionally removed — use OnItemSold / OnSellClicked externally
                 break;
 
             case ItemType.Quest:

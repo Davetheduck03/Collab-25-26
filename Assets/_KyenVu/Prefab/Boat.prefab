@@ -382,6 +382,7 @@ GameObject:
   - component: {fileID: 1011332621484721403}
   - component: {fileID: 8907051596897159350}
   - component: {fileID: 1490118677356859960}
+  - component: {fileID: 9200000011332621403}
   m_Layer: 0
   m_Name: Boat
   m_TagString: Boat
@@ -699,3 +700,16 @@ MonoBehaviour:
   components:
   - {fileID: 1011332621484721403}
   - {fileID: 8907051596897159350}
+  - {fileID: 9200000011332621403}
+--- !u!114 &9200000011332621403
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7643141176957904409}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa96de66816a4a239997c55e319ecf3d, type: 3}
+  m_Name:
+  m_EditorClassIdentifier:

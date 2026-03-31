@@ -14,6 +14,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/_KyenVu/Scene/Top Down scene.unity
     guid: c31a3a31cd64ed742ad2eba4182d660f
+  - enabled: 1
+    path: Assets/Khanh/Scene/K_2D scene.unity
+    guid: e93895906ed471a4c8a5fa80bf0069da
   m_configObjects:
     com.unity.input.settings: {fileID: 11400000, guid: c070a05dc8703de4694c206597e8980e, type: 2}
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}

@@ -9,6 +9,18 @@ public class InventoryFix : MonoBehaviour
     public EnemySO so4;
     public EnemySO so5;
     public EnemySO so6;
+    public EquippableData eq1;
+    public EquippableData eq2;
+    public EquippableData eq3;
+    public EquippableData eq4;
+    public EquippableData eq5;
+    public EquippableData eq6;
+    public EquippableData eq7;
+    public EquippableData eq8;
+    public EquippableData eq9;
+    public EquippableData eq10;
+    public EquippableData eq11;
+    public EquippableData eq12;
 
     void Update()
     {
@@ -57,6 +69,62 @@ public class InventoryFix : MonoBehaviour
         {
             PrintInventory();
         }
+
+        if (Keyboard.current.f1Key.wasPressedThisFrame)
+        {
+            InventoryController.Instance.AddItem(InventoryController.Instance.GetItemFromID(2), 1);
+            Debug.Log("Added Item ID 2");
+        }
+        if (Keyboard.current.f2Key.wasPressedThisFrame)
+        {
+            InventoryController.Instance.AddItem(InventoryController.Instance.GetItemFromID(3), 1);
+            Debug.Log("Added Item ID 3");
+        }
+        if (Keyboard.current.f3Key.wasPressedThisFrame)
+        {
+            InventoryController.Instance.AddItem(InventoryController.Instance.GetItemFromID(4), 1);
+            Debug.Log("Added Item ID 4");
+        }
+        if (Keyboard.current.f4Key.wasPressedThisFrame)
+        {
+            InventoryController.Instance.AddItem(InventoryController.Instance.GetItemFromID(5), 1);
+            Debug.Log("Added Item ID 5");
+        }
+        if (Keyboard.current.f5Key.wasPressedThisFrame)
+        {
+            InventoryController.Instance.AddItem(InventoryController.Instance.GetItemFromID(6), 1);
+            Debug.Log("Added Item ID 6");
+        }
+        if (Keyboard.current.f6Key.wasPressedThisFrame)
+        {
+            InventoryController.Instance.AddItem(InventoryController.Instance.GetItemFromID(7), 1);
+            Debug.Log("Added Item ID 7");
+        }
+        if (Keyboard.current.f7Key.wasPressedThisFrame)
+        {
+            InventoryController.Instance.AddItem(InventoryController.Instance.GetItemFromID(8), 1);
+            Debug.Log("Added Item ID 8");
+        }
+        if (Keyboard.current.f8Key.wasPressedThisFrame)
+        {
+            InventoryController.Instance.AddItem(InventoryController.Instance.GetItemFromID(15), 1);
+            Debug.Log("Added Item ID 15");
+        }
+            if (Keyboard.current.f9Key.wasPressedThisFrame)
+            {
+                InventoryController.Instance.AddItem(InventoryController.Instance.GetItemFromID(16), 1);
+                Debug.Log("Added Item ID 16");
+            }
+            if (Keyboard.current.f10Key.wasPressedThisFrame)
+            {
+                InventoryController.Instance.AddItem(InventoryController.Instance.GetItemFromID(17), 1);
+                Debug.Log("Added Item ID 17");
+            }
+            if (Keyboard.current.f11Key.wasPressedThisFrame)
+            {
+                InventoryController.Instance.AddItem(InventoryController.Instance.GetItemFromID(18), 1);
+                Debug.Log("Added Item ID 18");
+            }
     }
 
     private void PrintInventory()

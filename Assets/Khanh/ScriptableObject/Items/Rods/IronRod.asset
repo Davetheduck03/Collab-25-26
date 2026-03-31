@@ -9,14 +9,19 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8159a76520cb9fb4d8227afab2677be1, type: 3}
+  m_Script: {fileID: 11500000, guid: e93290adcf6e4609ab00a0e0ca7a8f38, type: 3}
   m_Name: IronRod
-  m_EditorClassIdentifier: 
+  m_EditorClassIdentifier:
   ID: 2
   displayName: Iron Rod
-  description: 
+  description: A reliable iron rod that hits harder and reels faster.
   Sprite: {fileID: 8808041858904043568, guid: 296ae14298d718847a421292e36701f8, type: 3}
   type: 1
   isStackable: 0
   maxStack: 1
-  runtimeUID: 
+  runtimeUID:
+  tier: 2
+  attackMult: 1.3
+  reelSpeed: 1.1
+  durability: 100
+  cost: 1500

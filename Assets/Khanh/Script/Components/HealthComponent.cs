@@ -21,6 +21,9 @@ public class HealthComponent : UnitComponent
         isDamagable = true;
     }
 
+    /// <summary>Maximum health ceiling, set during setup and updated by RefreshMaxHealth().</summary>
+    public float maxHealth;
+
     protected override void OnBoatSetUp()
     {
         const float FALLBACK_HEALTH = 100f;
@@ -28,6 +31,7 @@ public class HealthComponent : UnitComponent
         if (UpgradeManager.Instance == null)
         {
             Debug.LogWarning($"[HealthComponent] UpgradeManager.Instance is null — using fallback health: {FALLBACK_HEALTH}.");
+            maxHealth    = FALLBACK_HEALTH;
             currentHealth = FALLBACK_HEALTH;
             isDamagable = true;
             return;
@@ -36,15 +40,38 @@ public class HealthComponent : UnitComponent
         float computed = UpgradeManager.Instance.ComputeStat(UpgradeType.Health);
         if (computed > 0f)
         {
+            maxHealth    = computed;
             currentHealth = computed;
         }
         else
         {
             Debug.LogWarning($"[HealthComponent] UpgradeManager returned 0 for Health — using fallback: {FALLBACK_HEALTH}. Check your PlayerStats asset has a Health entry.");
+            maxHealth    = FALLBACK_HEALTH;
             currentHealth = FALLBACK_HEALTH;
         }
 
         isDamagable = true;
+    }
+
+    /// <summary>
+    /// Re-reads Health from UpgradeManager (which includes equipment bonuses)
+    /// and updates maxHealth without resetting currentHealth.
+    /// Called by EquipmentComponent whenever equipment changes at runtime.
+    /// </summary>
+    public void RefreshMaxHealth()
+    {
+        if (UpgradeManager.Instance == null)
+        {
+            Debug.LogWarning("[HealthComponent] RefreshMaxHealth() skipped — UpgradeManager.Instance is null.");
+            return;
+        }
+
+        float newMax = UpgradeManager.Instance.ComputeStat(UpgradeType.Health);
+        if (newMax <= 0f) return;
+
+        maxHealth     = newMax;
+        currentHealth = Mathf.Min(currentHealth, maxHealth); // clamp if we downgraded
+        Debug.Log($"[HealthComponent] Max health refreshed to {maxHealth} after equipment change. Current HP: {currentHealth}");
     }
 
     public void TakeDamage(DamageData d_Data)

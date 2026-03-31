@@ -85,7 +85,28 @@ public class UpgradeManager : MonoBehaviour
         int level = upgradeLevels.GetValueOrDefault(type, 1);
         float base_ = entry.baseValue + (level - 1) * entry.incrementPerLevel;
         augmentBonuses.TryGetValue(type, out float bonus);
-        return base_ + bonus;
+
+        // Add flat equipment bonuses (e.g. hook rareBoost → Luck, boat hp → Health)
+        float equipBonus = EquipmentManager.Instance != null
+            ? EquipmentManager.Instance.GetStatBonus(type)
+            : 0f;
+
+        float result = base_ + bonus + equipBonus;
+
+        // Apply multiplicative rod attack bonus
+        if (type == UpgradeType.Attack && EquipmentManager.Instance != null)
+            result *= EquipmentManager.Instance.GetAttackMultiplier();
+
+        return result;
+    }
+
+    /// <summary>
+    /// Called by EquipmentManager when equipment changes so stat panels refresh.
+    /// </summary>
+    public void NotifyEquipmentChanged()
+    {
+        foreach (UpgradeType type in System.Enum.GetValues(typeof(UpgradeType)))
+            OnUpgradeSuccessful?.Invoke(type);
     }
 
     // UI helpers (unchanged, but use playerStatsConfig)

@@ -35,8 +35,18 @@ public class InventoryController : MonoBehaviour
 
     public ItemDatabase database;
     public static event Action RefreshUIEvent;
+    public static event Action OnInventoryFull;
     public List<InventoryItem> items = new();
     private Dictionary<int, InventoryItem> map = new();
+
+    /// <summary>
+    /// Max number of item slots. Driven by the equipped boat via EquipmentManager
+    /// (Rowboat=8, Motorboat=15, Trawler=20, Spirit Vessel=30). Falls back to 8.
+    /// </summary>
+    public int MaxCapacity =>
+        EquipmentManager.Instance != null ? EquipmentManager.Instance.GetInventoryCapacity() : 8;
+
+    public bool IsFull => items.Count >= MaxCapacity;
 
     private void Awake()
     {
@@ -48,7 +58,13 @@ public class InventoryController : MonoBehaviour
         else
         {
             Destroy(gameObject);
+            return;
         }
+
+        // Initialize here instead of Start() so the lookup is ready even when
+        // the Inventory panel is disabled at scene start (Start() is skipped
+        // on inactive GameObjects, but Awake() always runs on scene load).
+        database.Initialize();
     }
     public void ForceUIRefresh()
     {
@@ -62,8 +78,6 @@ public class InventoryController : MonoBehaviour
 
     private void Start()
     {
-        database.Initialize();
-
         foreach (var invItem in items)
         {
             map[invItem.data.ID] = invItem;
@@ -76,28 +90,51 @@ public class InventoryController : MonoBehaviour
     }
 
 
-    public void AddItem(ItemData itemData, int amount = 1, int price = 0)
+    /// <summary>
+    /// Attempts to add an item. Returns true if at least some quantity was added,
+    /// false if the inventory was already full and nothing was added.
+    /// Fires OnInventoryFull if a slot limit is hit.
+    /// </summary>
+    public bool AddItem(ItemData itemData, int amount = 1, int price = 0)
     {
-        if(itemData is FishItemData)
+        // ── Fish: each fish always occupies its own slot ──────────────────
+        if (itemData is FishItemData)
         {
-            var newItem = new InventoryItem(itemData, 1, price);
-            items.Add(newItem);
+            if (IsFull)
+            {
+                Debug.LogWarning($"[Inventory] Full ({items.Count}/{MaxCapacity}) — could not add {itemData.displayName}.");
+                OnInventoryFull?.Invoke();
+                return false;
+            }
+
+            items.Add(new InventoryItem(itemData, 1, price));
             Debug.Log($"Added {itemData.displayName} worth {price} gold!");
             RefreshUIEvent?.Invoke();
-            return;
+            return true;
         }
 
+        // ── Non-stackable: each unit needs its own slot ───────────────────
         if (!itemData.isStackable)
         {
+            bool addedAny = false;
             for (int i = 0; i < amount; i++)
             {
+                if (IsFull)
+                {
+                    Debug.LogWarning($"[Inventory] Full ({items.Count}/{MaxCapacity}) — could not add all of {itemData.displayName}.");
+                    OnInventoryFull?.Invoke();
+                    break;
+                }
                 items.Add(new InventoryItem(itemData, 1));
+                addedAny = true;
             }
             RefreshUIEvent?.Invoke();
-            return;
+            return addedAny;
         }
 
+        // ── Stackable: fill existing partial stacks first, then new slots ─
         int remaining = amount;
+        bool addedAnyStackable = false;
 
         while (remaining > 0)
         {
@@ -105,21 +142,32 @@ public class InventoryController : MonoBehaviour
 
             if (existing != null)
             {
+                // Top up an existing partial stack — no new slot needed
                 int spaceAvailable = itemData.maxStack - existing.quantity;
                 int toAdd = Mathf.Min(spaceAvailable, remaining);
-
                 existing.quantity += toAdd;
                 remaining -= toAdd;
+                addedAnyStackable = true;
             }
             else
             {
+                // Need a new slot
+                if (IsFull)
+                {
+                    Debug.LogWarning($"[Inventory] Full ({items.Count}/{MaxCapacity}) — could not add all of {itemData.displayName}.");
+                    OnInventoryFull?.Invoke();
+                    break;
+                }
+
                 int stackAmount = Mathf.Min(remaining, itemData.maxStack);
                 items.Add(new InventoryItem(itemData, stackAmount));
                 remaining -= stackAmount;
+                addedAnyStackable = true;
             }
         }
 
         RefreshUIEvent?.Invoke();
+        return addedAnyStackable;
     }
 
     public void RemoveItem(InventoryItem item)

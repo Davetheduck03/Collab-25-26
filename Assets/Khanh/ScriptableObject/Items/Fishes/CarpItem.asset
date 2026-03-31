@@ -15,8 +15,9 @@ MonoBehaviour:
   ID: 9
   displayName: Carp
   description: 
-  Sprite: {fileID: 21300000, guid: de4f71ef54d3fdd4bbe3e9248200ebd0, type: 3}
+  Sprite: {fileID: 21300000, guid: 0342237721db1e94487ca0a33d2cde51, type: 3}
   type: 4
   isStackable: 0
   maxStack: 10
-  sellPrice: 0
+  fishData: {fileID: 0}
+  price: 0

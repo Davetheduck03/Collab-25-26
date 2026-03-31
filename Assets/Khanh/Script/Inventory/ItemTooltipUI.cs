@@ -89,8 +89,40 @@ public class ItemTooltipUI : MonoBehaviour
 
         //itemIcon.sprite = item.data.Sprite;
         itemName.text = item.data.displayName;
-        itemDescription.text = item.data.description;
         itemType.text = item.data.type.ToString();
+
+        // Build description — append equipment stats if applicable
+        string desc = item.data.description ?? "";
+
+        if (item.data is HookItemData hook)
+        {
+            desc += $"\n\n<b>── Hook Stats ──</b>" +
+                    $"\nTier: {hook.tier}" +
+                    $"\nHook Chance: {hook.hookChance}%" +
+                    $"\nRare Boost: +{hook.rareBoost} Luck" +
+                    $"\nDurability: {hook.durability}" +
+                    $"\nCost: {hook.cost}g";
+        }
+        else if (item.data is RodItemData rod)
+        {
+            desc += $"\n\n<b>── Rod Stats ──</b>" +
+                    $"\nTier: {rod.tier}" +
+                    $"\nAttack Mult: x{rod.attackMult}" +
+                    $"\nReel Speed: x{rod.reelSpeed}" +
+                    $"\nDurability: {rod.durability}" +
+                    $"\nCost: {rod.cost}g";
+        }
+        else if (item.data is BoatItemData boat)
+        {
+            desc += $"\n\n<b>── Boat Stats ──</b>" +
+                    $"\nTier: {boat.tier}" +
+                    $"\nSpeed: {boat.speed}" +
+                    $"\nCapacity: {boat.capacity} slots" +
+                    $"\nHP Bonus: +{boat.hp} Health" +
+                    $"\nCost: {boat.cost}g";
+        }
+
+        itemDescription.text = desc;
 
         if (item.data.type == ItemType.Fish)
         {

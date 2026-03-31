@@ -9,14 +9,19 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8159a76520cb9fb4d8227afab2677be1, type: 3}
+  m_Script: {fileID: 11500000, guid: e93290adcf6e4609ab00a0e0ca7a8f38, type: 3}
   m_Name: MythicRod
-  m_EditorClassIdentifier: 
+  m_EditorClassIdentifier:
   ID: 4
   displayName: Mythic Rod
-  description: 
+  description: A legendary rod that doubles your striking power.
   Sprite: {fileID: -3473724991729454663, guid: 296ae14298d718847a421292e36701f8, type: 3}
   type: 1
   isStackable: 0
   maxStack: 1
-  runtimeUID: 
+  runtimeUID:
+  tier: 4
+  attackMult: 2
+  reelSpeed: 1.4
+  durability: 250
+  cost: 6000

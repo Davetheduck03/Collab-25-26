@@ -30,6 +30,9 @@ public class ShopManager : MonoBehaviour
     {
         ShopCanvas.SetActive(true);
         FishShopPanel.SetActive(true);
+        // Refresh the fish list now that the panel is active
+        if (FishShopUI.Instance != null)
+            FishShopUI.Instance.Refresh();
         Invoke(nameof(LockPlayer), 0.05f);
     }
 

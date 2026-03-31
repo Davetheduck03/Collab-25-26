@@ -9,14 +9,19 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8159a76520cb9fb4d8227afab2677be1, type: 3}
+  m_Script: {fileID: 11500000, guid: cf45081c53ae4b3a8ba9187224ff0772, type: 3}
   m_Name: IronHook
-  m_EditorClassIdentifier: 
+  m_EditorClassIdentifier:
   ID: 6
   displayName: Iron Hook
-  description: 
+  description: A sturdy iron hook with better catch rates.
   Sprite: {fileID: -4301403985248868390, guid: 296ae14298d718847a421292e36701f8, type: 3}
   type: 1
   isStackable: 0
   maxStack: 0
-  runtimeUID: 
+  runtimeUID:
+  tier: 2
+  hookChance: 80
+  rareBoost: 2
+  durability: 80
+  cost: 500

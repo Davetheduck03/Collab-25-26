@@ -15,8 +15,9 @@ MonoBehaviour:
   ID: 14
   displayName: The Wish Fish
   description: 
-  Sprite: {fileID: 21300000, guid: 21f8c7f301527e4488e9bd238273b62c, type: 3}
+  Sprite: {fileID: 21300000, guid: 21947d4a79e6a3749bd5c5f58c490665, type: 3}
   type: 4
   isStackable: 0
   maxStack: 10
-  sellPrice: 0
+  fishData: {fileID: 0}
+  price: 0
