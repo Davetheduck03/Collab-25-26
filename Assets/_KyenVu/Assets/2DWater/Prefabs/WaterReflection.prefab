@@ -181,7 +181,7 @@ MonoBehaviour:
   splashInfluence: 0.5
   waveHeight: 0.25
   hasConstantWaves: 1
-  waveAmplitude: 0.03
+  waveAmplitude: 0.05
   waveSpeed: 4
   waveStep: 2
   numSprings: 20

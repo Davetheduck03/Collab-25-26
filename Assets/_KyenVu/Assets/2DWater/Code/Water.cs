@@ -1,262 +1,265 @@
 using UnityEngine;
 
-namespace Bundos.WaterSystem
+public class Spring
 {
-    public class Spring
+    public Vector2 weightPosition, sineOffset, velocity, acceleration;
+}
+
+[RequireComponent(typeof(MeshFilter), typeof(MeshRenderer))]
+public class Water : MonoBehaviour
+{
+    [Header("Dynamic Wave Settings")]
+    public bool interactive = true;
+    public float splashInfluence = 0.005f;
+    public float waveHeight = .25f;
+
+    [Header("Constant Waves Settings")]
+    public bool hasConstantWaves = true;
+    public float waveAmplitude = 1f;
+    public float waveSpeed = 1f;
+    public int waveStep = 1;
+
+    [Header("Spring Settings")]
+    public int numSprings = 10;
+    public float spacing = 1f;
+    public float springConstant = 0.05f;
+    public float springDamping = 0.025f;
+
+    [Header("Particles")]
+    public GameObject splashParticle;
+
+    [HideInInspector]
+    Spring[] springs;
+    MeshFilter meshFilter;
+    Mesh mesh;
+
+    [HideInInspector]
+    public Vector2[] vertices, baseVertecies;
+    [HideInInspector]
+    public int[] triangles;
+    [HideInInspector]
+    Vector2[] uvs;
+
+    private bool isShuttingDown = false;
+
+    private void Start()
     {
-        public Vector2 weightPosition, sineOffset, velocity, acceleration;
+        Initialize();
+        InitializeSprings();
+        CreateShape();
     }
 
-    [RequireComponent(typeof(MeshFilter), typeof(MeshRenderer))]
-    public class Water : MonoBehaviour
+    private void OnApplicationQuit()
     {
-        [Header("Dynamic Wave Settings")]
-        public bool interactive = true;
-        public float splashInfluence = 0.005f;
-        public float waveHeight = .25f;
+        isShuttingDown = true;
+    }
 
-        [Header("Constant Waves Settings")]
-        public bool hasConstantWaves = true;
-        public float waveAmplitude = 1f;
-        public float waveSpeed = 1f;
-        public int waveStep = 1;
+    private void OnDestroy()
+    {
+        isShuttingDown = true;
+    }
 
-        [Header("Spring Settings")]
-        public int numSprings = 10;
-        public float spacing = 1f;
-        public float springConstant = 0.05f;
-        public float springDamping = 0.025f;
-
-        [Header("Particles")]
-        public GameObject splashParticle;
-
-        [HideInInspector]
-        Spring[] springs;
-        MeshFilter meshFilter;
-        Mesh mesh;
-
-        [HideInInspector]
-        public Vector2[] vertices, baseVertecies;
-        [HideInInspector]
-        public int[] triangles;
-        [HideInInspector]
-        Vector2[] uvs;
-
-        // NEW: Flag to track if the scene is closing
-        private bool isShuttingDown = false;
-
-        private void Start()
+    public void Initialize()
+    {
+        mesh = new Mesh()
         {
-            Initialize();
-            InitializeSprings();
-            CreateShape();
-        }
+            name = "WaterMesh"
+        };
 
-        // NEW: Detect when the scene/game is closing
-        private void OnApplicationQuit()
-        {
-            isShuttingDown = true;
-        }
+        meshFilter = GetComponent<MeshFilter>();
+        meshFilter.mesh = mesh;
+    }
 
-        // NEW: Detect when this object is destroyed (like during scene transitions)
-        private void OnDestroy()
-        {
-            isShuttingDown = true;
-        }
+    private void InitializeSprings()
+    {
+        springs = new Spring[numSprings];
 
-        public void Initialize()
+        for (int i = 0; i < numSprings; i++)
         {
-            mesh = new Mesh()
+            springs[i] = new Spring
             {
-                name = "WaterMesh"
+                weightPosition = new Vector2()
             };
-
-            meshFilter = GetComponent<MeshFilter>();
-            meshFilter.mesh = mesh;
         }
+    }
 
-        private void InitializeSprings()
+    public void CreateShape()
+    {
+        vertices = new Vector2[numSprings * 2];
+
+        for (int i = 0, x = 0; x < numSprings; x++)
         {
-            springs = new Spring[numSprings];
-
-            for (int i = 0; i < numSprings; i++)
+            for (int y = 0; y < 2; y++)
             {
-                springs[i] = new Spring
-                {
-                    weightPosition = new Vector2()
-                };
-            }
-        }
-
-        public void CreateShape()
-        {
-            // Vertices
-            vertices = new Vector2[numSprings * 2];
-
-            for (int i = 0, x = 0; x < numSprings; x++)
-            {
-                for (int y = 0; y < 2; y++)
-                {
-                    vertices[i] = new Vector3(x, y);
-                    i++;
-                }
-            }
-
-            baseVertecies = new Vector2[numSprings * 2];
-            vertices.CopyTo(baseVertecies, 0);
-
-            // Triangles
-            triangles = new int[((numSprings * 2) - 2) * 3];
-
-            int vert = 0;
-            int tris = 0;
-            for (int x = 0; x < numSprings - 1; x++)
-            {
-                triangles[tris + 0] = vert + 0;
-                triangles[tris + 1] = vert + 1;
-                triangles[tris + 2] = vert + 3;
-
-                triangles[tris + 3] = vert + 0;
-                triangles[tris + 4] = vert + 3;
-                triangles[tris + 5] = vert + 2;
-
-                vert += 2;
-                tris += 6;
-            }
-
-            // UV's
-            uvs = new Vector2[vertices.Length];
-
-            for (int i = 0, x = 0; x < numSprings; x++)
-            {
-                for (int y = 0; y < 2; y++)
-                {
-                    uvs[i] = new Vector3((float)x / numSprings, (float)y / 2);
-                    i++;
-                }
+                vertices[i] = new Vector3(x, y);
+                i++;
             }
         }
 
-        private Vector3[] ConvertVector2ArrayToVector3(Vector2[] vector2Array)
+        baseVertecies = new Vector2[numSprings * 2];
+        vertices.CopyTo(baseVertecies, 0);
+
+        triangles = new int[((numSprings * 2) - 2) * 3];
+
+        int vert = 0;
+        int tris = 0;
+        for (int x = 0; x < numSprings - 1; x++)
         {
-            Vector3[] vector3Array = new Vector3[vector2Array.Length];
-            for (int i = 0; i < vector2Array.Length; i++)
-            {
-                vector3Array[i] = new Vector3(vector2Array[i].x, vector2Array[i].y, 0);
-            }
-            return vector3Array;
+            triangles[tris + 0] = vert + 0;
+            triangles[tris + 1] = vert + 1;
+            triangles[tris + 2] = vert + 3;
+
+            triangles[tris + 3] = vert + 0;
+            triangles[tris + 4] = vert + 3;
+            triangles[tris + 5] = vert + 2;
+
+            vert += 2;
+            tris += 6;
         }
 
-        private void Update()
+        uvs = new Vector2[vertices.Length];
+
+        for (int i = 0, x = 0; x < numSprings; x++)
         {
-            UpdateSpringPositions();
-            UpdateMeshVerticePositions();
-            UpdateMesh();
+            for (int y = 0; y < 2; y++)
+            {
+                uvs[i] = new Vector3((float)x / numSprings, (float)y / 2);
+                i++;
+            }
+        }
+    }
+
+    private Vector3[] ConvertVector2ArrayToVector3(Vector2[] vector2Array)
+    {
+        Vector3[] vector3Array = new Vector3[vector2Array.Length];
+        for (int i = 0; i < vector2Array.Length; i++)
+        {
+            vector3Array[i] = new Vector3(vector2Array[i].x, vector2Array[i].y, 0);
+        }
+        return vector3Array;
+    }
+
+    private void Update()
+    {
+        UpdateSpringPositions();
+        UpdateMeshVerticePositions();
+        UpdateMesh();
+    }
+
+    private void UpdateMeshVerticePositions()
+    {
+        for (int i = 0; i < numSprings; i++)
+        {
+            vertices[(2 * i) + 1] = baseVertecies[(2 * i) + 1] + springs[i].weightPosition + springs[i].sineOffset;
+        }
+    }
+
+    private void UpdateSpringPositions()
+    {
+        for (int i = 0; i < springs.Length; i++)
+        {
+            springs[i].acceleration = (-springConstant * springs[i].weightPosition.y) * Vector2.up - (springs[i].velocity * springDamping);
+
+            if (i > 0)
+            {
+                float leftDelta = splashInfluence * (springs[i].acceleration.y - springs[i - 1].acceleration.y);
+                springs[i].velocity += leftDelta * Vector2.up;
+            }
+
+            if (i < springs.Length - 1)
+            {
+                float rightDelta = splashInfluence * (springs[i].acceleration.y - springs[i + 1].acceleration.y);
+                springs[i].velocity += rightDelta * Vector2.up;
+            }
+
+            springs[i].velocity += springs[i].acceleration;
+
+            if (hasConstantWaves)
+                springs[i].sineOffset = new Vector2(0, waveAmplitude * Mathf.Sin((Time.realtimeSinceStartup * waveSpeed) + i * waveStep));
+
+            springs[i].weightPosition += springs[i].velocity;
+        }
+    }
+
+    public void UpdateMesh()
+    {
+        mesh.Clear();
+
+        mesh.vertices = ConvertVector2ArrayToVector3(vertices);
+        mesh.triangles = triangles;
+        mesh.uv = uvs;
+
+        mesh.RecalculateNormals();
+    }
+
+    // CHANGED: Added "spawnSplash" and "heightMultiplier" toggles so we can control how big the ripple is!
+    public void Ripple(Vector3 contactPoint, bool sink, bool spawnSplash = true, float heightMultiplier = 1f)
+    {
+        if (spawnSplash && splashParticle != null)
+        {
+            GameObject splash = Instantiate(splashParticle, contactPoint, Quaternion.identity);
+            Destroy(splash, 1f);
         }
 
-        private void UpdateMeshVerticePositions()
+        Vector3 localContactPoint = transform.InverseTransformPoint(contactPoint);
+
+        float currSmallestDistance = 10000f;
+        int index = 0;
+        for (int i = 0; i < numSprings; i++)
         {
-            for (int i = 0; i < numSprings; i++)
+            float distance = Mathf.Abs(Vector2.Distance(vertices[(2 * i) + 1], localContactPoint));
+            if (distance < currSmallestDistance)
             {
-                vertices[(2 * i) + 1] = baseVertecies[(2 * i) + 1] + springs[i].weightPosition + springs[i].sineOffset;
+                currSmallestDistance = distance;
+                index = i;
             }
         }
 
-        private void UpdateSpringPositions()
+        // CHANGED: Multiplied by our height settings to allow smaller continuous ripples
+        springs[index].weightPosition = (sink ? Vector2.down : Vector2.up) * (waveHeight * heightMultiplier);
+    }
+
+    void OnTriggerEnter2D(Collider2D other)
+    {
+        if (!interactive || isShuttingDown)
+            return;
+
+        Rigidbody2D otherRigidbody = other.GetComponent<Rigidbody2D>();
+        if (otherRigidbody != null)
         {
-            // Random spring movement
-            for (int i = 0; i < springs.Length; i++)
-            {
-                springs[i].acceleration = (-springConstant * springs[i].weightPosition.y) * Vector2.up - (springs[i].velocity * springDamping);
-
-                if (i > 0)
-                {
-                    float leftDelta = splashInfluence * (springs[i].acceleration.y - springs[i - 1].acceleration.y);
-                    springs[i].velocity += leftDelta * Vector2.up;
-                }
-
-                if (i < springs.Length - 1)
-                {
-                    float rightDelta = splashInfluence * (springs[i].acceleration.y - springs[i + 1].acceleration.y);
-                    springs[i].velocity += rightDelta * Vector2.up;
-                }
-
-                springs[i].velocity += springs[i].acceleration;
-
-                if (hasConstantWaves)
-                    springs[i].sineOffset = new Vector2(0, waveAmplitude * Mathf.Sin((Time.realtimeSinceStartup * waveSpeed) + i * waveStep));
-
-                springs[i].weightPosition += springs[i].velocity;
-            }
+            Vector2 contactPoint = other.ClosestPoint(transform.position);
+            Ripple(contactPoint, false);
         }
+    }
 
-        public void UpdateMesh()
+    // --- NEW: This runs continuously while the boat is touching the water ---
+    void OnTriggerStay2D(Collider2D other)
+    {
+        if (!interactive || isShuttingDown)
+            return;
+
+        Rigidbody2D otherRigidbody = other.GetComponent<Rigidbody2D>();
+
+        // Only ripple if the boat is actually moving horizontally
+        if (otherRigidbody != null && Mathf.Abs(otherRigidbody.linearVelocity.x) > 0.1f)
         {
-            mesh.Clear();
+            Vector2 contactPoint = other.ClosestPoint(transform.position);
 
-            mesh.vertices = ConvertVector2ArrayToVector3(vertices);
-            mesh.triangles = triangles;
-            mesh.uv = uvs;
-
-            mesh.RecalculateNormals();
+            // Call Ripple, but tell it NOT to spawn particles (false), and make the wave smaller (0.4f)
+            Ripple(contactPoint, true, false, 0.01f);
         }
+    }
 
-        private void Ripple(Vector3 contactPoint, bool sink)
+    void OnTriggerExit2D(Collider2D other)
+    {
+        if (!interactive || isShuttingDown)
+            return;
+
+        Rigidbody2D otherRigidbody = other.GetComponent<Rigidbody2D>();
+        if (otherRigidbody != null)
         {
-            if (splashParticle != null)
-            {
-                // CHANGED: Save a reference to the instantiated splash so we can destroy it
-                GameObject splash = Instantiate(splashParticle, contactPoint, Quaternion.identity);
-
-                // Destroy the splash particle after 2 seconds to prevent memory leaks!
-                // You can change "2f" to however long your particle animation lasts.
-                Destroy(splash, 1f);
-            }
-
-            Vector3 localContactPoint = transform.InverseTransformPoint(contactPoint);
-
-            float currSmallestDistance = 10000f;
-            int index = 0;
-            for (int i = 0; i < numSprings; i++)
-            {
-                float distance = Mathf.Abs(Vector2.Distance(vertices[(2 * i) + 1], localContactPoint));
-                if (distance < currSmallestDistance)
-                {
-                    currSmallestDistance = distance;
-                    index = i;
-                }
-            }
-
-            springs[index].weightPosition = (sink ? Vector2.down : Vector2.up) * waveHeight;
-        }
-
-        void OnTriggerEnter2D(Collider2D other)
-        {
-            // CHANGED: Abort if the scene is shutting down
-            if (!interactive || isShuttingDown)
-                return;
-
-            Rigidbody2D otherRigidbody = other.GetComponent<Rigidbody2D>();
-            if (otherRigidbody != null)
-            {
-                Vector2 contactPoint = other.ClosestPoint(transform.position);
-
-                Ripple(contactPoint, false);
-            }
-        }
-
-        void OnTriggerExit2D(Collider2D other)
-        {
-            // CHANGED: Abort if the scene is shutting down
-            if (!interactive || isShuttingDown)
-                return;
-
-            Rigidbody2D otherRigidbody = other.GetComponent<Rigidbody2D>();
-            if (otherRigidbody != null)
-            {
-                Vector2 contactPoint = other.ClosestPoint(transform.position);
-                Ripple(contactPoint, true);
-            }
+            Vector2 contactPoint = other.ClosestPoint(transform.position);
+            Ripple(contactPoint, true);
         }
     }
 }

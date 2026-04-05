@@ -1,8 +1,10 @@
+using Phuc.SoundSystem;
+using System;
+using System.Collections;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using System;
-using Phuc.SoundSystem;
-using UnityEngine.SceneManagement; // NEW: Required for switching scenes
+using UnityEngine.SceneManagement;
 
 public class BoatController : MonoBehaviour
 {
@@ -13,6 +15,9 @@ public class BoatController : MonoBehaviour
     [Header("Fishing Settings")]
     public GameObject hook;
 
+    [Header("Animation")]
+    public Animator animator;
+
     [Header("Scene Settings")]
     public string returnSceneName = "Top Down scene";
 
@@ -20,12 +25,12 @@ public class BoatController : MonoBehaviour
     private bool canMove = true;
     private bool isFishing = false;
 
-    // Event to notify that fishing has started
+    private Coroutine struggleCoroutine;
+
     public static event Action OnFishingStarted;
 
     private void OnEnable()
     {
-        // Listen for finish event from CastLineControl
         CastLineControl.OnFishingFinished += HandleFishingFinished;
     }
 
@@ -39,12 +44,13 @@ public class BoatController : MonoBehaviour
         if (rb == null)
             rb = GetComponent<Rigidbody2D>();
         hook.SetActive(false);
+
+        if (animator == null)
+            animator = GetComponentInChildren<Animator>();
     }
 
-    // --- NEW: Check for the H key to return to town ---
     private void Update()
     {
-        // Check if the H key was pressed this frame, and ensure we aren't currently fishing
         if (Keyboard.current != null && Keyboard.current.hKey.wasPressedThisFrame)
         {
             if (!isFishing)
@@ -61,9 +67,30 @@ public class BoatController : MonoBehaviour
     private void FixedUpdate()
     {
         if (canMove)
+        {
             rb.linearVelocity = new Vector2(moveInput.x * moveSpeed, rb.linearVelocity.y);
+
+            if (animator != null)
+            {
+                animator.SetBool("isMoving", moveInput.x != 0);
+            }
+
+            if (moveInput.x != 0)
+            {
+                Vector3 scale = transform.localScale;
+                scale.x = Mathf.Abs(scale.x) * Mathf.Sign(moveInput.x);
+                transform.localScale = scale;
+            }
+        }
         else
+        {
             rb.linearVelocity = new Vector2(0, rb.linearVelocity.y);
+
+            if (animator != null)
+            {
+                animator.SetBool("isMoving", false);
+            }
+        }
     }
 
     private void OnBoatMove(InputValue value)
@@ -80,13 +107,17 @@ public class BoatController : MonoBehaviour
             isFishing = true;
             canMove = false;
             rb.linearVelocity = Vector2.zero;
-            // Notify others (like CastLineControl) that fishing has started
-            // SoundManager.PlaySfx(SfxSoundType.Rod_casted);
+
+            if (animator != null)
+            {
+                animator.SetTrigger("Fish");
+            }
+            struggleCoroutine = StartCoroutine(RandomStruggleRoutine());
+
             OnFishingStarted?.Invoke();
         }
     }
 
-    // NEW: Optional method if you map a "Return" action in your PlayerInput component later
     private void OnReturn()
     {
         if (!isFishing)
@@ -95,17 +126,78 @@ public class BoatController : MonoBehaviour
         }
     }
 
-    private void HandleFishingFinished()
+    // CHANGED: Now starts a Coroutine instead of finishing instantly
+    private void HandleFishingFinished(bool success)
     {
-        Debug.Log("Fishing finished! Returning to boat control.");
-        isFishing = false;
-        canMove = true;
+        if (struggleCoroutine != null)
+        {
+            StopCoroutine(struggleCoroutine);
+        }
+
+        // Start the animation sequence!
+        StartCoroutine(FishingFinishedSequence(success));
     }
 
-    // NEW: Method that actually loads the scene
+    // NEW: The sequence that handles playing animations in order
+    private IEnumerator FishingFinishedSequence(bool success)
+    {
+        Debug.Log("Fishing finished! Playing 'Done' animation...");
+
+        if (animator != null)
+        {
+            animator.SetTrigger("Done");
+        }
+
+        // 1. Wait for the "Done" animation to finish playing
+        // (Change 1.0f to exactly however many seconds your Done animation lasts!)
+        yield return new WaitForSeconds(1.0f);
+
+        if (animator != null)
+        {
+            if (success) animator.SetTrigger("Happy");
+            else animator.SetTrigger("Mad");
+        }
+
+        // 2. Wait for the Happy or Mad animation to finish playing
+        // (Change 1.5f to the length of your Happy/Mad animation)
+        yield return new WaitForSeconds(1.5f);
+
+        // 3. Finally give control back to the player
+        isFishing = false;
+        canMove = true;
+        Debug.Log("Animations complete! Returning to boat control.");
+    }
+
+    private IEnumerator RandomStruggleRoutine()
+    {
+        while (isFishing)
+        {
+            yield return new WaitForSeconds(UnityEngine.Random.Range(2f, 5f));
+
+            if (isFishing && animator != null)
+            {
+                animator.SetTrigger("Struggle");
+            }
+        }
+    }
+
     private void ReturnToTown()
     {
         Debug.Log($"Returning to {returnSceneName}. Fish data is safe in the InventoryController!");
         SceneManager.LoadScene(returnSceneName);
+    }
+
+    public void PlaySplashAnimationEvent()
+    {
+       Water water = UnityEngine.Object.FindFirstObjectByType<Water>();
+
+        if (water != null)
+        {
+            water.Ripple(transform.position, true, true, 0.6f);
+        }
+        else
+        {
+            Debug.LogWarning("[BoatController] Tried to play splash animation, but no Water was found in the scene!");
+        }
     }
 }

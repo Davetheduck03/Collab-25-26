@@ -31,7 +31,6 @@ public class CastLineControl : MonoBehaviour
     private bool isSinking = false;
     private bool isPulling = false;
 
-    // NEW: Track if the fish is currently dead
     private bool fishIsDead = false;
 
     private GameObject caughtFish;
@@ -49,7 +48,8 @@ public class CastLineControl : MonoBehaviour
     [SerializeField] DamageComponent damageComponent;
 
     // Events
-    public static event Action OnFishingFinished;
+    // CHANGED: This already perfectly expects a bool!
+    public static event Action<bool> OnFishingFinished;
     public static event Action<GameObject> OnFishCaught;
     public static event Action<DamageComponent> OnPlayerAttackLeft;
     public static event Action<DamageComponent> OnPlayerAttackRight;
@@ -68,7 +68,6 @@ public class CastLineControl : MonoBehaviour
     {
         BoatController.OnFishingStarted += HandleFishingStarted;
         Fish.OnFishHealthThresholdReached += AutoPullTrigger;
-        // NEW: Listen for the fish death
         Fish.OnFishDefeatedEvent += HandleFishDefeated;
     }
 
@@ -88,7 +87,6 @@ public class CastLineControl : MonoBehaviour
         currentLineLength = 0f;
         currentHorizontalOffset = 0f;
 
-        // NEW: Reset all inputs so the hook doesn't get stuck pulling up!
         isPulling = false;
         isSinking = false;
         moveInput = Vector2.zero;
@@ -105,8 +103,6 @@ public class CastLineControl : MonoBehaviour
         HandleLineMovement();
         UpdateHookPosition();
         UpdateLineRenderer();
-
-        // Removed the old buggy FinishFishing() check from here
     }
 
     private void HandleLineMovement()
@@ -114,7 +110,6 @@ public class CastLineControl : MonoBehaviour
         // While fighting
         if (isCatching)
         {
-
             if (!fishIsDead)
             {
                 float bob = Mathf.Sin(Time.time * bobSpeed) * bobAmount;
@@ -131,7 +126,8 @@ public class CastLineControl : MonoBehaviour
 
                     if (fishIsDead)
                     {
-                        FinishFishing();
+                        // CHANGED: Pass TRUE because we successfully killed and reeled in the fish!
+                        FinishFishing(true);
                     }
                 }
             }
@@ -150,12 +146,12 @@ public class CastLineControl : MonoBehaviour
             {
                 currentLineLength -= lineSpeed * Time.deltaTime;
 
-               
                 if (currentLineLength <= 0f)
                 {
                     currentLineLength = 0f;
-                    FinishFishing();
-                    return; // Stop running movement logic for this frame
+                    // CHANGED: Pass FALSE because we pulled up an empty hook!
+                    FinishFishing(false);
+                    return;
                 }
             }
             else if (isSinking)
@@ -171,6 +167,7 @@ public class CastLineControl : MonoBehaviour
             return;
         }
     }
+
     private void UpdateHookPosition()
     {
         Vector3 targetPos =
@@ -189,7 +186,6 @@ public class CastLineControl : MonoBehaviour
 
     private void OnMove(InputValue value)
     {
-        
         moveInput = value.Get<Vector2>();
     }
 
@@ -230,7 +226,7 @@ public class CastLineControl : MonoBehaviour
             isCatching = true;
             caughtFish = collision.gameObject;
             baseCatchLength = currentLineLength;
-            // SoundManager.PlaySfx(SfxSoundType.Hooked_the_fish);
+
             caughtFish.transform.SetParent(hook.transform);
 
             OnFishCaught?.Invoke(caughtFish);
@@ -247,15 +243,15 @@ public class CastLineControl : MonoBehaviour
         autoReeling = true;
     }
 
-    // NEW: Method to handle when the fish dies
     private void HandleFishDefeated()
     {
         fishIsDead = true;
-        targetPullLength = 0f; // Force the line to reel all the way to the top
+        targetPullLength = 0f;
         autoReeling = true;
     }
 
-    public void FinishFishing()
+    // CHANGED: Now requires a bool 'success' to match the event!
+    public void FinishFishing(bool success)
     {
         isFishing = false;
         isCatching = false;
@@ -265,7 +261,6 @@ public class CastLineControl : MonoBehaviour
         hook.SetActive(false);
         lineRenderer.enabled = false;
 
-        // NEW: Unparent and permanently destroy the dead fish
         if (caughtFish != null)
         {
             caughtFish.transform.SetParent(null);
@@ -273,8 +268,7 @@ public class CastLineControl : MonoBehaviour
             caughtFish = null;
         }
 
-        // This event alerts BoatController to give movement back, 
-        // and CameraManager to return the camera to the boat!
-        OnFishingFinished?.Invoke();
+        // CHANGED: Pass the success boolean to the event
+        OnFishingFinished?.Invoke(success);
     }
 }

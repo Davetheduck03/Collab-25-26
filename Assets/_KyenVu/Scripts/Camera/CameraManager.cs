@@ -21,13 +21,13 @@ public class CameraManager : MonoBehaviour
 
     private void OnEnable()
     {
-        BoatController.OnFishingStarted  += HandleFishingStarted;
+        BoatController.OnFishingStarted += HandleFishingStarted;
         CastLineControl.OnFishingFinished += HandleFishingFinished;
     }
 
     private void OnDisable()
     {
-        BoatController.OnFishingStarted  -= HandleFishingStarted;
+        BoatController.OnFishingStarted -= HandleFishingStarted;
         CastLineControl.OnFishingFinished -= HandleFishingFinished;
     }
 
@@ -65,7 +65,8 @@ public class CameraManager : MonoBehaviour
         }
     }
 
-    private void HandleFishingFinished()
+    // CHANGED: Added 'bool success' so it perfectly matches the CastLineControl event!
+    private void HandleFishingFinished(bool success)
     {
         _currentTarget = boatTarget;
         Debug.Log("[CameraManager] Switched back to boat target.");
