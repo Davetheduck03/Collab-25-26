@@ -547,7 +547,24 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      idle after swing_0: 3895499978511916644
+      idle after swing_1: -2876497807151838075
+      idle after swing_10: 3951765139669421792
+      idle after swing_11: 3202208721038026901
+      idle after swing_12: 5956716982604874048
+      idle after swing_13: -1033122712971554887
+      idle after swing_14: -653250420389089182
+      idle after swing_15: -1309200463840008320
+      idle after swing_16: 8903571965056993370
+      idle after swing_2: -5812152057144008378
+      idle after swing_3: 6341881408017873270
+      idle after swing_4: 1297202946205840900
+      idle after swing_5: -3439557754743548652
+      idle after swing_6: -3060114313002352578
+      idle after swing_7: -1476555789230283682
+      idle after swing_8: -8319013723226331125
+      idle after swing_9: 5059773736850325681
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
