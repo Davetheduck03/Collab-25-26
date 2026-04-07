@@ -48,8 +48,6 @@ public class QuotaManager : GameSingleton<QuotaManager>
         // Track all gold added through CurrencyManager
         CurrencyManager.OnCurrencyAdded += HandleGoldAdded;
 
-        // Subscribe to the boat's death event for failure
-        SubscribeToBoatDeath();
     }
 
     protected override void OnDestroy()
@@ -118,32 +116,4 @@ public class QuotaManager : GameSingleton<QuotaManager>
         }
     }
 
-    private void HandleBoatDeath()
-    {
-        if (runEnded) return;
-        runEnded = true;
-
-        Debug.Log($"[QuotaManager] Boat destroyed — run failed. Earned {goldEarned} / {goldTarget}g.");
-        OnRunFailed?.Invoke();
-    }
-
-    private void SubscribeToBoatDeath()
-    {
-        var boat = GameObject.FindWithTag("Boat") ?? GameObject.Find("Boat");
-        if (boat == null)
-        {
-            Debug.LogWarning("[QuotaManager] Could not find 'Boat' — death detection disabled. Make sure the Boat GameObject is tagged 'Boat'.");
-            return;
-        }
-
-        var hp = boat.GetComponent<HealthComponent>();
-        if (hp == null)
-        {
-            Debug.LogWarning("[QuotaManager] Boat has no HealthComponent — death detection disabled.");
-            return;
-        }
-
-        hp.OnDeath += HandleBoatDeath;
-        Debug.Log("[QuotaManager] Subscribed to Boat HealthComponent.OnDeath.");
-    }
 }

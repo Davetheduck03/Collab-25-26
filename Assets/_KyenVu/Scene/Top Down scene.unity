@@ -41085,9 +41085,9 @@ MonoBehaviour:
   onInteract:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1592600400}
-        m_TargetAssemblyTypeName: DialogueTrigger, Assembly-CSharp
-        m_MethodName: TriggerDialogue
+      - m_Target: {fileID: 1792991223}
+        m_TargetAssemblyTypeName: TimeManager, Assembly-CSharp
+        m_MethodName: SleepToNextDay
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -41223,7 +41223,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1592600398}
   - component: {fileID: 1592600399}
-  - component: {fileID: 1592600400}
   m_Layer: 0
   m_Name: e
   m_TagString: Untagged
@@ -41301,81 +41300,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &1592600400
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1592600397}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b7658ad9384939d4a92712c02182f779, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  npcName: Upgrade Stall Owner
-  npcPortrait: {fileID: 3960905257129193107, guid: 4015029925ff4a941afafb8f32cd340b, type: 3}
-  dialogueSets:
-  - note: First Encouter
-    requiredEncounterLevel: 0
-    dialogueNodes:
-    - sentence: Hi, welcome to The Tavern, what can I serve
-      isMission: 0
-      missionDetails: {fileID: 0}
-      choices:
-      - choiceText: I want to buy equipment
-        nextNodeIndex: -1
-        onChoiceSelected:
-          m_PersistentCalls:
-            m_Calls:
-            - m_Target: {fileID: 1345374056}
-              m_TargetAssemblyTypeName: ShopManager, Assembly-CSharp
-              m_MethodName: OpenUpgradeStall
-              m_Mode: 1
-              m_Arguments:
-                m_ObjectArgument: {fileID: 0}
-                m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-                m_IntArgument: 0
-                m_FloatArgument: 0
-                m_StringArgument: 
-                m_BoolArgument: 0
-              m_CallState: 2
-      - choiceText: Do you have anything for me to help ?
-        nextNodeIndex: 1
-        onChoiceSelected:
-          m_PersistentCalls:
-            m_Calls: []
-      nextNodeIndex: 0
-    - sentence: Hi, welcome to The Tavern, what can I serve
-      isMission: 1
-      missionDetails: {fileID: 11400000, guid: 21e7ab9f1d4619947ad562997b51e07d, type: 2}
-      choices:
-      - choiceText: Accept mission
-        nextNodeIndex: -1
-        onChoiceSelected:
-          m_PersistentCalls:
-            m_Calls:
-            - m_Target: {fileID: 1345374056}
-              m_TargetAssemblyTypeName: ShopManager, Assembly-CSharp
-              m_MethodName: OpenTavern
-              m_Mode: 1
-              m_Arguments:
-                m_ObjectArgument: {fileID: 0}
-                m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-                m_IntArgument: 0
-                m_FloatArgument: 0
-                m_StringArgument: 
-                m_BoolArgument: 0
-              m_CallState: 2
-      - choiceText: No thanks
-        nextNodeIndex: -1
-        onChoiceSelected:
-          m_PersistentCalls:
-            m_Calls: []
-      nextNodeIndex: 0
-    onDialogueEnd:
-      m_PersistentCalls:
-        m_Calls: []
 --- !u!1 &1625919326
 GameObject:
   m_ObjectHideFlags: 0
@@ -42364,6 +42288,17 @@ MonoBehaviour:
   m_ChildScaleWidth: 1
   m_ChildScaleHeight: 1
   m_ReverseArrangement: 0
+--- !u!114 &1792991223 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7039554704807431601, guid: a64b1bffc7f64cd488b5f87b5ca832d1, type: 3}
+  m_PrefabInstance: {fileID: 1456092514}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5ec1ba84cac423e45a89a2c93dbbc4f9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1800138581
 GameObject:
   m_ObjectHideFlags: 0

@@ -17,16 +17,20 @@ public class BoatController : MonoBehaviour
     [Header("Animation")]
     public Animator animator;
 
-    [Header("Scene Transition")]
+    [Header("Scene Transition & UI")]
     public string returnSceneName = "Top Down scene";
     [Tooltip("Drag your fade screen UI Animator here.")]
     public Animator sceneTransitionAnimator;
-    public float transitionDelay = 1f;
+    public float transitionDelay = 3f;
+
+    // --- NEW: Confirmation Panel Reference ---
+    [Tooltip("Drag your Return Confirmation UI Panel here.")]
+    public GameObject returnConfirmationPanel;
 
     private Vector2 moveInput;
     private bool canMove = true;
     private bool isFishing = false;
-    private bool isReturning = false; // NEW: Prevents spamming
+    private bool isReturning = false;
 
     private Coroutine struggleCoroutine;
 
@@ -49,21 +53,25 @@ public class BoatController : MonoBehaviour
         if (rb == null)
             rb = GetComponent<Rigidbody2D>();
         hook.SetActive(false);
-
+        sceneTransitionAnimator.gameObject.SetActive(false);
         if (animator == null)
             animator = GetComponentInChildren<Animator>();
+       
+        // Ensure the panel starts hidden
+        if (returnConfirmationPanel != null)
+            returnConfirmationPanel.SetActive(false);
     }
 
     private void Update()
     {
-        // Don't do anything if we are already transitioning
         if (isReturning) return;
 
         if (Keyboard.current != null && Keyboard.current.hKey.wasPressedThisFrame)
         {
             if (!isFishing)
             {
-                StartCoroutine(ReturnToTownSequence());
+                // CHANGED: Prompt the UI instead of immediately loading
+                PromptReturnToTown();
             }
             else
             {
@@ -112,7 +120,6 @@ public class BoatController : MonoBehaviour
         {
             Debug.Log(" Started Fishing Animation");
 
-            // Lock the boat and set the state
             isFishing = true;
             canMove = false;
             rb.linearVelocity = Vector2.zero;
@@ -128,9 +135,49 @@ public class BoatController : MonoBehaviour
     {
         if (!isFishing && !isReturning)
         {
+            // CHANGED: Also use the prompt for the Input System event
+            PromptReturnToTown();
+        }
+    }
+
+    public void PromptReturnToTown()
+    {
+        // If the panel is already open, do nothing
+        if (returnConfirmationPanel != null && returnConfirmationPanel.activeSelf) return;
+
+        // Freeze the boat while they decide
+        canMove = false;
+        rb.linearVelocity = Vector2.zero;
+
+        if (returnConfirmationPanel != null)
+        {
+            returnConfirmationPanel.SetActive(true);
+        }
+        else
+        {
+            // Fallback: If you forgot to assign the panel, just go home!
             StartCoroutine(ReturnToTownSequence());
         }
     }
+
+    public void ConfirmReturn()
+    {
+        if (returnConfirmationPanel != null)
+            returnConfirmationPanel.SetActive(false);
+
+        StartCoroutine(ReturnToTownSequence());
+    }
+
+    public void CancelReturn()
+    {
+        if (returnConfirmationPanel != null)
+            returnConfirmationPanel.SetActive(false);
+
+        // Unfreeze the boat!
+        canMove = true;
+    }
+
+    // =========================================================================
 
     private void HandleFishCaught(GameObject caughtFish)
     {
@@ -141,7 +188,6 @@ public class BoatController : MonoBehaviour
         struggleCoroutine = StartCoroutine(RandomStruggleRoutine());
     }
 
-    // 1. Update your Handle method signature
     private void HandleFishingFinished(bool success, EnemySO caughtFishData)
     {
         if (struggleCoroutine != null)
@@ -152,7 +198,6 @@ public class BoatController : MonoBehaviour
         StartCoroutine(FishingFinishedSequence(success, caughtFishData));
     }
 
-    // 2. Update your Coroutine to freeze when the UI is open
     private IEnumerator FishingFinishedSequence(bool success, EnemySO caughtFishData)
     {
         Debug.Log("Fishing finished! Playing 'Done' animation...");
@@ -169,22 +214,17 @@ public class BoatController : MonoBehaviour
             if (success) animator.SetTrigger("Happy");
             else animator.SetTrigger("Mad");
         }
-        Debug.Log("--- FISHING UI CHECK ---");
-        Debug.Log($"1. Was the catch a success? : {success}");
-        Debug.Log($"2. Did we successfully grab the fish data? : {(caughtFishData != null ? "YES" : "NO (Data is null!)")}");
-        Debug.Log($"3. Is the UI Singleton active? : {(CatchFishUI.Instance != null ? "YES" : "NO (Instance is null!)")}");
+
         yield return new WaitForSeconds(1.5f);
+
         if (success && caughtFishData != null && CatchFishUI.Instance != null)
         {
-            // 1. Show the UI
             CatchFishUI.Instance.gameObject.SetActive(true);
             CatchFishUI.Instance.ShowCatchResult(caughtFishData);
 
-            // 2. Freeze this coroutine right here until the UI closes itself!
             yield return new WaitUntil(() => !CatchFishUI.Instance.gameObject.activeSelf);
         }
 
-        // 3. UI is closed, give the player back control
         isFishing = false;
         canMove = true;
         Debug.Log("Animations and UI complete! Returning to boat control.");
@@ -207,19 +247,16 @@ public class BoatController : MonoBehaviour
     {
         isReturning = true;
         canMove = false;
-
-        // 1. Stop movement
+        sceneTransitionAnimator.gameObject.SetActive(true);
         rb.linearVelocity = Vector2.zero;
-
-        // 2. NEW: Disable physics so the boat cannot trigger water splashes when it gets destroyed
         rb.simulated = false;
+
         Collider2D boatCollider = GetComponent<Collider2D>();
         if (boatCollider != null)
         {
             boatCollider.enabled = false;
         }
 
-        // 3. Freeze animator
         if (animator != null)
         {
             animator.speed = 0f;
@@ -247,10 +284,6 @@ public class BoatController : MonoBehaviour
         SceneManager.LoadScene(returnSceneName);
     }
 
-    // =========================================================================
-    // --- ANIMATION EVENTS ---
-    // =========================================================================
-
     public void PlaySplashAnimationEvent()
     {
         Water water = UnityEngine.Object.FindFirstObjectByType<Water>();
@@ -258,10 +291,6 @@ public class BoatController : MonoBehaviour
         if (water != null)
         {
             water.Ripple(transform.position, true, true, 0.6f);
-        }
-        else
-        {
-            Debug.LogWarning("[BoatController] Tried to play splash animation, but no Water was found in the scene!");
         }
     }
 

@@ -30,7 +30,7 @@ public class BoatData : MonoBehaviour
         healthComponent = GetComponent<HealthComponent>();
         if (healthComponent != null)
         {
-            healthComponent.OnDeath += HandleBoatDeath;
+            //healthComponent.OnDeath += HandleBoatDeath;
             Debug.Log($"[BoatData] Boat initialized. Starting HP: {healthComponent.currentHealth} | OnDeath subscribed: true");
         }
         else
