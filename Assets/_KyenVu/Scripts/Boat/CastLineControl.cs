@@ -25,30 +25,38 @@ public class CastLineControl : MonoBehaviour
     public Transform lineOrigin;
     private LineRenderer lineRenderer;
 
+    // =========================================================
+    // --- NEW: VISUAL LINE SETTINGS ---
+    // =========================================================
+    [Header("Line Visual Settings")]
+    [Tooltip("How many points make up the line. Higher = smoother underwater curves!")]
+    public int lineResolution = 20;
+
+    [Tooltip("Drag an empty GameObject here placed at the exact Y-level of your water surface.")]
+    public Transform waterSurfacePoint;
+
+    public float waveAmplitude = 0.15f;  // How wide the wave is
+    public float waveSpeed = 4f;         // How fast it wiggles
+    public float waveFrequency = 2f;     // How many S-curves the line has
+
     private Vector2 moveInput;
     private bool isFishing = false;
     private bool isCatching = false;
     private bool isSinking = false;
     private bool isPulling = false;
-
     private bool fishIsDead = false;
 
     private GameObject caughtFish;
-
     private float currentLineLength = 0f;
-
     public float CurrentDepth => currentLineLength;
     private float currentHorizontalOffset = 0f;
 
     private bool autoReeling = false;
     private float targetPullLength = 0f;
-
     private float baseCatchLength = 0f;
 
     [SerializeField] DamageComponent damageComponent;
 
-    // Events
-    // CHANGED: This already perfectly expects a bool!
     public static event Action<bool> OnFishingFinished;
     public static event Action<GameObject> OnFishCaught;
     public static event Action<DamageComponent> OnPlayerAttackLeft;
@@ -58,7 +66,8 @@ public class CastLineControl : MonoBehaviour
     private void Awake()
     {
         lineRenderer = GetComponent<LineRenderer>();
-        lineRenderer.positionCount = 2;
+        // Set the resolution immediately
+        lineRenderer.positionCount = Mathf.Max(2, lineResolution);
         lineRenderer.startWidth = 0.05f;
         lineRenderer.endWidth = 0.03f;
         lineRenderer.enabled = false;
@@ -102,12 +111,13 @@ public class CastLineControl : MonoBehaviour
 
         HandleLineMovement();
         UpdateHookPosition();
+
+        // CHANGED: This now runs our complex wave math!
         UpdateLineRenderer();
     }
 
     private void HandleLineMovement()
     {
-        // While fighting
         if (isCatching)
         {
             if (!fishIsDead)
@@ -123,20 +133,13 @@ public class CastLineControl : MonoBehaviour
                 if (Mathf.Abs(currentLineLength - targetPullLength) < 0.05f)
                 {
                     autoReeling = false;
-
-                    if (fishIsDead)
-                    {
-                        // CHANGED: Pass TRUE because we successfully killed and reeled in the fish!
-                        FinishFishing(true);
-                    }
+                    if (fishIsDead) FinishFishing(true);
                 }
             }
-
             currentLineLength = Mathf.Clamp(currentLineLength, 0f, maxLineLength);
             return;
         }
 
-        // Normal fishing movement (seeking fish)
         if (!isCatching)
         {
             currentHorizontalOffset += moveInput.x * moveSpeed * Time.deltaTime;
@@ -149,7 +152,6 @@ public class CastLineControl : MonoBehaviour
                 if (currentLineLength <= 0f)
                 {
                     currentLineLength = 0f;
-                    // CHANGED: Pass FALSE because we pulled up an empty hook!
                     FinishFishing(false);
                     return;
                 }
@@ -180,24 +182,53 @@ public class CastLineControl : MonoBehaviour
 
     private void UpdateLineRenderer()
     {
-        lineRenderer.SetPosition(0, lineOrigin.position);
-        lineRenderer.SetPosition(1, hook.transform.position);
+        int points = Mathf.Max(2, lineResolution);
+        if (lineRenderer.positionCount != points)
+        {
+            lineRenderer.positionCount = points;
+        }
+
+        Vector3 startPos = lineOrigin.position;
+        Vector3 endPos = hook.transform.position;
+
+        // Figure out where the water is (fallback to 1 unit below the rod if unassigned)
+        float waterY = waterSurfacePoint != null ? waterSurfacePoint.position.y : startPos.y - 1f;
+
+        for (int i = 0; i < points; i++)
+        {
+            // Get a percentage from 0.0 (top of the line) to 1.0 (bottom at the hook)
+            float t = i / (float)(points - 1);
+
+            // Start by assuming the line is perfectly straight
+            Vector3 currentPoint = Vector3.Lerp(startPos, endPos, t);
+
+            // If this specific point of the line is UNDER the water surface, make it wavy!
+            if (currentPoint.y < waterY)
+            {
+                float depth = waterY - currentPoint.y;
+
+                // 1. Create the wiggling sine wave
+                float waveOffset = Mathf.Sin((Time.time * waveSpeed) - (depth * waveFrequency)) * waveAmplitude;
+
+                // 2. Smoothly taper the wave at the water surface so it doesn't cleanly "snap"
+                float surfaceTaper = Mathf.Clamp01(depth * 2f);
+
+                // 3. Smoothly taper the wave at the bottom so it always perfectly connects to the hook!
+                float distanceToHook = Vector3.Distance(currentPoint, endPos);
+                float hookTaper = Mathf.Clamp01(distanceToHook * 2f);
+
+                // Apply the wave horizontally
+                currentPoint.x += (waveOffset * surfaceTaper * hookTaper);
+            }
+
+            // Lock the point into the LineRenderer
+            lineRenderer.SetPosition(i, currentPoint);
+        }
     }
 
-    private void OnMove(InputValue value)
-    {
-        moveInput = value.Get<Vector2>();
-    }
-
-    private void OnSink(InputValue value)
-    {
-        isSinking = value.isPressed;
-    }
-
-    private void OnPull(InputValue value)
-    {
-        isPulling = value.isPressed;
-    }
+    private void OnMove(InputValue value) { moveInput = value.Get<Vector2>(); }
+    private void OnSink(InputValue value) { isSinking = value.isPressed; }
+    private void OnPull(InputValue value) { isPulling = value.isPressed; }
 
     private void OnAttackLeft()
     {
@@ -228,7 +259,6 @@ public class CastLineControl : MonoBehaviour
             baseCatchLength = currentLineLength;
 
             caughtFish.transform.SetParent(hook.transform);
-
             OnFishCaught?.Invoke(caughtFish);
         }
     }
@@ -236,10 +266,8 @@ public class CastLineControl : MonoBehaviour
     private void AutoPullTrigger(float hpPercent)
     {
         if (!isCatching) return;
-
         float percentage = 1f - hpPercent;
         targetPullLength = baseCatchLength * (1f - percentage);
-
         autoReeling = true;
     }
 
@@ -250,7 +278,6 @@ public class CastLineControl : MonoBehaviour
         autoReeling = true;
     }
 
-    // CHANGED: Now requires a bool 'success' to match the event!
     public void FinishFishing(bool success)
     {
         isFishing = false;
@@ -268,7 +295,12 @@ public class CastLineControl : MonoBehaviour
             caughtFish = null;
         }
 
-        // CHANGED: Pass the success boolean to the event
+        if (TimeManager.Instance != null)
+        {
+            int minutesTaken = success ? 30 : 60;
+            TimeManager.Instance.AdvanceTime(minutesTaken);
+        }
+
         OnFishingFinished?.Invoke(success);
     }
 }

@@ -23,13 +23,20 @@ public class InteractableObject : MonoBehaviour, I_Interactable
     public void Interaction()
     {
         Debug.Log($"Player interacted with an object of type: {interactType}");
-
+       
         // This triggers whatever you set up in the Unity Inspector!
         onInteract?.Invoke();
     }
 
     public void ShowPrompt()
     {
+        if (interactType == InteractType.Shop)
+        {
+            if (TimeManager.Instance != null && !TimeManager.Instance.IsShopOpen())
+            {
+                return; // Stop here, don't show the prompt
+            }
+        }
         if (ePromptIcon != null) ePromptIcon.SetActive(true);
     }
 

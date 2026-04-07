@@ -3,18 +3,7 @@ using UnityEngine;
 
 /// <summary>
 /// Tracks gold earned during the current run against a configurable quota target.
-///
-/// Hookup:
-///  • Add QuotaManager to your ManagerContainer prefab (or any persistent GO).
-///  • Set goldTarget in the Inspector (e.g. 500).
-///  • QuotaManager auto-subscribes to CurrencyManager.OnCurrencyAdded for gold tracking.
-///  • QuotaManager auto-subscribes to the Boat's HealthComponent.OnDeath for failure.
-///
-/// Progression (not implemented yet):
-///  • Listen to QuotaManager.OnQuotaMet to unlock next zone, end the day, etc.
-///
-/// Failure:
-///  • Listen to QuotaManager.OnRunFailed to show game-over screen, reload, etc.
+/// Now upgraded to work with the TimeManager for daily end-of-day checks!
 /// </summary>
 public class QuotaManager : GameSingleton<QuotaManager>
 {
@@ -22,15 +11,18 @@ public class QuotaManager : GameSingleton<QuotaManager>
     [Tooltip("Amount of gold that must be earned to meet the quota this run.")]
     public int goldTarget = 500;
 
+    [Tooltip("How much the quota increases after successfully surviving a day.")]
+    public int dailyQuotaIncrease = 250;
+
     // ── Runtime state ─────────────────────────────────────────────────────────
-    private int  goldEarned   = 0;
-    private bool quotaMet     = false;
-    private bool runEnded     = false;   // prevents double-firing events
+    private int goldEarned = 0;
+    private bool quotaMet = false;
+    private bool runEnded = false;   // prevents double-firing events
 
     // ── Public read-only access ───────────────────────────────────────────────
-    public int  GoldEarned  => goldEarned;
-    public int  GoldTarget  => goldTarget;
-    public bool IsQuotaMet  => quotaMet;
+    public int GoldEarned => goldEarned;
+    public int GoldTarget => goldTarget;
+    public bool IsQuotaMet => quotaMet;
 
     // ── Events ────────────────────────────────────────────────────────────────
 
@@ -40,7 +32,7 @@ public class QuotaManager : GameSingleton<QuotaManager>
     /// <summary>Fires once when accumulated gold first reaches the target.</summary>
     public static event Action OnQuotaMet;
 
-    /// <summary>Fires when the boat dies (run failed before quota was met, or after).</summary>
+    /// <summary>Fires when the boat dies OR the end-of-day quota is failed.</summary>
     public static event Action OnRunFailed;
 
     // ── Unity lifecycle ───────────────────────────────────────────────────────
@@ -68,14 +60,44 @@ public class QuotaManager : GameSingleton<QuotaManager>
 
     // ── Public API ────────────────────────────────────────────────────────────
 
-    /// <summary>Resets run state (call at the start of a new run/day).</summary>
+    /// <summary>Resets daily earnings (call at the start of a new day).</summary>
     public void ResetRun()
     {
         goldEarned = 0;
-        quotaMet   = false;
-        runEnded   = false;
+        quotaMet = false;
+        runEnded = false;
         OnGoldEarned?.Invoke(goldEarned, goldTarget);
-        Debug.Log($"[QuotaManager] Run reset. Target: {goldTarget}g.");
+        Debug.Log($"[QuotaManager] Day started. Target to hit today: {goldTarget}g.");
+    }
+
+
+    /// <summary>Called by TimeManager/Bed when the player goes to sleep.</summary>
+    public bool CheckQuotaAtEndOfDay()
+    {
+        if (runEnded) return false;
+
+        Debug.Log($"[QuotaManager] End of day check! Earned: {goldEarned}/{goldTarget}");
+
+        if (goldEarned >= goldTarget)
+        {
+            Debug.Log("[QuotaManager] Quota Met! You survive to fish another day.");
+            IncreaseQuota();
+            ResetRun(); // Reset the daily earnings back to 0 for the next morning
+            return true; // Survived!
+        }
+        else
+        {
+            Debug.Log("[QuotaManager] Quota FAILED! Game Over.");
+            runEnded = true;
+            OnRunFailed?.Invoke();
+            return false; // Game Over!
+        }
+    }
+
+    private void IncreaseQuota()
+    {
+        goldTarget += dailyQuotaIncrease;
+        Debug.Log($"[QuotaManager] Quota has increased! New target is {goldTarget}g.");
     }
 
     // ── Private ───────────────────────────────────────────────────────────────
@@ -86,14 +108,13 @@ public class QuotaManager : GameSingleton<QuotaManager>
 
         goldEarned += amount;
         OnGoldEarned?.Invoke(goldEarned, goldTarget);
-        Debug.Log($"[QuotaManager] Gold earned: {goldEarned} / {goldTarget}");
+        Debug.Log($"[QuotaManager] Gold earned today: {goldEarned} / {goldTarget}");
 
         if (!quotaMet && goldEarned >= goldTarget)
         {
             quotaMet = true;
-            Debug.Log("[QuotaManager] QUOTA MET!");
+            Debug.Log("[QuotaManager] QUOTA MET FOR TODAY! You can safely go to sleep.");
             OnQuotaMet?.Invoke();
-            // Progression hook goes here later (load next zone, etc.)
         }
     }
 
