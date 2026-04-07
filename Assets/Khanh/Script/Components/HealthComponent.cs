@@ -26,7 +26,7 @@ public class HealthComponent : UnitComponent
 
     protected override void OnBoatSetUp()
     {
-        const float FALLBACK_HEALTH = 100f;
+        const float FALLBACK_HEALTH = 5f;
 
         if (UpgradeManager.Instance == null)
         {

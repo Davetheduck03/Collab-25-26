@@ -141,17 +141,19 @@ public class BoatController : MonoBehaviour
         struggleCoroutine = StartCoroutine(RandomStruggleRoutine());
     }
 
-    private void HandleFishingFinished(bool success)
+    // 1. Update your Handle method signature
+    private void HandleFishingFinished(bool success, EnemySO caughtFishData)
     {
         if (struggleCoroutine != null)
         {
             StopCoroutine(struggleCoroutine);
         }
 
-        StartCoroutine(FishingFinishedSequence(success));
+        StartCoroutine(FishingFinishedSequence(success, caughtFishData));
     }
 
-    private IEnumerator FishingFinishedSequence(bool success)
+    // 2. Update your Coroutine to freeze when the UI is open
+    private IEnumerator FishingFinishedSequence(bool success, EnemySO caughtFishData)
     {
         Debug.Log("Fishing finished! Playing 'Done' animation...");
 
@@ -167,12 +169,25 @@ public class BoatController : MonoBehaviour
             if (success) animator.SetTrigger("Happy");
             else animator.SetTrigger("Mad");
         }
-
+        Debug.Log("--- FISHING UI CHECK ---");
+        Debug.Log($"1. Was the catch a success? : {success}");
+        Debug.Log($"2. Did we successfully grab the fish data? : {(caughtFishData != null ? "YES" : "NO (Data is null!)")}");
+        Debug.Log($"3. Is the UI Singleton active? : {(CatchFishUI.Instance != null ? "YES" : "NO (Instance is null!)")}");
         yield return new WaitForSeconds(1.5f);
+        if (success && caughtFishData != null && CatchFishUI.Instance != null)
+        {
+            // 1. Show the UI
+            CatchFishUI.Instance.gameObject.SetActive(true);
+            CatchFishUI.Instance.ShowCatchResult(caughtFishData);
 
+            // 2. Freeze this coroutine right here until the UI closes itself!
+            yield return new WaitUntil(() => !CatchFishUI.Instance.gameObject.activeSelf);
+        }
+
+        // 3. UI is closed, give the player back control
         isFishing = false;
         canMove = true;
-        Debug.Log("Animations complete! Returning to boat control.");
+        Debug.Log("Animations and UI complete! Returning to boat control.");
     }
 
     private IEnumerator RandomStruggleRoutine()

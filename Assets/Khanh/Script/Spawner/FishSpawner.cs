@@ -35,8 +35,7 @@ public class FishSpawner : MonoBehaviour
 
     // ── Respawn ───────────────────────────────────────────────────────────────
 
-    // CHANGED: Added "bool success" so it perfectly matches the CastLineControl event!
-    private void HandleFishingFinished(bool success)
+    private void HandleFishingFinished(bool success, EnemySO caughtFishData)
     {
         StartCoroutine(RespawnAfterCooldown());
     }

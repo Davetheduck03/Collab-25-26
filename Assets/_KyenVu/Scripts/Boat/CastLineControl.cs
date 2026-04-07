@@ -22,6 +22,7 @@ public class CastLineControl : MonoBehaviour
 
     [Header("References")]
     public GameObject hook;
+    public Transform hookPoint;
     public Transform lineOrigin;
     private LineRenderer lineRenderer;
 
@@ -46,6 +47,7 @@ public class CastLineControl : MonoBehaviour
     private bool isPulling = false;
     private bool fishIsDead = false;
 
+    private EnemySO hookedFishData;
     private GameObject caughtFish;
     private float currentLineLength = 0f;
     public float CurrentDepth => currentLineLength;
@@ -57,7 +59,7 @@ public class CastLineControl : MonoBehaviour
 
     [SerializeField] DamageComponent damageComponent;
 
-    public static event Action<bool> OnFishingFinished;
+    public static event Action<bool, EnemySO> OnFishingFinished;
     public static event Action<GameObject> OnFishCaught;
     public static event Action<DamageComponent> OnPlayerAttackLeft;
     public static event Action<DamageComponent> OnPlayerAttackRight;
@@ -92,7 +94,8 @@ public class CastLineControl : MonoBehaviour
         isFishing = true;
         isCatching = false;
         autoReeling = false;
-        fishIsDead = false;
+        fishIsDead = false; 
+        hookedFishData = null;
         currentLineLength = 0f;
         currentHorizontalOffset = 0f;
 
@@ -256,9 +259,23 @@ public class CastLineControl : MonoBehaviour
         {
             isCatching = true;
             caughtFish = collision.gameObject;
-            baseCatchLength = currentLineLength;
 
-            caughtFish.transform.SetParent(hook.transform);
+            Fish fishComponent = caughtFish.GetComponentInParent<Fish>();
+            if (fishComponent != null)
+            {
+                hookedFishData = fishComponent.unitData as EnemySO;
+                Debug.Log($"[CastLineControl] Hooked a {hookedFishData?.UnitName}!");
+            }
+            else
+            {
+                Debug.LogWarning("[CastLineControl] The object tagged 'Fish' is missing the Fish.cs script!");
+            }
+
+            baseCatchLength = currentLineLength;
+            Transform targetPoint = hookPoint != null ? hookPoint : hook.transform;
+
+            caughtFish.transform.SetParent(targetPoint);
+            caughtFish.transform.localPosition = Vector3.zero;
             OnFishCaught?.Invoke(caughtFish);
         }
     }
@@ -288,6 +305,8 @@ public class CastLineControl : MonoBehaviour
         hook.SetActive(false);
         lineRenderer.enabled = false;
 
+        EnemySO caughtFishData = hookedFishData;
+
         if (caughtFish != null)
         {
             caughtFish.transform.SetParent(null);
@@ -301,6 +320,7 @@ public class CastLineControl : MonoBehaviour
             TimeManager.Instance.AdvanceTime(minutesTaken);
         }
 
-        OnFishingFinished?.Invoke(success);
+        // Pass the data through the event!
+        OnFishingFinished?.Invoke(success, caughtFishData);
     }
 }

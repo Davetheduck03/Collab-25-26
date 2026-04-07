@@ -1,10 +1,13 @@
 fileFormatVersion: 2
-guid: 1babbdaee2154cb42ba9c41e4b95841b
+guid: 8102de1abf2f8e14d9326b93e3c12d76
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -4473934601847615277
-    second: squio fish _0
+      213: -1298208015444704274
+    second: fish-hook_0
+  - first:
+      213: 1913066068220313824
+    second: fish-hook_1
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -50,8 +53,8 @@ TextureImporter:
   spriteExtrude: 1
   spriteMeshType: 0
   alignment: 9
-  spritePivot: {x: 0.8370787, y: 0.4861285}
-  spritePixelsToUnits: 50
+  spritePivot: {x: 0.47919273, y: 0.88146776}
+  spritePixelsToUnits: 256
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -113,13 +116,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: squio fish _0
+      name: fish-hook_0
       rect:
         serializedVersion: 2
-        x: 15
-        y: 28
-        width: 71
-        height: 52
+        x: 120
+        y: 0
+        width: 272
+        height: 393
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -128,8 +131,30 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 3d05b8cfe2469e1c0800000000000000
-      internalID: -4473934601847615277
+      spriteID: ee38ada20b6dbfde0800000000000000
+      internalID: -1298208015444704274
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fish-hook_1
+      rect:
+        serializedVersion: 2
+        x: 187
+        y: 390
+        width: 124
+        height: 122
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0e0002404739c8a10800000000000000
+      internalID: 1913066068220313824
       vertices: []
       indices: 
       edges: []
@@ -148,7 +173,8 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      squio fish _0: -4473934601847615277
+      fish-hook_0: -1298208015444704274
+      fish-hook_1: 1913066068220313824
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
