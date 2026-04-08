@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.UI;
 
 public class ShopManager : MonoBehaviour
 {
@@ -7,6 +8,7 @@ public class ShopManager : MonoBehaviour
     public GameObject TavernPanel;
     public GameObject FishShopPanel;
     public GameObject UpgradeStallPanel;
+    public Button[] closeButton;
 
     private void OnEnable()
     {
@@ -25,6 +27,11 @@ public class ShopManager : MonoBehaviour
         if (TavernPanel != null) TavernPanel.SetActive(false);
         if (FishShopPanel != null) FishShopPanel.SetActive(false);
         if (UpgradeStallPanel != null) UpgradeStallPanel.SetActive(false);
+        //foreach (Button button in closeButton)
+        //{
+        //    button.onClick.AddListener(CheckAndCloseCanvas);
+        //}
+        
     }
 
     // --- OPEN METHODS (Trigger these from Dialogue Choices) ---

@@ -11,7 +11,7 @@ public class StatsPanel : MonoBehaviour
         menuManager = FindAnyObjectByType<PlayerPanel>(); // Or inject via Inspector
         if (switchToInventoryButton)
         {
-            switchToInventoryButton.onClick.AddListener(() => menuManager.SwitchPanel(menuManager.inventoryPanel));
+            switchToInventoryButton.onClick.AddListener(() => menuManager.SwitchPanel(menuManager.inventoryUIPanel));
         }
     }
 }

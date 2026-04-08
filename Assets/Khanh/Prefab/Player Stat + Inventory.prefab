@@ -3239,7 +3239,7 @@ GameObject:
   - component: {fileID: 5663282092811999170}
   - component: {fileID: 1935670557306135858}
   m_Layer: 5
-  m_Name: Canvas (2)
+  m_Name: Player Stat + Inventory
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
