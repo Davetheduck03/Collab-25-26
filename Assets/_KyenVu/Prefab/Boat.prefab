@@ -453,6 +453,7 @@ GameObject:
   - component: {fileID: 1490118677356859960}
   - component: {fileID: 9200000011332621403}
   - component: {fileID: 30697100285964583}
+  - component: {fileID: 8792822007554055967}
   m_Layer: 0
   m_Name: Boat
   m_TagString: Boat
@@ -625,6 +626,7 @@ MonoBehaviour:
   returnSceneName: Top Down scene
   sceneTransitionAnimator: {fileID: 0}
   transitionDelay: 1
+  returnConfirmationPanel: {fileID: 0}
 --- !u!114 &1065128612490489921
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -745,7 +747,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   currentHealth: 0
   isDamagable: 1
-  maxHealth: 0
+  maxHealth: 5
 --- !u!114 &8907051596897159350
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -810,3 +812,18 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &8792822007554055967
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7643141176957904409}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 902f445fe5d329348b60e7294388372b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  healthPanel: {fileID: 0}
+  healthSlider: {fileID: 0}
+  boatHealth: {fileID: 1011332621484721403}

@@ -1,5 +1,5 @@
 using UnityEngine;
-using UnityEngine.UI; // Required for the Slider
+using UnityEngine.UI;
 
 public class BoatHealthUI : MonoBehaviour
 {
@@ -7,7 +7,7 @@ public class BoatHealthUI : MonoBehaviour
     [Tooltip("Drag the parent GameObject of this entire ticket/card here.")]
     public GameObject healthPanel;
 
-    [Tooltip("Drag the UI Slider that represents the red health bar here.")]
+    [Tooltip("Drag the UI Image that represents the red health bar here. Make sure Image Type is set to Filled!")]
     public Image healthSlider;
 
     [Header("Boat Reference")]
@@ -35,7 +35,9 @@ public class BoatHealthUI : MonoBehaviour
         {
             healthPanel.SetActive(false);
         }
-        boatHealth = GetComponent<HealthComponent>();
+
+        // DELETED: boatHealth = GetComponent<HealthComponent>();
+        // We removed this so the script uses the Boat you dragged into the Inspector!
     }
 
     private void Update()
@@ -61,7 +63,6 @@ public class BoatHealthUI : MonoBehaviour
         }
     }
 
-    // Notice we include the bool and EnemySO to match your event signature!
     private void HideHealth(bool success, EnemySO caughtFishData)
     {
         if (healthPanel != null)
@@ -73,11 +74,10 @@ public class BoatHealthUI : MonoBehaviour
 
     private void SyncHealthBar()
     {
-        if (boatHealth != null && healthSlider != null)
+        if (boatHealth != null && healthSlider != null && boatHealth.maxHealth > 0)
         {
-            // Automatically adjust the slider to match the boat's max and current HP
-                healthSlider.fillAmount = boatHealth.maxHealth;
-                healthSlider.fillAmount = boatHealth.currentHealth;
+            // CHANGED: Calculate the percentage (0.0 to 1.0)
+            healthSlider.fillAmount = boatHealth.currentHealth / boatHealth.maxHealth;
         }
     }
 }

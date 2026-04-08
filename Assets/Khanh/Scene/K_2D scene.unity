@@ -1658,21 +1658,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 1861104693959405416, guid: 5e9af00395f093043b075560b050fd04, type: 3}
   m_PrefabInstance: {fileID: 7086410311246567449}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &674212327
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 674212316}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 902f445fe5d329348b60e7294388372b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  healthPanel: {fileID: 489343772}
-  healthSlider: {fileID: 1845012546}
-  boatHealth: {fileID: 0}
 --- !u!1 &679311428
 GameObject:
   m_ObjectHideFlags: 0
@@ -6390,13 +6375,18 @@ PrefabInstance:
       propertyPath: m_Name
       value: Boat
       objectReference: {fileID: 0}
+    - target: {fileID: 8792822007554055967, guid: 5e9af00395f093043b075560b050fd04, type: 3}
+      propertyPath: healthPanel
+      value: 
+      objectReference: {fileID: 489343772}
+    - target: {fileID: 8792822007554055967, guid: 5e9af00395f093043b075560b050fd04, type: 3}
+      propertyPath: healthSlider
+      value: 
+      objectReference: {fileID: 1845012546}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 7643141176957904409, guid: 5e9af00395f093043b075560b050fd04, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 674212327}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5e9af00395f093043b075560b050fd04, type: 3}
 --- !u!1001 &8444194452710982630
 PrefabInstance:

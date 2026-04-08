@@ -21,6 +21,11 @@ public class UpgradeManager : MonoBehaviour
             Instance = this;
             DontDestroyOnLoad(gameObject);  // Persist this GameObject across scenes
         }
+        else
+        {
+            Destroy(gameObject);
+            return; 
+        }
 
         // Load all levels
         LoadUpgradeLevels();

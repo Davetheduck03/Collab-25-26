@@ -19,6 +19,26 @@ public class UpgradeUISlot : MonoBehaviour
 
     private UpgradeType type;
 
+    // --- NEW: Auto-refresh the UI when an upgrade happens! ---
+    private void OnEnable()
+    {
+        UpgradeManager.OnUpgradeSuccessful += HandleUpgradeEvent;
+    }
+
+    private void OnDisable()
+    {
+        UpgradeManager.OnUpgradeSuccessful -= HandleUpgradeEvent;
+    }
+
+    private void HandleUpgradeEvent(UpgradeType upgradedType)
+    {
+        // Only refresh if THIS specific slot was the one upgraded
+        if (upgradedType == type)
+        {
+            UpdateDisplay();
+        }
+    }
+
     public void Setup(UpgradeType upgradeType, Sprite icon = null)
     {
         type = upgradeType;
@@ -26,9 +46,14 @@ public class UpgradeUISlot : MonoBehaviour
 
         if (entry != null && entry.icon != null)
             iconImage.sprite = entry.icon;
+
         if (showDetailBtn != null)
             showDetailBtn.upgradeType = type;
+
         UpdateDisplay();
+
+        // Remove old listeners to prevent double-clicking bugs, then add the new one
+        upgradeButton.onClick.RemoveAllListeners();
         upgradeButton.onClick.AddListener(OnUpgradeClicked);
     }
 
@@ -62,10 +87,10 @@ public class UpgradeUISlot : MonoBehaviour
     {
         // Clean old ones
         foreach (Transform child in dividerParent)
+        {
             Destroy(child.gameObject);
-
-        RectTransform barRect = progressBar.GetComponent<RectTransform>();
-        float barWidth = barRect.rect.width;
+        }
+        dividers.Clear(); // Ensure the list is actually clear
 
         for (int i = 1; i < maxLevel; i++)
         {
@@ -82,6 +107,9 @@ public class UpgradeUISlot : MonoBehaviour
 
             // Optional: set divider width
             dividerRect.sizeDelta = new Vector2(10f, 0f);
+
+            // --- NEW: Add the divider to the list so it doesn't respawn forever! ---
+            dividers.Add(divider);
         }
     }
 
@@ -90,7 +118,8 @@ public class UpgradeUISlot : MonoBehaviour
         if (UpgradeManager.Instance.TryUpgrade(type, out string message))
         {
             Debug.Log(message);
-            UpdateDisplay();
+            // We no longer need to call UpdateDisplay() here, because the 
+            // HandleUpgradeEvent will automatically do it for us!
         }
         else
         {
