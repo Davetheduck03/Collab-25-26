@@ -234,7 +234,12 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      FISHY WISHY_0: 8499735246413300809
+      FISHY WISHY_1: -5789210152165467084
+      FISHY WISHY_2: 5023153653682550955
+      FISHY WISHY_3: -2677310634874557770
+      FISHY WISHY_4: 4543959173082531177
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
