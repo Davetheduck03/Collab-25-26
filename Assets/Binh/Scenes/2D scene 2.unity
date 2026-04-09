@@ -3677,7 +3677,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2724059794119884615, guid: cd3f5c0311122e041a262754e3809877, type: 3}
       propertyPath: offset.y
-      value: 1.5
+      value: 1.3
       objectReference: {fileID: 0}
     - target: {fileID: 2724059794119884615, guid: cd3f5c0311122e041a262754e3809877, type: 3}
       propertyPath: boatTarget
