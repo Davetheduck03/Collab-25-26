@@ -8,12 +8,18 @@ using System.Collections;
 
 public class PlayerPanel : MonoBehaviour
 {
-    // --- NEW: Singleton Instance ---
     public static PlayerPanel Instance { get; private set; }
 
     [Header("Panels")]
     public GameObject statsPanel;
-    public GameObject inventoryPanel;
+
+    // --- CHANGED: Split the Inventory into UI and Logic ---
+    [Tooltip("Drag the visual UI Canvas panel here (the background, slots, etc.)")]
+    public GameObject inventoryUIPanel;
+
+    [Tooltip("(Optional) Drag the object holding InventoryController here. NOTE: If it's a DontDestroyOnLoad Singleton, it's best to leave this empty so it never turns off!")]
+    public GameObject inventoryControllerObject;
+
     public GameObject gameUI;
 
     [Header("Animation (Shared)")]
@@ -42,12 +48,11 @@ public class PlayerPanel : MonoBehaviour
     private bool playingAnimation = false;
     private GameObject activePanel;
 
-    // --- NEW: Awake method to set up the Instance ---
     private void Awake()
     {
         if (Instance != null && Instance != this)
         {
-            Destroy(gameObject); // Destroys duplicates if you reload the scene
+            Destroy(gameObject);
             return;
         }
         Instance = this;
@@ -55,16 +60,19 @@ public class PlayerPanel : MonoBehaviour
 
     void Start()
     {
-        statsPanel.SetActive(false);
-        inventoryPanel.SetActive(false);
+        if (statsPanel) statsPanel.SetActive(false);
+        if (inventoryUIPanel) inventoryUIPanel.SetActive(false);
         animationImage.gameObject.SetActive(false);
+
+        // We specifically DO NOT turn off the inventoryControllerObject here, 
+        // because it needs to stay awake in the background to catch fish!
 
         if (globalVolume != null)
         {
             globalVolume.profile.TryGet(out colorAdjustments);
         }
 
-        if (inventoryButton) inventoryButton.onClick.AddListener(() => OpenMenu(inventoryPanel));
+        if (inventoryButton) inventoryButton.onClick.AddListener(() => OpenMenu(inventoryUIPanel));
         if (statsButton) statsButton.onClick.AddListener(() => OpenMenu(statsPanel));
     }
 
@@ -103,11 +111,17 @@ public class PlayerPanel : MonoBehaviour
         isMenuOpen = true;
         activePanel = panelToOpen;
 
-        statsPanel.SetActive(activePanel == statsPanel);
-        inventoryPanel.SetActive(activePanel == inventoryPanel);
+        if (statsPanel) statsPanel.SetActive(activePanel == statsPanel);
+        if (inventoryUIPanel) inventoryUIPanel.SetActive(activePanel == inventoryUIPanel);
 
-        // --- NEW: Force the inventory to redraw its items when opened! ---
-        if (activePanel == inventoryPanel && InventoryController.Instance != null)
+        // --- NEW: Toggle the logic object ONLY if you specifically assigned it ---
+        if (inventoryControllerObject != null)
+        {
+            inventoryControllerObject.SetActive(activePanel == inventoryUIPanel);
+        }
+
+        // Force the inventory to redraw its items when opened!
+        if (activePanel == inventoryUIPanel && InventoryController.Instance != null)
         {
             InventoryController.Instance.ForceUIRefresh();
         }
@@ -126,20 +140,25 @@ public class PlayerPanel : MonoBehaviour
 
         playingAnimation = false;
     }
-    public IEnumerator CloseMenu() // Changed to public in case you want to close it from another script!
+
+    public IEnumerator CloseMenu()
     {
         playingAnimation = true;
         isMenuOpen = false;
 
-        yield return StartCoroutine(PlayReverseAnimation(1f)); // Full speed for close
+        yield return StartCoroutine(PlayReverseAnimation(1f));
 
         if (colorAdjustments != null)
         {
             DOTween.To(() => colorAdjustments.saturation.value, x => colorAdjustments.saturation.value = x, closeSaturation, saturationTweenDuration).SetUpdate(true);
         }
 
-        statsPanel.SetActive(false);
-        inventoryPanel.SetActive(false);
+        if (statsPanel) statsPanel.SetActive(false);
+        if (inventoryUIPanel) inventoryUIPanel.SetActive(false);
+
+        // --- NEW: Toggle off the logic object ONLY if assigned ---
+        if (inventoryControllerObject != null) inventoryControllerObject.SetActive(false);
+
         activePanel = null;
 
         if (gameUI) gameUI.SetActive(true);
@@ -158,9 +177,23 @@ public class PlayerPanel : MonoBehaviour
         }
         else
         {
-            activePanel.SetActive(false);
+            if (activePanel != null) activePanel.SetActive(false);
+
+            // If we are switching AWAY from the inventory, and the controller object is assigned, turn it off
+            if (activePanel == inventoryUIPanel && inventoryControllerObject != null)
+            {
+                inventoryControllerObject.SetActive(false);
+            }
+
             activePanel = newPanel;
-            activePanel.SetActive(true);
+
+            if (activePanel != null) activePanel.SetActive(true);
+
+            // If we are switching TO the inventory, and the controller object is assigned, turn it on
+            if (activePanel == inventoryUIPanel && inventoryControllerObject != null)
+            {
+                inventoryControllerObject.SetActive(true);
+            }
         }
     }
 
@@ -168,27 +201,36 @@ public class PlayerPanel : MonoBehaviour
     {
         playingAnimation = true;
 
-        // Play close animation (reverse)
         yield return StartCoroutine(PlayReverseAnimation(switchAnimationDurationMultiplier));
 
-        // Swap panels (no visual during swap to avoid flicker)
-        activePanel.SetActive(false);
-        activePanel = newPanel;
-        activePanel.SetActive(true);
+        if (activePanel != null) activePanel.SetActive(false);
 
-        // --- NEW: Force the inventory to redraw its items when switching to it! ---
-        if (activePanel == inventoryPanel && InventoryController.Instance != null)
+        // If we are switching AWAY from the inventory, turn off controller object (if assigned)
+        if (activePanel == inventoryUIPanel && inventoryControllerObject != null)
+        {
+            inventoryControllerObject.SetActive(false);
+        }
+
+        activePanel = newPanel;
+
+        if (activePanel != null) activePanel.SetActive(true);
+
+        // If we are switching TO the inventory, turn on controller object (if assigned)
+        if (activePanel == inventoryUIPanel && inventoryControllerObject != null)
+        {
+            inventoryControllerObject.SetActive(true);
+        }
+
+        if (activePanel == inventoryUIPanel && InventoryController.Instance != null)
         {
             InventoryController.Instance.ForceUIRefresh();
         }
 
-        // Play open animation (forward)
         yield return StartCoroutine(PlayForwardAnimation(switchAnimationDurationMultiplier));
 
         playingAnimation = false;
     }
 
-    // Helper: Play frames forward
     private IEnumerator PlayForwardAnimation(float durationMultiplier)
     {
         animationImage.gameObject.SetActive(true);
@@ -200,7 +242,6 @@ public class PlayerPanel : MonoBehaviour
         animationImage.gameObject.SetActive(false);
     }
 
-    // Helper: Play frames reverse
     private IEnumerator PlayReverseAnimation(float durationMultiplier)
     {
         animationImage.gameObject.SetActive(true);

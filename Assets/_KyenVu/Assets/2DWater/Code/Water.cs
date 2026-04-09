@@ -59,6 +59,14 @@ public class Water : MonoBehaviour
         isShuttingDown = true;
     }
 
+    // =======================================================
+    // --- NEW: Catch scene unloading before OnDestroy ---
+    // =======================================================
+    private void OnDisable()
+    {
+        isShuttingDown = true;
+    }
+
     public void Initialize()
     {
         mesh = new Mesh()
@@ -192,10 +200,10 @@ public class Water : MonoBehaviour
         mesh.RecalculateNormals();
     }
 
-    // CHANGED: Added "spawnSplash" and "heightMultiplier" toggles so we can control how big the ripple is!
     public void Ripple(Vector3 contactPoint, bool sink, bool spawnSplash = true, float heightMultiplier = 1f)
     {
-        if (spawnSplash && splashParticle != null)
+        // One final check here to ensure we don't spawn during shutdown
+        if (spawnSplash && splashParticle != null && !isShuttingDown)
         {
             GameObject splash = Instantiate(splashParticle, contactPoint, Quaternion.identity);
             Destroy(splash, 1f);
@@ -215,7 +223,6 @@ public class Water : MonoBehaviour
             }
         }
 
-        // CHANGED: Multiplied by our height settings to allow smaller continuous ripples
         springs[index].weightPosition = (sink ? Vector2.down : Vector2.up) * (waveHeight * heightMultiplier);
     }
 
@@ -232,7 +239,6 @@ public class Water : MonoBehaviour
         }
     }
 
-    // --- NEW: This runs continuously while the boat is touching the water ---
     void OnTriggerStay2D(Collider2D other)
     {
         if (!interactive || isShuttingDown)
@@ -240,12 +246,9 @@ public class Water : MonoBehaviour
 
         Rigidbody2D otherRigidbody = other.GetComponent<Rigidbody2D>();
 
-        // Only ripple if the boat is actually moving horizontally
         if (otherRigidbody != null && Mathf.Abs(otherRigidbody.linearVelocity.x) > 0.1f)
         {
             Vector2 contactPoint = other.ClosestPoint(transform.position);
-
-            // Call Ripple, but tell it NOT to spawn particles (false), and make the wave smaller (0.4f)
             Ripple(contactPoint, true, false, 0.01f);
         }
     }
@@ -253,6 +256,15 @@ public class Water : MonoBehaviour
     void OnTriggerExit2D(Collider2D other)
     {
         if (!interactive || isShuttingDown)
+            return;
+
+        // =======================================================
+        // --- NEW: THE MAGIC FIX ---
+        // =======================================================
+        // If the object leaving the water is no longer active in the hierarchy,
+        // it means it was just disabled or deleted by a Scene Load. 
+        // We completely ignore it so it doesn't spawn a phantom splash!
+        if (other == null || !other.gameObject.activeInHierarchy)
             return;
 
         Rigidbody2D otherRigidbody = other.GetComponent<Rigidbody2D>();

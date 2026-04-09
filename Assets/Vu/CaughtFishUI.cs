@@ -10,12 +10,23 @@ public class CatchFishUI : MonoBehaviour
     public TextMeshProUGUI priceText;
     public TextMeshProUGUI rarityText;
     public Button closeButton;
-
+    public static CatchFishUI Instance;
     private void Awake()
     {
+        if (Instance == null)
+        {
+            Instance = this;
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
         closeButton.onClick.AddListener(ClosePanel);
     }
-
+    private void Start()
+    {
+        gameObject.SetActive(false);
+    }
     public void ShowCatchResult(EnemySO caughtFish)
     {
         if (caughtFish == null) return;

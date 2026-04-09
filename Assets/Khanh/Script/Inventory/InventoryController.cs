@@ -1,8 +1,25 @@
 ﻿using System;
 using System.Collections.Generic;
-using Unity.VisualScripting;
+using System.IO; // --- NEW: Required for saving/loading JSON ---
 using UnityEngine;
 using UnityEngine.InputSystem;
+
+// =========================================================
+// --- NEW: SERIALIZABLE SAVE CLASSES ---
+// =========================================================
+[Serializable]
+public class InventorySaveData
+{
+    public List<InventoryItemSaveData> savedItems = new();
+}
+
+[Serializable]
+public class InventoryItemSaveData
+{
+    public int itemID;
+    public int quantity;
+    public int sellPrice;
+}
 
 public class InventoryItem
 {
@@ -39,10 +56,8 @@ public class InventoryController : MonoBehaviour
     public List<InventoryItem> items = new();
     private Dictionary<int, InventoryItem> map = new();
 
-    /// <summary>
-    /// Max number of item slots. Driven by the equipped boat via EquipmentManager
-    /// (Rowboat=8, Motorboat=15, Trawler=20, Spirit Vessel=30). Falls back to 8.
-    /// </summary>
+    private string savePath; // --- NEW: Path to the save file ---
+
     public int MaxCapacity =>
         EquipmentManager.Instance != null ? EquipmentManager.Instance.GetInventoryCapacity() : 8;
 
@@ -61,15 +76,19 @@ public class InventoryController : MonoBehaviour
             return;
         }
 
-        // Initialize here instead of Start() so the lookup is ready even when
-        // the Inventory panel is disabled at scene start (Start() is skipped
-        // on inactive GameObjects, but Awake() always runs on scene load).
+        savePath = Path.Combine(Application.persistentDataPath, "inventoryData.json");
+
         database.Initialize();
+
+        // --- NEW: Load the inventory immediately after the database is ready! ---
+        LoadInventory();
     }
+
     public void ForceUIRefresh()
     {
         RefreshUIEvent?.Invoke();
     }
+
     public ItemData GetItemFromID(int ID)
     {
         ItemData item = database.GetItem(ID);
@@ -89,15 +108,62 @@ public class InventoryController : MonoBehaviour
         RefreshUIEvent?.Invoke();
     }
 
+    // =========================================================
+    // --- NEW: SAVE AND LOAD LOGIC ---
+    // =========================================================
+    private void SaveInventory()
+    {
+        InventorySaveData saveData = new InventorySaveData();
 
-    /// <summary>
-    /// Attempts to add an item. Returns true if at least some quantity was added,
-    /// false if the inventory was already full and nothing was added.
-    /// Fires OnInventoryFull if a slot limit is hit.
-    /// </summary>
+        foreach (var item in items)
+        {
+            saveData.savedItems.Add(new InventoryItemSaveData
+            {
+                itemID = item.data.ID,
+                quantity = item.quantity,
+                sellPrice = item.sellPrice
+            });
+        }
+
+        string json = JsonUtility.ToJson(saveData);
+        File.WriteAllText(savePath, json);
+        Debug.Log("[InventoryController] Inventory saved.");
+    }
+
+    private void LoadInventory()
+    {
+        if (File.Exists(savePath))
+        {
+            string json = File.ReadAllText(savePath);
+            InventorySaveData saveData = JsonUtility.FromJson<InventorySaveData>(json);
+
+            items.Clear();
+
+            foreach (var savedItem in saveData.savedItems)
+            {
+                // Look up the actual ItemData from the database using the saved ID
+                ItemData data = database.GetItem(savedItem.itemID);
+                if (data != null)
+                {
+                    items.Add(new InventoryItem(data, savedItem.quantity, savedItem.sellPrice));
+                }
+                else
+                {
+                    Debug.LogWarning($"[InventoryController] Could not find item ID {savedItem.itemID} in database during load!");
+                }
+            }
+            Debug.Log("[InventoryController] Inventory loaded.");
+        }
+    }
+
+    private void OnApplicationQuit()
+    {
+        SaveInventory(); // Failsafe save when the game closes
+    }
+    // =========================================================
+
     public bool AddItem(ItemData itemData, int amount = 1, int price = 0)
     {
-        // ── Fish: each fish always occupies its own slot ──────────────────
         if (itemData is FishItemData)
         {
             if (IsFull)
@@ -109,11 +175,12 @@ public class InventoryController : MonoBehaviour
 
             items.Add(new InventoryItem(itemData, 1, price));
             Debug.Log($"Added {itemData.displayName} worth {price} gold!");
+
+            SaveInventory(); // --- NEW: Save the change! ---
             RefreshUIEvent?.Invoke();
             return true;
         }
 
-        // ── Non-stackable: each unit needs its own slot ───────────────────
         if (!itemData.isStackable)
         {
             bool addedAny = false;
@@ -128,11 +195,12 @@ public class InventoryController : MonoBehaviour
                 items.Add(new InventoryItem(itemData, 1));
                 addedAny = true;
             }
+
+            if (addedAny) SaveInventory(); // --- NEW: Save the change! ---
             RefreshUIEvent?.Invoke();
             return addedAny;
         }
 
-        // ── Stackable: fill existing partial stacks first, then new slots ─
         int remaining = amount;
         bool addedAnyStackable = false;
 
@@ -142,7 +210,6 @@ public class InventoryController : MonoBehaviour
 
             if (existing != null)
             {
-                // Top up an existing partial stack — no new slot needed
                 int spaceAvailable = itemData.maxStack - existing.quantity;
                 int toAdd = Mathf.Min(spaceAvailable, remaining);
                 existing.quantity += toAdd;
@@ -151,7 +218,6 @@ public class InventoryController : MonoBehaviour
             }
             else
             {
-                // Need a new slot
                 if (IsFull)
                 {
                     Debug.LogWarning($"[Inventory] Full ({items.Count}/{MaxCapacity}) — could not add all of {itemData.displayName}.");
@@ -166,6 +232,7 @@ public class InventoryController : MonoBehaviour
             }
         }
 
+        if (addedAnyStackable) SaveInventory(); // --- NEW: Save the change! ---
         RefreshUIEvent?.Invoke();
         return addedAnyStackable;
     }
@@ -175,6 +242,7 @@ public class InventoryController : MonoBehaviour
         if (items.Contains(item))
         {
             items.Remove(item);
+            SaveInventory(); // --- NEW: Save the change! ---
             RefreshUIEvent?.Invoke();
         }
     }
@@ -199,12 +267,11 @@ public class InventoryController : MonoBehaviour
                 break;
         }
 
-        //Nho lam failsafe cho item neu fail
-
         existing.quantity--;
         if (existing.quantity <= 0)
             items.Remove(existing);
 
+        SaveInventory(); // --- NEW: Save the change! ---
         RefreshUIEvent?.Invoke();
     }
 }

@@ -142,10 +142,28 @@ public class DialogueTrigger : MonoBehaviour
     [Header("Conversations")]
     public DialogueSet[] dialogueSets;
 
+
     public void TriggerDialogue()
     {
+        if (TimeManager.Instance != null && !TimeManager.Instance.IsShopOpen())
+        {
+            if (NotificationManager.Instance != null)
+            {
+                NotificationManager.Instance.ShowNotification("The shop is closed, please come back at 5:00 AM.");
+            }
+
+           
+            PlayerStateManager player = Object.FindFirstObjectByType<PlayerStateManager>();
+            if (player != null)
+            {
+                player.EndInteraction();
+            }
+            return; 
+        }
+
+   
         int currentEncounter = MissionManager.Instance != null ? MissionManager.Instance.GetEncounterLevel(npcName) : 0;
-        
+
         DialogueSet validSet = null;
         int highestValidLevel = -1;
 
@@ -160,12 +178,7 @@ public class DialogueTrigger : MonoBehaviour
 
         if (validSet != null)
         {
-            // CHANGED: We now pass the 'onDialogueEnd' event into the StartDialogue method!
             DialogueManager.Instance.StartDialogue(npcName, npcPortrait, validSet.dialogueNodes, validSet.onDialogueEnd);
-        }
-        else
-        {
-            Debug.LogWarning($"[Dialogue] No valid dialogue set found for {npcName} at encounter level {currentEncounter}");
         }
     }
 

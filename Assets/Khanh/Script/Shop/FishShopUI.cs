@@ -7,12 +7,6 @@ using TMPro;
 /// Controls the Fish Shop panel in the Top Down scene.
 /// Reads all fish from InventoryController, shows them in a scrollable list,
 /// and lets the player sell individual fish or everything at once.
-///
-/// Hook-up in Inspector:
-///   • Assign this component to the FishShopPanel GameObject (or a child controller).
-///   • Set the references below.
-///   • ShopManager.OpenFishShop() activates the panel; call FishShopUI.Instance.Refresh()
-///     or just let OnEnable handle it.
 /// </summary>
 public class FishShopUI : MonoBehaviour
 {
@@ -24,6 +18,13 @@ public class FishShopUI : MonoBehaviour
     [Tooltip("Prefab with a FishShopRowUI component")]
     public GameObject rowPrefab;
 
+    [Header("Header UI")]
+    [Tooltip("'X' / Close button — wired to ShopManager.CloseFishShop()")]
+    public Button closeButton;
+    // --- NEW: Current Money Text ---
+    [Tooltip("Label showing the player's current gold balance")]
+    public TMP_Text currentMoneyText;
+
     [Header("Footer UI")]
     [Tooltip("Label showing the combined value of all fish in inventory")]
     public TMP_Text totalValueText;
@@ -31,10 +32,6 @@ public class FishShopUI : MonoBehaviour
     public Button sellAllButton;
     [Tooltip("Optional: feedback label shown briefly after a sale")]
     public TMP_Text feedbackText;
-
-    [Header("Header UI")]
-    [Tooltip("'X' / Close button — wired to ShopManager.CloseFishShop()")]
-    public Button closeButton;
 
     // Active row instances
     private readonly List<FishShopRowUI> activeRows = new();
@@ -78,6 +75,9 @@ public class FishShopUI : MonoBehaviour
     public void Refresh()
     {
         ClearRows();
+
+        // --- NEW: Update the player's wallet display every time the shop refreshes! ---
+        UpdateCurrentMoneyLabel();
 
         if (InventoryController.Instance == null) return;
 
@@ -153,6 +153,21 @@ public class FishShopUI : MonoBehaviour
 
     // ──────────────────────────────────────────────────────────────
     #region Private helpers
+
+    // --- NEW: Helper method to sync the text with CurrencyManager ---
+    private void UpdateCurrentMoneyLabel()
+    {
+        if (currentMoneyText == null) return;
+
+        if (CurrencyManager.Instance != null)
+        {
+            currentMoneyText.text = $"Gold: {CurrencyManager.Instance.GetCurrency()}";
+        }
+        else
+        {
+            currentMoneyText.text = "Gold: 0";
+        }
+    }
 
     private void ClearRows()
     {
