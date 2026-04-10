@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 75e8d21da36b1b844944ed431719ced0
+guid: 696ff7b95fcf93440b8d8994334033f5
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 427330619486252500
-    second: 7aceb5fc-c885-4bf5-83eb-9f7a045409b6.__CR0,0,970,600_PT0_SX970_V1____0
+      213: -8568580782471033680
+    second: top down testing_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -46,12 +46,12 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 2
+  spriteMode: 1
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 100
+  spritePixelsToUnits: 16
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -75,7 +75,7 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 1
+    textureCompression: 0
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -100,13 +100,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: 7aceb5fc-c885-4bf5-83eb-9f7a045409b6.__CR0,0,970,600_PT0_SX970_V1____0
+      name: top down testing_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 860
-        height: 532
+        width: 1000
+        height: 1000
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -115,8 +115,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 4dd20203fee2ee500800000000000000
-      internalID: 427330619486252500
+      spriteID: 0bc43973d29461980800000000000000
+      internalID: -8568580782471033680
       vertices: []
       indices: 
       edges: []
@@ -125,7 +125,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: 5e97eb03825dee720800000000000000
     internalID: 0
     vertices: []
     indices: 
@@ -135,7 +135,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      7aceb5fc-c885-4bf5-83eb-9f7a045409b6.__CR0,0,970,600_PT0_SX970_V1____0: 427330619486252500
+      top down testing_0: -8568580782471033680
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
