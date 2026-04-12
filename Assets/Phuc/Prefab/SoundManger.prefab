@@ -144,14 +144,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1bef816cce918cd4e8da7ab78da7c7df, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  so_bgmEvent:
-  - {fileID: 11400000, guid: c85f7e4a2a92c1d49bb8f39dd1cbf12c, type: 2}
-  - {fileID: 11400000, guid: 77a4f131105219c499c77736429336c7, type: 2}
-  - {fileID: 11400000, guid: 68b01a693ee5e4349a76f8a8f52cb42d, type: 2}
-  so_sfxEvent:
-  - {fileID: 11400000, guid: c0fb037802c737c428d0793aba8c55a2, type: 2}
-  - {fileID: 11400000, guid: 98959b3c782f4954a9a341d895e03c2d, type: 2}
-  - {fileID: 11400000, guid: ec2a134745a439546ad7c9d62016e0b4, type: 2}
+  sfxPoolSize: 20
+  mainMixer: {fileID: 24100000, guid: 9d4641a9229852041b25c99f344e881f, type: 2}
+  bgmGroup: {fileID: 7094719903781380630, guid: 9d4641a9229852041b25c99f344e881f, type: 2}
+  sfxGroup: {fileID: 4329280110963721464, guid: 9d4641a9229852041b25c99f344e881f, type: 2}
 --- !u!82 &7568938493147914151
 AudioSource:
   m_ObjectHideFlags: 0

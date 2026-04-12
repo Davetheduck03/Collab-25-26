@@ -448,18 +448,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: SoundManger (1)
       objectReference: {fileID: 0}
-    - target: {fileID: 8110146001182317646, guid: ef1bc7dc0c042574ea25759621776d82, type: 3}
-      propertyPath: bgmGroup
-      value: 
-      objectReference: {fileID: 7094719903781380630, guid: 9d4641a9229852041b25c99f344e881f, type: 2}
-    - target: {fileID: 8110146001182317646, guid: ef1bc7dc0c042574ea25759621776d82, type: 3}
-      propertyPath: sfxGroup
-      value: 
-      objectReference: {fileID: 4329280110963721464, guid: 9d4641a9229852041b25c99f344e881f, type: 2}
-    - target: {fileID: 8110146001182317646, guid: ef1bc7dc0c042574ea25759621776d82, type: 3}
-      propertyPath: mainMixer
-      value: 
-      objectReference: {fileID: 24100000, guid: 9d4641a9229852041b25c99f344e881f, type: 2}
     - target: {fileID: 8693336333877189172, guid: ef1bc7dc0c042574ea25759621776d82, type: 3}
       propertyPath: m_LocalPosition.x
       value: -1.51288

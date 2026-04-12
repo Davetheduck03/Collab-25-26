@@ -157,7 +157,7 @@ namespace Phuc.SoundSystem
         {
             if (so == null) 
             {
-                Debug.Log("From PlaySfx: data is null");
+                // Debug.Log("From PlaySfx: data is null");
                 return;
             }
             AudioSource source = _sfxPool.Get();
@@ -215,13 +215,13 @@ namespace Phuc.SoundSystem
             //$$\text{dB} = \log_{10}(\text{Volume}) \times 20$$
             // dB = log10(Volume) * 20;
             SetMixerVolume("BGMVolume", volume);
-            Debug.Log($"Bgm volume {volume}");
+            // Debug.Log($"Bgm volume {volume}");
         }
 
         public void SetSFXVolume(float volume)
         {
             SetMixerVolume("SFXVolume", volume);
-            Debug.Log($"Sfx volume {volume}");
+            // Debug.Log($"Sfx volume {volume}");
         }
 
         private void SetMixerVolume(string parameterName, float sliderValue)
