@@ -1986,7 +1986,7 @@ MonoBehaviour:
       isMission: 0
       missionDetails: {fileID: 0}
       choices:
-      - choiceText: I want to sell fiss
+      - choiceText: I want to sell fish
         nextNodeIndex: -1
         onChoiceSelected:
           m_PersistentCalls:
