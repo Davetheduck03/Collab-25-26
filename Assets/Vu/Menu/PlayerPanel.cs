@@ -13,7 +13,6 @@ public class PlayerPanel : MonoBehaviour
     [Header("Panels")]
     public GameObject statsPanel;
 
-    // --- CHANGED: Split the Inventory into UI and Logic ---
     [Tooltip("Drag the visual UI Canvas panel here (the background, slots, etc.)")]
     public GameObject inventoryUIPanel;
 
@@ -64,25 +63,83 @@ public class PlayerPanel : MonoBehaviour
         if (inventoryUIPanel) inventoryUIPanel.SetActive(false);
         animationImage.gameObject.SetActive(false);
 
-        // We specifically DO NOT turn off the inventoryControllerObject here, 
-        // because it needs to stay awake in the background to catch fish!
-
         if (globalVolume != null)
         {
             globalVolume.profile.TryGet(out colorAdjustments);
         }
 
-        if (inventoryButton) inventoryButton.onClick.AddListener(() => OpenMenu(inventoryUIPanel));
-        if (statsButton) statsButton.onClick.AddListener(() => OpenMenu(statsPanel));
+        // --- CHANGED: Use our new Smart Toggle method for the buttons ---
+        if (inventoryButton) inventoryButton.onClick.AddListener(() => OnMenuButtonClicked(inventoryUIPanel));
+        if (statsButton) statsButton.onClick.AddListener(() => OnMenuButtonClicked(statsPanel));
     }
 
     void Update()
     {
+        // 1. Hotkey Toggle
         if (Keyboard.current != null && Keyboard.current.iKey.wasPressedThisFrame)
         {
             ToggleMenu();
         }
+
+        // 2. --- NEW: Click outside to close ---
+        if (isMenuOpen && !playingAnimation && Mouse.current != null && Mouse.current.leftButton.wasPressedThisFrame)
+        {
+            Vector2 mousePos = Mouse.current.position.ReadValue();
+
+            // Check if the click happened over the active panel or the menu buttons
+            bool clickedInsidePanel = IsMouseOverRectTransform(activePanel, mousePos);
+            bool clickedInvButton = IsMouseOverRectTransform(inventoryButton != null ? inventoryButton.gameObject : null, mousePos);
+            bool clickedStatsButton = IsMouseOverRectTransform(statsButton != null ? statsButton.gameObject : null, mousePos);
+
+            // If we didn't click on any of our UI elements, close the menu!
+            if (!clickedInsidePanel && !clickedInvButton && !clickedStatsButton)
+            {
+                StartCoroutine(CloseMenu());
+            }
+        }
     }
+
+    // =========================================================
+    // --- NEW: SMART BUTTON TOGGLE LOGIC ---
+    // =========================================================
+    public void OnMenuButtonClicked(GameObject targetPanel)
+    {
+        if (playingAnimation) return;
+
+        if (!isMenuOpen)
+        {
+            // The menu is closed, so open it to the requested panel
+            StartCoroutine(PlayOpenAnimation(targetPanel, isFullOpen: true));
+        }
+        else if (activePanel == targetPanel)
+        {
+            // The menu is already open AND we clicked the button for the panel we are currently looking at -> Close it!
+            StartCoroutine(CloseMenu());
+        }
+        else
+        {
+            // The menu is open, but we clicked a different panel's button -> Switch to it!
+            SwitchPanel(targetPanel);
+        }
+    }
+
+    // Helper method to accurately check if the mouse is hovering over a specific UI element
+    private bool IsMouseOverRectTransform(GameObject obj, Vector2 mousePos)
+    {
+        if (obj == null || !obj.activeInHierarchy) return false;
+
+        RectTransform rect = obj.GetComponent<RectTransform>();
+        if (rect != null)
+        {
+            // Automatically adapts to whatever Canvas Render Mode you are using
+            Canvas canvas = obj.GetComponentInParent<Canvas>();
+            Camera uiCamera = (canvas != null && canvas.renderMode != RenderMode.ScreenSpaceOverlay) ? canvas.worldCamera : null;
+
+            return RectTransformUtility.RectangleContainsScreenPoint(rect, mousePos, uiCamera);
+        }
+        return false;
+    }
+    // =========================================================
 
     public void ToggleMenu()
     {
@@ -94,14 +151,13 @@ public class PlayerPanel : MonoBehaviour
         }
         else
         {
-            OpenMenu(statsPanel); // Stats first
+            OnMenuButtonClicked(statsPanel); // Stats first
         }
     }
 
     public void OpenMenu(GameObject panelToOpen)
     {
         if (playingAnimation || isMenuOpen) return;
-
         StartCoroutine(PlayOpenAnimation(panelToOpen, isFullOpen: true));
     }
 
@@ -114,13 +170,11 @@ public class PlayerPanel : MonoBehaviour
         if (statsPanel) statsPanel.SetActive(activePanel == statsPanel);
         if (inventoryUIPanel) inventoryUIPanel.SetActive(activePanel == inventoryUIPanel);
 
-        // --- NEW: Toggle the logic object ONLY if you specifically assigned it ---
         if (inventoryControllerObject != null)
         {
             inventoryControllerObject.SetActive(activePanel == inventoryUIPanel);
         }
 
-        // Force the inventory to redraw its items when opened!
         if (activePanel == inventoryUIPanel && InventoryController.Instance != null)
         {
             InventoryController.Instance.ForceUIRefresh();
@@ -156,7 +210,6 @@ public class PlayerPanel : MonoBehaviour
         if (statsPanel) statsPanel.SetActive(false);
         if (inventoryUIPanel) inventoryUIPanel.SetActive(false);
 
-        // --- NEW: Toggle off the logic object ONLY if assigned ---
         if (inventoryControllerObject != null) inventoryControllerObject.SetActive(false);
 
         activePanel = null;
@@ -179,7 +232,6 @@ public class PlayerPanel : MonoBehaviour
         {
             if (activePanel != null) activePanel.SetActive(false);
 
-            // If we are switching AWAY from the inventory, and the controller object is assigned, turn it off
             if (activePanel == inventoryUIPanel && inventoryControllerObject != null)
             {
                 inventoryControllerObject.SetActive(false);
@@ -189,7 +241,6 @@ public class PlayerPanel : MonoBehaviour
 
             if (activePanel != null) activePanel.SetActive(true);
 
-            // If we are switching TO the inventory, and the controller object is assigned, turn it on
             if (activePanel == inventoryUIPanel && inventoryControllerObject != null)
             {
                 inventoryControllerObject.SetActive(true);
@@ -205,7 +256,6 @@ public class PlayerPanel : MonoBehaviour
 
         if (activePanel != null) activePanel.SetActive(false);
 
-        // If we are switching AWAY from the inventory, turn off controller object (if assigned)
         if (activePanel == inventoryUIPanel && inventoryControllerObject != null)
         {
             inventoryControllerObject.SetActive(false);
@@ -215,7 +265,6 @@ public class PlayerPanel : MonoBehaviour
 
         if (activePanel != null) activePanel.SetActive(true);
 
-        // If we are switching TO the inventory, turn on controller object (if assigned)
         if (activePanel == inventoryUIPanel && inventoryControllerObject != null)
         {
             inventoryControllerObject.SetActive(true);
