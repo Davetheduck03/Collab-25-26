@@ -45,7 +45,11 @@ public class FishShopRowUI : MonoBehaviour
             fishIcon.sprite = invItem.data.Sprite;
 
         if (sellButton != null)
+        {
+            var label = sellButton.GetComponentInChildren<TMP_Text>();
+            if (label != null) label.text = "Sell";
             sellButton.onClick.AddListener(OnSellClicked);
+        }
     }
 
     private void OnSellClicked()
