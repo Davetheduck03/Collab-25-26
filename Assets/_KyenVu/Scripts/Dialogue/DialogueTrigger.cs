@@ -1,3 +1,4 @@
+using Phuc.SoundSystem;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -129,6 +130,8 @@ public class DialogueSet
 
     // NEW: Fire an event when this specific conversation finishes!
     [Header("Events")]
+    [Tooltip("Fires when the player opens this dialogue")]
+    public UnityEvent onDialogueOpen;
     [Tooltip("Fires when the player closes this dialogue.")]
     public UnityEvent onDialogueEnd; 
 }
@@ -142,6 +145,13 @@ public class DialogueTrigger : MonoBehaviour
     [Header("Conversations")]
     public DialogueSet[] dialogueSets;
 
+    [Header("Audio")]
+    [SerializeField] private SO_SFXEvent welcomeSfx;
+    [SerializeField] private SO_SFXEvent goodbyeSfx;
+
+// Simple helper methods to play them
+    public void PlayWelcome() => welcomeSfx?.Play();
+    public void PlayGoodbye() => goodbyeSfx?.Play();
 
     public void TriggerDialogue()
     {
@@ -178,6 +188,8 @@ public class DialogueTrigger : MonoBehaviour
 
         if (validSet != null)
         {
+            validSet.onDialogueOpen?.Invoke();
+            
             DialogueManager.Instance.StartDialogue(npcName, npcPortrait, validSet.dialogueNodes, validSet.onDialogueEnd);
         }
     }
