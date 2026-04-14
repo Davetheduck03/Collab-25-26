@@ -59,8 +59,18 @@ public class MissionManager : MonoBehaviour
 
     private void Awake()
     {
-        if (Instance == null) Instance = this;
-        else Destroy(gameObject);
+        if (Instance == null)
+        {
+            Instance = this;
+            // DontDestroyOnLoad only works on root GameObjects.
+            // SetParent(null) promotes this object to root first if it's a child.
+            transform.SetParent(null);
+            DontDestroyOnLoad(gameObject);
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
     }
 
     // --- ENCOUNTER SYSTEM ---
