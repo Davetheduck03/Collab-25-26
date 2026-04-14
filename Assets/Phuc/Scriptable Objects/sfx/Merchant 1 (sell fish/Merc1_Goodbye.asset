@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4bf9832bb31e07445a4b22ac33b38b72, type: 3}
+  m_Name: Merc1_Goodbye
+  m_EditorClassIdentifier: 
+  clips:
+  - {fileID: 8300000, guid: afb26b799a966b6408f6d741ee2eb345, type: 3}
+  - {fileID: 8300000, guid: 69b38e8451abf1446bad5f27152f0aff, type: 3}
+  - {fileID: 8300000, guid: 481071a8f2a9099479efbd8eb42bae45, type: 3}
+  volume: 0.8
+  minPitch: 0.9
+  maxPitch: 1.1
+  minDistance: 1
+  maxDistance: 20
