@@ -30,6 +30,12 @@ public class SceneTransitionTrigger : MonoBehaviour
     [Tooltip("A small 'Press E to travel' prompt GameObject. Leave empty if you handle it elsewhere.")]
     public GameObject travelPrompt;
 
+    [Header("Equipment Menu")]
+    [Tooltip("Show the Pre-Fishing equipment selection menu before loading the scene.\n" +
+             "Enable this on dock triggers going to the fishing scene.\n" +
+             "Leave OFF for triggers returning to the top-down scene.")]
+    public bool showPreFishingMenu = false;
+
     private bool playerInside = false;
 
     // ── Trigger events ─────────────────────────────────────────
@@ -72,6 +78,13 @@ public class SceneTransitionTrigger : MonoBehaviour
         if (string.IsNullOrEmpty(sceneToLoad))
         {
             Debug.LogWarning("[SceneTransitionTrigger] sceneToLoad is empty — set it in the Inspector!");
+            return;
+        }
+
+        // If this trigger goes to the fishing scene, open the equipment menu first.
+        if (showPreFishingMenu && PreFishingMenuUI.Instance != null)
+        {
+            PreFishingMenuUI.Instance.Open(sceneToLoad);
             return;
         }
 
