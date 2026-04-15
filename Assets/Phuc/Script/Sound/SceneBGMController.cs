@@ -59,7 +59,7 @@ namespace Phuc.SoundSystem
             else
             {
                 PlayMusicForScene(scene.name);
-                Debug.Log("reached");
+                // Debug.Log("reached");
                 lastSceneName = scene.name;
             }
         }
@@ -73,12 +73,12 @@ namespace Phuc.SoundSystem
                     if (m.sceneMusic != null)
                     {
                         m.sceneMusic.Play();
-                        Debug.Log($"Playing BGM for: {sceneName}");
+                        // Debug.Log($"Playing BGM for: {sceneName}");
                     }
                     return;
                 }
             }
-            Debug.LogWarning($"No music found for scene: {sceneName}");
+            // Debug.LogWarning($"No music found for scene: {sceneName}");
         }
         
     }
