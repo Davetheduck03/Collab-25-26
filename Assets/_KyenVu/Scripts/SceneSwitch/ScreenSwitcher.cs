@@ -17,10 +17,19 @@ public class ScreenSwitcher : MonoBehaviour
             NotificationManager.Instance.ShowNotification("The dock is closed, please come back at 7:00 AM.");
             return; // Stop the code, don't let them on the boat!
         }
-        if (sceneTransitionAnimator != null)
+
+        // Show the equipment selection menu before entering the fishing scene.
+        // The menu will call SceneManager.LoadScene(sceneToLoad) when the player confirms.
+        if (PreFishingMenuUI.Instance != null)
         {
-            sceneTransitionAnimator.SetTrigger("FadeOut");
+            PreFishingMenuUI.Instance.Open(sceneToLoad);
+            return;
         }
+
+        // Fallback: load directly if the menu isn't present in the scene.
+        if (sceneTransitionAnimator != null)
+            sceneTransitionAnimator.SetTrigger("FadeOut");
+
         SceneManager.LoadScene(sceneToLoad);
     }
 }

@@ -115,6 +115,10 @@ public class EquipmentManager : MonoBehaviour
     public float GetReelSpeed()
         => equippedRod != null ? equippedRod.reelSpeed : 1f;
 
+    /// <summary>Maximum line length (cast depth). Default 10 if no rod equipped.</summary>
+    public float GetLineLength()
+        => equippedRod != null ? equippedRod.lineLength : 10f;
+
     /// <summary>Boat movement speed. Default 3 if no boat equipped.</summary>
     public float GetBoatSpeed()
         => equippedBoat != null ? equippedBoat.speed : 3f;

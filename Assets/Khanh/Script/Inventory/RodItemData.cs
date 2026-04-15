@@ -15,6 +15,8 @@ public class RodItemData : EquippableData
     public float attackMult  = 1f;
     [Tooltip("Multiplier applied to reel speed during fishing (1.0 = no change)")]
     public float reelSpeed   = 1f;
+    [Tooltip("Maximum line length (depth) this rod can cast. Default 10.")]
+    public float lineLength  = 10f;
     public int   durability  = 50;
     public int   cost        = 0;
 

@@ -94,7 +94,7 @@ public class CastLineControl : MonoBehaviour
         isFishing = true;
         isCatching = false;
         autoReeling = false;
-        fishIsDead = false; 
+        fishIsDead = false;
         hookedFishData = null;
         currentLineLength = 0f;
         currentHorizontalOffset = 0f;
@@ -102,6 +102,10 @@ public class CastLineControl : MonoBehaviour
         isPulling = false;
         isSinking = false;
         moveInput = Vector2.zero;
+
+        // Apply equipped rod's line length if available
+        if (EquipmentManager.Instance != null)
+            maxLineLength = EquipmentManager.Instance.GetLineLength();
 
         hook.SetActive(true);
         hook.transform.position = lineOrigin.position;
