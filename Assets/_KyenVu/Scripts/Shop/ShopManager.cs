@@ -13,12 +13,10 @@ public class ShopManager : MonoBehaviour
     private void OnEnable()
     {
         // --- NEW: Listen for the shop closing event ---
-        TimeManager.OnShopClosed += ForceCloseAllShops;
     }
 
     private void OnDisable()
     {
-        TimeManager.OnShopClosed -= ForceCloseAllShops;
     }
 
     void Start()
@@ -106,20 +104,6 @@ public class ShopManager : MonoBehaviour
     }
 
     // --- NEW: KICK OUT LOGIC ---
-    private void ForceCloseAllShops()
-    {
-        // If the canvas is open when 7 PM hits, kick them out!
-        if (ShopCanvas != null && ShopCanvas.activeSelf)
-        {
-            Debug.Log("7 PM hit! Kicking player out of the shop menus.");
-
-            if (TavernPanel != null) TavernPanel.SetActive(false);
-            if (FishShopPanel != null) FishShopPanel.SetActive(false);
-            if (UpgradeStallPanel != null) UpgradeStallPanel.SetActive(false);
-
-            CheckAndCloseCanvas();
-        }
-    }
 
     private void CheckAndCloseCanvas()
     {

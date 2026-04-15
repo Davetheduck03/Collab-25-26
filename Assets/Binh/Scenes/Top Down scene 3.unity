@@ -2148,6 +2148,23 @@ MonoBehaviour:
         onChoiceSelected:
           m_PersistentCalls:
             m_Calls: []
+      - choiceText: I want to buy fishing rod
+        nextNodeIndex: -1
+        onChoiceSelected:
+          m_PersistentCalls:
+            m_Calls:
+            - m_Target: {fileID: 1345374056}
+              m_TargetAssemblyTypeName: ShopManager, Assembly-CSharp
+              m_MethodName: OpenUpgradeStall
+              m_Mode: 1
+              m_Arguments:
+                m_ObjectArgument: {fileID: 0}
+                m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+                m_IntArgument: 0
+                m_FloatArgument: 0
+                m_StringArgument: 
+                m_BoolArgument: 0
+              m_CallState: 2
       nextNodeIndex: 0
     - sentence: First you need to buy a fishing rod
       isMission: 0

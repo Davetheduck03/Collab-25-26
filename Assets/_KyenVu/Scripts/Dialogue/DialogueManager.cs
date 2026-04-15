@@ -1,7 +1,7 @@
 using System.Collections;
 using TMPro;
 using UnityEngine;
-using UnityEngine.UI; // Required for Buttons
+using UnityEngine.UI;
 
 public class DialogueManager : MonoBehaviour
 {
@@ -11,12 +11,10 @@ public class DialogueManager : MonoBehaviour
     [SerializeField] private GameObject dialoguePanel;
     [SerializeField] private TextMeshProUGUI nameText;
     [SerializeField] private TextMeshProUGUI dialogueText;
-
     [SerializeField] private Image portraitImage;
 
     [Header("Choices UI")]
-    [SerializeField] private GameObject choicesContainer; // Parent object holding the buttons
-    // NEW: We replaced the arrays with a single prefab
+    [SerializeField] private GameObject choicesContainer;
     [SerializeField] private GameObject choiceButtonPrefab;
 
     [Header("Settings")]
@@ -32,6 +30,8 @@ public class DialogueManager : MonoBehaviour
     public bool isDialogueActive { get; private set; }
     public bool isWaitingForChoice { get; private set; }
 
+    private bool suppressEndEvent = false;
+
     private void Awake()
     {
         if (Instance == null) Instance = this;
@@ -45,10 +45,13 @@ public class DialogueManager : MonoBehaviour
     {
         isDialogueActive = true;
         isWaitingForChoice = false;
+        suppressEndEvent = false;
+
         dialoguePanel.SetActive(true);
         nameText.text = npcName;
 
         currentDialogueEndEvent = onEndEvent;
+
         if (portraitImage != null)
         {
             if (portrait != null)
@@ -58,12 +61,11 @@ public class DialogueManager : MonoBehaviour
             }
             else
             {
-                // Hide the portrait UI if the NPC has no image
                 portraitImage.gameObject.SetActive(false);
             }
         }
         currentNodes = nodes;
-        currentNodeIndex = 0; // Always start at Node 0
+        currentNodeIndex = 0;
 
         DisplayNode(currentNodeIndex);
     }
@@ -77,7 +79,6 @@ public class DialogueManager : MonoBehaviour
 
         currentFormattedSentence = node.sentence;
 
-        // CHANGED: Now we make sure 'isMission' is true before generating mission text!
         if (node.isMission && node.missionDetails != null)
         {
             currentFormattedSentence = GenerateMissionText(node.missionDetails);
@@ -95,12 +96,8 @@ public class DialogueManager : MonoBehaviour
         if (isTyping)
         {
             StopAllCoroutines();
-
             dialogueText.text = currentFormattedSentence;
-
-            // NEW: Instantly reveal all characters when the player skips!
             dialogueText.maxVisibleCharacters = 99999;
-
             isTyping = false;
 
             if (node.choices.Length > 0) ShowChoices();
@@ -117,30 +114,21 @@ public class DialogueManager : MonoBehaviour
     private IEnumerator TypeSentence(string sentence)
     {
         isTyping = true;
-
-        // 1. Give TMP the full text immediately so it parses the <color> and <b> tags!
         dialogueText.text = sentence;
-
-        // 2. Hide all the text initially
         dialogueText.maxVisibleCharacters = 0;
-
-        // Force TMP to update its mesh so we can count the actual visible characters (ignoring tags)
         dialogueText.ForceMeshUpdate();
         int totalVisibleCharacters = dialogueText.textInfo.characterCount;
         int currentVisibleCharacters = 0;
 
-        // 3. Slowly reveal the text
         while (currentVisibleCharacters < totalVisibleCharacters)
         {
             currentVisibleCharacters++;
             dialogueText.maxVisibleCharacters = currentVisibleCharacters;
-
             yield return new WaitForSeconds(typingSpeed);
         }
 
         isTyping = false;
 
-        // Automatically show choices when typing finishes naturally
         if (currentNodes[currentNodeIndex].choices.Length > 0)
         {
             ShowChoices();
@@ -152,7 +140,6 @@ public class DialogueManager : MonoBehaviour
         isWaitingForChoice = true;
         choicesContainer.SetActive(true);
 
-        // NEW: Destroy old buttons left over from previous choices
         foreach (Transform child in choicesContainer.transform)
         {
             Destroy(child.gameObject);
@@ -160,17 +147,12 @@ public class DialogueManager : MonoBehaviour
 
         DialogueNode node = currentNodes[currentNodeIndex];
 
-        // NEW: Loop through the exact number of choices and spawn a button for each
         for (int i = 0; i < node.choices.Length; i++)
         {
-            // Spawn the button prefab as a child of the choices container
             GameObject buttonObj = Instantiate(choiceButtonPrefab, choicesContainer.transform);
-
-            // Get the Button and Text components from the spawned object
             Button buttonComp = buttonObj.GetComponent<Button>();
             TextMeshProUGUI textComp = buttonObj.GetComponentInChildren<TextMeshProUGUI>();
 
-            // Set the text
             if (textComp != null)
             {
                 textComp.text = node.choices[i].choiceText;
@@ -179,39 +161,37 @@ public class DialogueManager : MonoBehaviour
             int targetIndex = node.choices[i].nextNodeIndex;
             UnityEngine.Events.UnityEvent onSelectEvent = node.choices[i].onChoiceSelected;
 
-            // Add the listener to the newly spawned button
+            // --- CHANGED: Read the checkbox from the inspector ---
+            bool shouldSuppress = node.choices[i].suppressEndEvent;
+
             buttonComp.onClick.AddListener(() =>
             {
-                // Fire the custom event if one was assigned!
-                onSelectEvent?.Invoke();
+                // If the checkbox was ticked, set the flag before making the choice
+                if (shouldSuppress)
+                {
+                    suppressEndEvent = true;
+                }
 
-                // Move to the next node (or end conversation)
+                onSelectEvent?.Invoke();
                 MakeChoice(targetIndex);
             });
         }
     }
+
     private string GenerateMissionText(MissionSO mission)
     {
-        // 1. Mission Name & Description
         string text = $"<b><color=#FFD700>Mission: {mission.missionName}</color></b>\n";
         text += $"{mission.description}\n";
-
-        // 2. Objectives List
         text += "<b><color=#FF8C00>Objectives:</color></b>\n";
         foreach (var obj in mission.objectives)
         {
             text += $"- {obj.missionType.ToString()} {obj.GetTargetID()} x{obj.targetAmount}\n";
         }
-
-        // 3. Rewards List
         text += "<b><color=#00FF7F>Rewards:</color></b>\n";
         if (mission.goldReward > 0) text += $"- {mission.goldReward} Gold\n";
-
-        // Uncomment below if you added the ItemReward fields to MissionSO!
-        // if (mission.itemReward != null) text += $"- {mission.itemReward.name} x{mission.itemRewardAmount}\n";
-
         return text;
     }
+
     public void MakeChoice(int targetNodeIndex)
     {
         isWaitingForChoice = false;
@@ -233,11 +213,19 @@ public class DialogueManager : MonoBehaviour
         dialoguePanel.SetActive(false);
         if (choicesContainer != null) choicesContainer.SetActive(false);
 
-        Debug.Log("End of conversation.");
+        // Check the flag before firing the event! 
+        if (!suppressEndEvent)
+        {
+            currentDialogueEndEvent?.Invoke();
+            Debug.Log("End of conversation. Goodbye event fired.");
+        }
+        else
+        {
+            Debug.Log("End event suppressed (Transitioning to menu).");
+        }
 
-        // NEW: Fire the end event before clearing it!
-        currentDialogueEndEvent?.Invoke();
         currentDialogueEndEvent = null;
+        suppressEndEvent = false;
 
         PlayerStateManager player = Object.FindFirstObjectByType<PlayerStateManager>();
         if (player != null)

@@ -7,6 +7,10 @@ public class DialogueChoice
 {
     public string choiceText;
     public int nextNodeIndex;
+
+    [Tooltip("Tick this if this choice opens a menu (like a Shop) so the Goodbye sound doesn't play!")]
+    public bool suppressEndEvent; 
+
     public UnityEvent onChoiceSelected;
 }
 
