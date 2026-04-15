@@ -4,7 +4,6 @@ public class PlayerIdleState : PlayerBaseState
 {
     public override void EnterState(PlayerStateManager player)
     {
-        player.StateText.text = "Idle State";
 
         // Set magnitude to 0 to trigger the Idle blend/state
         player.animator.SetFloat("MoveMagnitude", 0f);

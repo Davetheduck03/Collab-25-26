@@ -10,6 +10,9 @@ public class PauseMenu : MonoBehaviour
     public RectTransform pausePanel;
     public GameObject gameUI;
 
+    [Tooltip("Drag your SettingMenu GameObject here so the Pause Menu knows if it is open!")]
+    public SettingMenu settingMenu; // <--- NEW: Reference to the Settings Menu
+
     [Header("Post Processing")]
     public Volume globalVolume;
     private ColorAdjustments colorAdjustments;
@@ -45,11 +48,22 @@ public class PauseMenu : MonoBehaviour
     {
         if (Keyboard.current != null && Keyboard.current.escapeKey.wasPressedThisFrame)
         {
-            TogglePause();
+            // --- NEW: Smart Escape Logic ---
+            // If the settings menu is open, pressing ESC should ONLY close the settings, 
+            // and leave the game paused on the Pause Menu.
+            if (settingMenu != null && settingMenu.isMenuOpen)
+            {
+                settingMenu.ToggleMenu();
+            }
+            else
+            {
+                // Otherwise, do the normal Pause/Unpause toggle
+                TogglePause();
+            }
         }
     }
 
-    void TogglePause()
+    public void TogglePause() // Changed to public so UI Buttons can call it if needed!
     {
         isPaused = !isPaused;
         Debug.Log($"Pause toggled: {isPaused}");

@@ -22,9 +22,6 @@ public class PlayerStateManager : MonoBehaviour
     [Header("Animation")]
     public Animator animator;
 
-    [Header("UI")]
-    public TMP_Text StateText;
-
     [Header("Health Setting")]
     public int HP = 3;
     public int maxHP = 5;

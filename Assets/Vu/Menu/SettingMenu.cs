@@ -1,37 +1,128 @@
 using UnityEngine;
 using UnityEngine.UI;
-using TMPro;
+using UnityEngine.InputSystem; // --- NEW: Required for checking mouse clicks ---
 
 public class SettingMenu : MonoBehaviour
 {
+    [Header("Menu Panels")]
+    [Tooltip("Drag the visual UI panel of the settings menu here so we can turn it on/off.")]
+    public GameObject settingsUIPanel;
+
+    [Tooltip("Drag the visual UI panel of the instructions here.")]
+    public GameObject instructionUIPanel; // <--- NEW: Instruction Panel
+
+    [Header("Buttons (Prevents instant-closing)")]
+    [Tooltip("(Optional) Drag the button used to open settings here.")]
+    public GameObject settingsButton;
+    [Tooltip("(Optional) Drag the button used to open instructions here.")]
+    public GameObject instructionButton;
+
     [Header("Volume Sliders")]
     public Slider masterSlider;
     public Slider sfxSlider;
 
-    [Header("Key Instructions")]
-    public Transform keyInstructionContainer;
-    public GameObject keyInstructionPrefab;
-
-    [Header("Control Icons")]
-    public Sprite iconLand;
-    public Sprite iconW;
-    public Sprite iconA;
-    public Sprite iconS;
-    public Sprite iconD;
-    public Sprite iconF;
-    public Sprite iconTab;
-    public Sprite iconShift;
-    public Sprite iconSpace;
-    public Sprite iconR;
-    public Sprite iconQ;
-    public Sprite iconE;
-    public Sprite iconNumbers;
-    public Sprite iconBoat;
+    public bool isMenuOpen { get; private set; } = false;
+    public bool isInstructionOpen { get; private set; } = false; // <--- NEW: Tracks instruction state
 
     private void Start()
     {
         LoadVolumes();
-        GenerateKeyInstructions();
+
+        // Ensure the menus are hidden when the game starts
+        if (settingsUIPanel != null) settingsUIPanel.SetActive(false);
+        if (instructionUIPanel != null) instructionUIPanel.SetActive(false);
+
+        isMenuOpen = false;
+        isInstructionOpen = false;
+    }
+
+    private void Update()
+    {
+        // --- NEW: Click outside to close logic ---
+        if (Mouse.current != null && Mouse.current.leftButton.wasPressedThisFrame)
+        {
+            Vector2 mousePos = Mouse.current.position.ReadValue();
+
+            // 1. Check if the Instruction Panel is open on top
+            if (isInstructionOpen && instructionUIPanel != null)
+            {
+                bool clickedInsideInstructions = IsMouseOverRectTransform(instructionUIPanel, mousePos);
+                bool clickedInstructionBtn = IsMouseOverRectTransform(instructionButton, mousePos);
+
+                // If they clicked outside the instruction panel AND didn't click the open button, close it!
+                if (!clickedInsideInstructions && !clickedInstructionBtn)
+                {
+                    CloseInstructionPanel();
+                }
+            }
+            // 2. Otherwise, check if the Settings Panel is open
+            else if (isMenuOpen && settingsUIPanel != null)
+            {
+                bool clickedInsideSettings = IsMouseOverRectTransform(settingsUIPanel, mousePos);
+                bool clickedSettingsBtn = IsMouseOverRectTransform(settingsButton, mousePos);
+
+                // If they clicked outside the settings panel AND didn't click the open button, close it!
+                if (!clickedInsideSettings && !clickedSettingsBtn)
+                {
+                    ToggleMenu();
+                }
+            }
+        }
+    }
+
+    // ==================== PANEL TOGGLES ====================
+
+    public void ToggleMenu()
+    {
+        isMenuOpen = !isMenuOpen;
+
+        if (settingsUIPanel != null)
+        {
+            settingsUIPanel.SetActive(isMenuOpen);
+        }
+
+        // If we are closing the settings menu, automatically close the instructions too just in case
+        if (!isMenuOpen && isInstructionOpen)
+        {
+            CloseInstructionPanel();
+        }
+    }
+
+    // --- NEW: Public function to open the instruction panel ---
+    public void OpenInstructionPanel()
+    {
+        isInstructionOpen = true;
+        if (instructionUIPanel != null)
+        {
+            instructionUIPanel.SetActive(true);
+        }
+    }
+
+    // --- NEW: Public function to close the instruction panel ---
+    public void CloseInstructionPanel()
+    {
+        isInstructionOpen = false;
+        if (instructionUIPanel != null)
+        {
+            instructionUIPanel.SetActive(false);
+        }
+    }
+
+    // ==================== HELPER METHOD ====================
+    // Accurately checks if the mouse is hovering over a specific UI element
+    private bool IsMouseOverRectTransform(GameObject obj, Vector2 mousePos)
+    {
+        if (obj == null || !obj.activeInHierarchy) return false;
+
+        RectTransform rect = obj.GetComponent<RectTransform>();
+        if (rect != null)
+        {
+            Canvas canvas = obj.GetComponentInParent<Canvas>();
+            Camera uiCamera = (canvas != null && canvas.renderMode != RenderMode.ScreenSpaceOverlay) ? canvas.worldCamera : null;
+
+            return RectTransformUtility.RectangleContainsScreenPoint(rect, mousePos, uiCamera);
+        }
+        return false;
     }
 
     // ==================== VOLUME ====================
@@ -55,149 +146,5 @@ public class SettingMenu : MonoBehaviour
         if (sfxSlider != null) sfxSlider.value = sfx;
 
         AudioListener.volume = master;
-    }
-
-    // ==================== GENERATE CONTROLS ====================
-    private void GenerateKeyInstructions()
-    {
-        if (keyInstructionContainer == null || keyInstructionPrefab == null)
-        {
-            Debug.LogError("[SettingMenu] keyInstructionContainer or keyInstructionPrefab is not assigned!");
-            return;
-        }
-
-        ClearContainer();
-
-        AddCategoryLabel("Land Mode (Top-Down Exploration)", iconLand);
-        AddInstruction("W A S D", "Move Character", iconW, iconA, iconS, iconD);
-        AddInstruction("F", "Interact / Collect / Trade", iconF);
-        AddInstruction("Tab", "Open Inventory & Menu", iconTab);
-        AddInstruction("Shift", "Sprint (Hold)", iconShift);
-        AddInstruction("1 2 3", "Use Quick Slot Items", iconNumbers);
-
-        AddCategoryLabel("Boat Mode (Side-Scroller Fishing)", iconBoat);
-        AddInstruction("A D", "Move Boat Left / Right", iconA, iconD);
-        AddInstruction("W S", "Ascend / Descend", iconW, iconS);
-        AddInstruction("R", "Cast Fishing Line", iconR);
-        AddInstruction("Q E", "Reel Left / Right", iconQ, iconE);
-        AddInstruction("Space", "Parry Fish", iconSpace);
-        AddInstruction("F", "Dock / Interact", iconF);
-    }
-
-    private void ClearContainer()
-    {
-        if (keyInstructionContainer == null) return;
-
-        foreach (Transform child in keyInstructionContainer)
-        {
-            if (Application.isPlaying)
-                Destroy(child.gameObject);
-            else
-                DestroyImmediate(child.gameObject);
-        }
-    }
-
-    private void AddInstruction(string keyText, string description, params Sprite[] icons)
-    {
-        if (keyInstructionPrefab == null || keyInstructionContainer == null) return;
-
-        GameObject obj = Instantiate(keyInstructionPrefab, keyInstructionContainer);
-        Transform iconsContainer = obj.transform.Find("IconsContainer");
-        if (iconsContainer == null) return;
-
-        foreach (Transform child in iconsContainer)
-            Destroy(child.gameObject);
-
-        bool hasAnyIcon = false;
-
-        if (icons != null && icons.Length > 0)
-        {
-            for (int i = 0; i < icons.Length; i++)
-            {
-                Sprite sp = icons[i];
-                if (sp == null) continue;
-
-                hasAnyIcon = true;
-
-                GameObject iconGO = new GameObject("Icon", typeof(Image));
-                iconGO.transform.SetParent(iconsContainer, false);
-
-                Image img = iconGO.GetComponent<Image>();
-                img.sprite = sp;
-                img.preserveAspect = true;
-
-                RectTransform rt = iconGO.GetComponent<RectTransform>();
-
-                // SPECIAL BIG SIZE FOR TAB, SHIFT, SPACE
-                if (sp == iconTab || sp == iconShift || sp == iconSpace)
-                {
-                    rt.sizeDelta = new Vector2(80, 50);  // Big keys
-                }
-                else
-                {
-                    rt.sizeDelta = new Vector2(48, 48);  // Normal keys (W A S D F R etc.)
-                }
-
-                // SLASH between icons
-                if (i < icons.Length - 1)
-                {
-                    GameObject slash = new GameObject("Slash", typeof(TextMeshProUGUI));
-                    slash.transform.SetParent(iconsContainer, false);
-                    TextMeshProUGUI tmp = slash.GetComponent<TextMeshProUGUI>();
-                    tmp.text = " / ";
-                    tmp.fontSize = 28;
-                    tmp.alignment = TextAlignmentOptions.Center;
-                    tmp.color = new Color(1f, 1f, 1f, 0.9f);
-
-                    slash.GetComponent<RectTransform>().sizeDelta = new Vector2(40, 48);
-                }
-            }
-        }
-
-        iconsContainer.gameObject.SetActive(hasAnyIcon);
-
-        var keyTMP = obj.transform.Find("keyText")?.GetComponent<TextMeshProUGUI>();
-        var descTMP = obj.transform.Find("descriptionText")?.GetComponent<TextMeshProUGUI>();
-        if (keyTMP) keyTMP.text = keyText;
-        if (descTMP) descTMP.text = description;
-    }
-    private void AddCategoryLabel(string title, Sprite icon = null)
-    {
-        if (keyInstructionPrefab == null || keyInstructionContainer == null) return;
-
-        GameObject obj = Instantiate(keyInstructionPrefab, keyInstructionContainer);
-        Transform iconsContainer = obj.transform.Find("IconsContainer");
-
-        if (iconsContainer == null) return;
-
-        // Clear
-        foreach (Transform child in iconsContainer)
-            Destroy(child.gameObject);
-
-        if (icon != null)
-        {
-            GameObject iconGO = new GameObject("HeaderIcon", typeof(Image));
-            iconGO.transform.SetParent(iconsContainer, false);
-            Image img = iconGO.GetComponent<Image>();
-            img.sprite = icon;
-            img.preserveAspect = true;
-
-            // FORCE SIZE HERE TOO!
-            iconGO.GetComponent<RectTransform>().sizeDelta = new Vector2(56, 56); // slightly bigger for headers
-        }
-
-        iconsContainer.gameObject.SetActive(icon != null);
-
-        TextMeshProUGUI keyTMP = obj.transform.Find("keyText")?.GetComponent<TextMeshProUGUI>();
-        TextMeshProUGUI descTMP = obj.transform.Find("descriptionText")?.GetComponent<TextMeshProUGUI>();
-
-        if (keyTMP != null)
-        {
-            keyTMP.text = title;
-            keyTMP.fontSize = 36;
-            keyTMP.fontStyle = FontStyles.Bold;
-            keyTMP.color = new Color(1f, 0.85f, 0.4f); // gold
-        }
-        if (descTMP != null) descTMP.text = "";
     }
 }

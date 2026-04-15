@@ -5,7 +5,6 @@ public class PlayerMoveState : PlayerBaseState
 {
     public override void EnterState(PlayerStateManager player)
     {
-        player.StateText.text = "Move State";
     }
 
     public override void UpdateState(PlayerStateManager player)
