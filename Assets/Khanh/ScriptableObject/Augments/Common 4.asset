@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   displayName: Happy Birthday
   description: Immediately gain 1 EXP
-  icon: {fileID: 0}
+  icon: {fileID: 1043374482, guid: 830f61274887d1a429cfbe226c6c1ac2, type: 3}
   rarity: 0
   weight: 100
   effect: 8

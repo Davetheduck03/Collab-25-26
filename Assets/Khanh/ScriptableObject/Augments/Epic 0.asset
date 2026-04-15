@@ -15,7 +15,7 @@ MonoBehaviour:
   displayName: Critical Strike
   description: When a fish is hooked at full HP, immediately deal 15% of its max
     HP as bonus damage
-  icon: {fileID: 0}
+  icon: {fileID: 4394456718218208254, guid: 296ae14298d718847a421292e36701f8, type: 3}
   rarity: 3
   weight: 5
   effect: 17
