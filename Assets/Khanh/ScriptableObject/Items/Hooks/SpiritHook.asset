@@ -11,7 +11,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: cf45081c53ae4b3a8ba9187224ff0772, type: 3}
   m_Name: SpiritHook
-  m_EditorClassIdentifier:
+  m_EditorClassIdentifier: 
   ID: 8
   displayName: Spirit Hook
   description: An ethereal hook forged from spirit energy. Nearly never misses.
@@ -19,9 +19,9 @@ MonoBehaviour:
   type: 1
   isStackable: 0
   maxStack: 0
-  runtimeUID:
+  runtimeUID: 
   tier: 4
   hookChance: 95
   rareBoost: 10
   durability: 120
-  cost: 4000
+  cost: 1000

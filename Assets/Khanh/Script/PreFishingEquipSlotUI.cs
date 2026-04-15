@@ -36,11 +36,28 @@ public class PreFishingEquipSlotUI : MonoBehaviour
 
     // ── Refresh ────────────────────────────────────────────────────────────
 
-    /// <summary>Update displayed icon / stats from the currently equipped item.</summary>
+    /// <summary>Update displayed name and stats for the currently selected zone.</summary>
+    public void RefreshZone(ZoneSO zone)
+    {
+        if (slotIcon != null) slotIcon.enabled = false;
+
+        if (zone == null)
+        {
+            if (nameText  != null) nameText.text  = "— No Zone —";
+            if (statsText != null) statsText.text = "";
+            return;
+        }
+
+        if (nameText  != null) nameText.text  = zone.zoneName;
+        if (statsText != null) statsText.text =
+            $"×{zone.currencyMultiplier:0.0} Gold  ×{zone.expMultiplier:0.0} XP";
+    }
+
     public void Refresh(EquippableData equipped)
     {
         string label = slotType == PreFishingMenuUI.EquipSlotType.Rod  ? "Rod"
                      : slotType == PreFishingMenuUI.EquipSlotType.Hook ? "Hook"
+                     : slotType == PreFishingMenuUI.EquipSlotType.Zone ? "Zone"
                      :                                                    "Boat";
 
         if (equipped == null)

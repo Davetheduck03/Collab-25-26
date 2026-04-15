@@ -80,6 +80,7 @@ public class QuotaManager : GameSingleton<QuotaManager>
         {
             Debug.Log("[QuotaManager] Quota Met! You survive to fish another day.");
             IncreaseQuota();
+            ZoneProgressionManager.Instance?.UnlockNextZone();
             ResetRun(); // Reset the daily earnings back to 0 for the next morning
             return true; // Survived!
         }

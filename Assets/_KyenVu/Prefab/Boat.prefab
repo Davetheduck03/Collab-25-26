@@ -454,7 +454,7 @@ GameObject:
   - component: {fileID: 9200000011332621403}
   - component: {fileID: 30697100285964583}
   - component: {fileID: 8792822007554055967}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Boat
   m_TagString: Boat
   m_Icon: {fileID: 0}
@@ -623,7 +623,7 @@ MonoBehaviour:
   rb: {fileID: 6169668856905073985}
   hook: {fileID: 6854517599184970778}
   animator: {fileID: 0}
-  returnSceneName: Top Down scene
+  returnSceneName: Top Down scene 3
   sceneTransitionAnimator: {fileID: 0}
   transitionDelay: 1
   returnConfirmationPanel: {fileID: 0}
@@ -774,6 +774,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dea370806ebf08c4ea311688b54f190f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  respawnPoint: {fileID: 0}
+  invincibilityDuration: 2
   components:
   - {fileID: 1011332621484721403}
   - {fileID: 8907051596897159350}

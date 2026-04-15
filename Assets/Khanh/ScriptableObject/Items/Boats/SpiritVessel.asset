@@ -24,4 +24,4 @@ MonoBehaviour:
   speed: 6
   capacity: 30
   hp: 250
-  cost: 1200
+  cost: 1000

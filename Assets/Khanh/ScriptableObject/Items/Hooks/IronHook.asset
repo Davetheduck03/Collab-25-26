@@ -11,7 +11,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: cf45081c53ae4b3a8ba9187224ff0772, type: 3}
   m_Name: IronHook
-  m_EditorClassIdentifier:
+  m_EditorClassIdentifier: 
   ID: 6
   displayName: Iron Hook
   description: A sturdy iron hook with better catch rates.
@@ -19,9 +19,9 @@ MonoBehaviour:
   type: 1
   isStackable: 0
   maxStack: 0
-  runtimeUID:
+  runtimeUID: 
   tier: 2
   hookChance: 80
   rareBoost: 2
   durability: 80
-  cost: 500
+  cost: 300

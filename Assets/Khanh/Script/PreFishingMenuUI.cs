@@ -14,7 +14,7 @@ public class PreFishingMenuUI : MonoBehaviour
 {
     public static PreFishingMenuUI Instance { get; private set; }
 
-    public enum EquipSlotType { Rod, Hook, Boat }
+    public enum EquipSlotType { Rod, Hook, Boat, Zone }
 
     // ── Runtime-created UI refs ────────────────────────────────────────────
     private GameObject    panel;
@@ -22,7 +22,7 @@ public class PreFishingMenuUI : MonoBehaviour
     private TMP_Text      listHeaderText;
     private Transform     itemListContainer;
     private Button        goBtn, cancelBtn;
-    private PreFishingEquipSlotUI rodSlot, hookSlot, boatSlot;
+    private PreFishingEquipSlotUI rodSlot, hookSlot, boatSlot, zoneSlot;
 
     // ── State ──────────────────────────────────────────────────────────────
     private string       pendingScene;
@@ -83,11 +83,34 @@ public class PreFishingMenuUI : MonoBehaviour
         if (listHeaderText != null)
             listHeaderText.text = slot == EquipSlotType.Rod  ? "Select Rod"
                                 : slot == EquipSlotType.Hook ? "Select Hook"
+                                : slot == EquipSlotType.Zone ? "Select Zone"
                                 :                              "Select Boat";
 
-        rodSlot?.SetHighlight(slot == EquipSlotType.Rod);
+        rodSlot? .SetHighlight(slot == EquipSlotType.Rod);
         hookSlot?.SetHighlight(slot == EquipSlotType.Hook);
         boatSlot?.SetHighlight(slot == EquipSlotType.Boat);
+        zoneSlot?.SetHighlight(slot == EquipSlotType.Zone);
+
+        // ── Zone slot: entirely different data source ──────────────────────────
+        if (slot == EquipSlotType.Zone)
+        {
+            var prog   = ZoneProgressionManager.Instance;
+            var zones  = prog?.GetUnlockedZones();
+            int selIdx = prog?.SelectedZoneIndex ?? 0;
+
+            if (zones == null || zones.Count == 0)
+            {
+                SpawnEmptyRow("No zones available — assign zones to ZoneProgressionManager.");
+            }
+            else
+            {
+                for (int i = 0; i < zones.Count; i++)
+                    SpawnZoneRow(zones[i], i, i == selIdx);
+            }
+
+            RelayoutItemList();
+            return;
+        }
 
         var inv = InventoryController.Instance;
         var em  = EquipmentManager.Instance;
@@ -97,17 +120,8 @@ public class PreFishingMenuUI : MonoBehaviour
           : slot == EquipSlotType.Hook ? (EquippableData)em?.GetEquippedHook()
           :                              (EquippableData)em?.GetEquippedBoat();
 
-        // ── Diagnostics ────────────────────────────────────────────────────────
-        Debug.Log($"[PreFishing] ShowSlotList({slot})  inv={inv != null}  em={em != null}");
-        if (inv != null)  Debug.Log($"[PreFishing]   inv.items.Count={inv.items.Count}  inv.database={inv.database != null}");
-        var dbDiag = inv?.database;
-        if (dbDiag != null) Debug.Log($"[PreFishing]   db.allItems count={dbDiag.allItems?.Count ?? -1}");
-
-        // Collect candidates: first from inventory, then fall back to ItemDatabase
-        var seen = new System.Collections.Generic.HashSet<ItemData>();
+        // Only show items the player actually owns
         bool found = false;
-
-        // Pass 1 — items actually in the player's inventory
         if (inv != null)
         {
             foreach (var inv_item in inv.items)
@@ -117,34 +131,12 @@ public class PreFishingMenuUI : MonoBehaviour
                           || (slot == EquipSlotType.Hook && inv_item.data is HookItemData)
                           || (slot == EquipSlotType.Boat && inv_item.data is BoatItemData);
                 if (!match) continue;
-                seen.Add(inv_item.data);
                 found = true;
-                Debug.Log($"[PreFishing]   Pass1 SpawnRow: {inv_item.data.displayName}");
                 SpawnRow(inv_item, inv_item.data == equipped);
             }
         }
 
-        // Pass 2 — equippables in the ItemDatabase that weren't already listed
-        // (covers items equipped directly via inspector / ScriptableObjects)
-        var db = inv?.database;
-        if (db != null && db.allItems != null)
-        {
-            foreach (var itemData in db.allItems)
-            {
-                if (itemData == null || seen.Contains(itemData)) continue;
-                bool match = (slot == EquipSlotType.Rod  && itemData is RodItemData)
-                          || (slot == EquipSlotType.Hook && itemData is HookItemData)
-                          || (slot == EquipSlotType.Boat && itemData is BoatItemData);
-                if (!match) continue;
-                found = true;
-                Debug.Log($"[PreFishing]   Pass2 SpawnRow: {itemData.displayName}");
-                var wrapper = new InventoryItem(itemData, 1);
-                SpawnRow(wrapper, itemData == equipped);
-            }
-        }
-
-        Debug.Log($"[PreFishing]   found={found}  container children AFTER spawn={itemListContainer.childCount}");
-        if (!found) SpawnEmptyRow($"No {slot} found — add one to the Item Database");
+        if (!found) SpawnEmptyRow($"No {slot} in inventory");
 
         // Manually lay out all rows so they are correctly positioned immediately,
         // without relying on Unity's layout system timing.
@@ -187,6 +179,18 @@ public class PreFishingMenuUI : MonoBehaviour
         ShowSlotList(activeSlot);
     }
 
+    public void SelectZone(int index)
+    {
+        var prog = ZoneProgressionManager.Instance;
+        if (prog != null)
+        {
+            prog.SelectedZoneIndex = index;
+            prog.SaveSelectedZone();
+        }
+        RefreshSlots();
+        ShowSlotList(EquipSlotType.Zone);
+    }
+
     // ── Buttons ────────────────────────────────────────────────────────────
 
     private void OnCancel()  { StopAllCoroutines(); StartCoroutine(FadeClose()); }
@@ -221,10 +225,15 @@ public class PreFishingMenuUI : MonoBehaviour
     private void RefreshSlots()
     {
         var em = EquipmentManager.Instance;
-        if (em == null) return;
-        rodSlot?.Refresh(em.GetEquippedRod());
-        hookSlot?.Refresh(em.GetEquippedHook());
-        boatSlot?.Refresh(em.GetEquippedBoat());
+        if (em != null)
+        {
+            rodSlot? .Refresh(em.GetEquippedRod());
+            hookSlot?.Refresh(em.GetEquippedHook());
+            boatSlot?.Refresh(em.GetEquippedBoat());
+        }
+
+        var prog = ZoneProgressionManager.Instance;
+        zoneSlot?.RefreshZone(prog?.GetZone(prog?.SelectedZoneIndex ?? 0));
     }
 
     // ══════════════════════════════════════════════════════════════════════
@@ -291,9 +300,11 @@ public class PreFishingMenuUI : MonoBehaviour
         rodSlot  = SlotButton(left.transform, "ROD",  -30f);
         hookSlot = SlotButton(left.transform, "HOOK", -128f);
         boatSlot = SlotButton(left.transform, "BOAT", -226f);
+        zoneSlot = SlotButton(left.transform, "ZONE", -324f);
         rodSlot .Init(EquipSlotType.Rod,  this);
         hookSlot.Init(EquipSlotType.Hook, this);
         boatSlot.Init(EquipSlotType.Boat, this);
+        zoneSlot.Init(EquipSlotType.Zone, this);
 
         // Thin separator
         var sep = MakeGO("Sep", card.transform);
@@ -502,6 +513,54 @@ public class PreFishingMenuUI : MonoBehaviour
         var btn = btnGO.AddComponent<Button>();
         var cap = item;
         btn.onClick.AddListener(() => EquipItem(cap));
+    }
+
+    private void SpawnZoneRow(ZoneSO zone, int index, bool selected)
+    {
+        var row = MakeGO("ZoneRow", itemListContainer);
+        Img(row, selected ? C_RowSel : C_RowNorm);
+
+        var rowRT = RT(row);
+        rowRT.anchorMin = new Vector2(0f, 1f);
+        rowRT.anchorMax = new Vector2(1f, 1f);
+        rowRT.pivot     = new Vector2(0.5f, 1f);
+        rowRT.sizeDelta = new Vector2(0f, 58f);
+
+        var le = row.AddComponent<LayoutElement>();
+        le.minHeight = le.preferredHeight = 58f;
+
+        // Zone name
+        var nm = TMP(row, zone.zoneName, 13f, C_TextWhite);
+        nm.fontStyle = FontStyles.Bold; nm.alignment = TextAlignmentOptions.MidlineLeft; nm.overflowMode = TextOverflowModes.Ellipsis;
+        var nmRT = RT(nm.gameObject);
+        nmRT.anchorMin = new Vector2(0f, 0.5f); nmRT.anchorMax = new Vector2(1f, 1f);
+        nmRT.offsetMin = new Vector2(12f, 0f);  nmRT.offsetMax = new Vector2(-8f, -4f);
+
+        // Stats line
+        string statsLine = $"×{zone.currencyMultiplier:0.0} Gold  ×{zone.expMultiplier:0.0} XP  " +
+                           $"Common {zone.commonWeight:0}%  Rare {zone.rareWeight:0}%  Epic {zone.epicWeight:0}%";
+        var st = TMP(row, statsLine, 10f, C_TextGrey);
+        st.alignment = TextAlignmentOptions.MidlineLeft;
+        var stRT = RT(st.gameObject);
+        stRT.anchorMin = new Vector2(0f, 0f); stRT.anchorMax = new Vector2(1f, 0.5f);
+        stRT.offsetMin = new Vector2(12f, 4f); stRT.offsetMax = new Vector2(-8f, 0f);
+
+        // Selected dot
+        if (selected)
+        {
+            var dot   = MakeGO("Dot", row.transform);
+            var dotRT = RT(dot);
+            dotRT.anchorMin = dotRT.anchorMax = new Vector2(1f, 1f);
+            dotRT.pivot = new Vector2(1f, 1f); dotRT.sizeDelta = new Vector2(12f, 12f); dotRT.anchoredPosition = new Vector2(-4f, -4f);
+            Img(dot, new Color(0.3f, 0.7f, 1f));
+        }
+
+        // Full-row invisible button
+        var btnGO = MakeGO("Btn", row.transform);
+        Fill(btnGO); Img(btnGO, Color.clear);
+        var btn = btnGO.AddComponent<Button>();
+        int cap = index;
+        btn.onClick.AddListener(() => SelectZone(cap));
     }
 
     private void SpawnEmptyRow(string msg)

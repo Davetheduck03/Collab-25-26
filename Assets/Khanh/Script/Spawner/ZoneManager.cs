@@ -19,15 +19,29 @@ public class ZoneManager : GameSingleton<ZoneManager>
     {
         base.Awake();
 
-        // Set CurrentZone immediately in Awake so it's ready before any Start() runs
-        if (zones != null && zones.Count > 0)
+        // Prefer the zone the player selected in the pre-fishing menu.
+        // Fall back to zones[0] if no progression manager is present (e.g. direct play in editor).
+        var prog = ZoneProgressionManager.Instance;
+        if (prog != null && prog.GetZone(prog.SelectedZoneIndex) != null)
+        {
+            CurrentZone = prog.GetZone(prog.SelectedZoneIndex);
+            Debug.Log($"[ZoneManager] Using selected zone: {CurrentZone.zoneName}");
+        }
+        else if (zones != null && zones.Count > 0)
+        {
             CurrentZone = zones[0];
+        }
         else
+        {
             Debug.LogWarning("[ZoneManager] No zones assigned!");
+        }
     }
 
     private void Start()
     {
+        // Only track boat position when no zone has been explicitly chosen.
+        if (ZoneProgressionManager.Instance != null) return;
+
         var boat = GameObject.FindWithTag("Boat") ?? GameObject.Find("Boat");
         if (boat != null)
             _boatTransform = boat.transform;
@@ -37,6 +51,9 @@ public class ZoneManager : GameSingleton<ZoneManager>
 
     private void Update()
     {
+        // When the player pre-selected a zone, keep it locked for the whole trip.
+        if (ZoneProgressionManager.Instance != null) return;
+
         if (_boatTransform == null) return;
 
         DistanceFromOrigin = Mathf.Abs(_boatTransform.position.x - transform.position.x);
