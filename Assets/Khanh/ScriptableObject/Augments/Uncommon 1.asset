@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   displayName: MotorBoat
   description: Increase Boat Speed by 0.5
-  icon: {fileID: 0}
+  icon: {fileID: 5705136666192898367, guid: d2c2e19bc98e7014f9faac510ec4db90, type: 3}
   rarity: 1
   weight: 50
   effect: 11

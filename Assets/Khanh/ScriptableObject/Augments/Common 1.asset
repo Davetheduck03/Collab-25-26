@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   displayName: My salesman is legit
   description: Increase rod's durability by 5
-  icon: {fileID: 0}
+  icon: {fileID: -3473724991729454663, guid: 296ae14298d718847a421292e36701f8, type: 3}
   rarity: 0
   weight: 100
   effect: 12

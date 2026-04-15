@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   displayName: Where's my tea?!
   description: Temporarily gain 20 stamina for 60 seconds. Overcaps if already full
-  icon: {fileID: 0}
+  icon: {fileID: -514835467, guid: 43528fa8363aa2941995f448e229b2f0, type: 3}
   rarity: 0
   weight: 100
   effect: 21

@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   displayName: Chainmail Vest
   description: Increase defense by 1
-  icon: {fileID: 0}
+  icon: {fileID: -375876727, guid: 43528fa8363aa2941995f448e229b2f0, type: 3}
   rarity: 2
   weight: 20
   effect: 0

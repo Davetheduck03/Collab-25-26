@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   displayName: Who dropped the wallet?
   description: Gain 1 ~ 18 gold
-  icon: {fileID: 0}
+  icon: {fileID: -3031591476522573043, guid: 23ce5a89624cc9e4c80ad888ea11633e, type: 3}
   rarity: 0
   weight: 100
   effect: 7

@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   displayName: Adrenaline Rush
   description: When stamina hits 0, restore it to 30% of max. Single use
-  icon: {fileID: 0}
+  icon: {fileID: -257733633, guid: 43528fa8363aa2941995f448e229b2f0, type: 3}
   rarity: 2
   weight: 20
   effect: 20

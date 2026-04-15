@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   displayName: I AM GOD
   description: Increase all current stats by 10%
-  icon: {fileID: 0}
+  icon: {fileID: -4273276076692731511, guid: 23ce5a89624cc9e4c80ad888ea11633e, type: 3}
   rarity: 4
   weight: 1
   effect: 16
