@@ -12,6 +12,7 @@ public class VolumeSlider : MonoBehaviour
         // DO NOT SET MINVALUE TO 0
         bgmSlider.minValue = 0.0001f;
         bgmSlider.maxValue = 1f;
+        
         sfxSlider.minValue = 0.0001f;
         sfxSlider.maxValue = 1f;
 
