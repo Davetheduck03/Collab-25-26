@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   displayName: Are we a Tank or a Truck?!
   description: Increase Boat Load by 2 and HP by 10
-  icon: {fileID: 0}
+  icon: {fileID: -232997553, guid: 43528fa8363aa2941995f448e229b2f0, type: 3}
   rarity: 0
   weight: 100
   effect: 14
