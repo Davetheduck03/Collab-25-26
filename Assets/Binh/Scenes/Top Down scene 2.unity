@@ -2116,6 +2116,7 @@ MonoBehaviour:
       choices:
       - choiceText: I want to sell fiss
         nextNodeIndex: -1
+        suppressEndEvent: 0
         onChoiceSelected:
           m_PersistentCalls:
             m_Calls:
@@ -2145,6 +2146,7 @@ MonoBehaviour:
               m_CallState: 2
       - choiceText: How can I fish ?
         nextNodeIndex: 1
+        suppressEndEvent: 0
         onChoiceSelected:
           m_PersistentCalls:
             m_Calls: []
@@ -2155,6 +2157,7 @@ MonoBehaviour:
       choices:
       - choiceText: Buy fishing rod
         nextNodeIndex: 2
+        suppressEndEvent: 0
         onChoiceSelected:
           m_PersistentCalls:
             m_Calls: []
@@ -2165,6 +2168,7 @@ MonoBehaviour:
       choices:
       - choiceText: Accept mission
         nextNodeIndex: -1
+        suppressEndEvent: 0
         onChoiceSelected:
           m_PersistentCalls:
             m_Calls:
@@ -2182,6 +2186,7 @@ MonoBehaviour:
               m_CallState: 2
       - choiceText: Nah, I'm good
         nextNodeIndex: -1
+        suppressEndEvent: 0
         onChoiceSelected:
           m_PersistentCalls:
             m_Calls: []
@@ -2225,6 +2230,7 @@ MonoBehaviour:
       choices:
       - choiceText: I want to sell fiss
         nextNodeIndex: -1
+        suppressEndEvent: 0
         onChoiceSelected:
           m_PersistentCalls:
             m_Calls:
@@ -2242,6 +2248,7 @@ MonoBehaviour:
               m_CallState: 2
       - choiceText: How can I fish ?
         nextNodeIndex: 1
+        suppressEndEvent: 0
         onChoiceSelected:
           m_PersistentCalls:
             m_Calls: []
@@ -2252,6 +2259,7 @@ MonoBehaviour:
       choices:
       - choiceText: Buy fishing rod
         nextNodeIndex: 2
+        suppressEndEvent: 0
         onChoiceSelected:
           m_PersistentCalls:
             m_Calls: []
@@ -2262,6 +2270,7 @@ MonoBehaviour:
       choices:
       - choiceText: Accept mission
         nextNodeIndex: -1
+        suppressEndEvent: 0
         onChoiceSelected:
           m_PersistentCalls:
             m_Calls:
@@ -2279,6 +2288,7 @@ MonoBehaviour:
               m_CallState: 2
       - choiceText: Nah, I'm good
         nextNodeIndex: 0
+        suppressEndEvent: 0
         onChoiceSelected:
           m_PersistentCalls:
             m_Calls: []
@@ -2939,6 +2949,7 @@ MonoBehaviour:
       choices:
       - choiceText: I want to upgrade my stat
         nextNodeIndex: -1
+        suppressEndEvent: 0
         onChoiceSelected:
           m_PersistentCalls:
             m_Calls:
@@ -2956,6 +2967,7 @@ MonoBehaviour:
               m_CallState: 2
       - choiceText: Do you have anything for me to help ?
         nextNodeIndex: 1
+        suppressEndEvent: 0
         onChoiceSelected:
           m_PersistentCalls:
             m_Calls: []
@@ -2966,6 +2978,7 @@ MonoBehaviour:
       choices:
       - choiceText: Accept mission
         nextNodeIndex: -1
+        suppressEndEvent: 0
         onChoiceSelected:
           m_PersistentCalls:
             m_Calls:
@@ -2983,6 +2996,7 @@ MonoBehaviour:
               m_CallState: 2
       - choiceText: No thanks
         nextNodeIndex: -1
+        suppressEndEvent: 0
         onChoiceSelected:
           m_PersistentCalls:
             m_Calls: []
@@ -3107,7 +3121,6 @@ MonoBehaviour:
   rb: {fileID: 624034009}
   moveSpeed: 5
   animator: {fileID: 624034008}
-  StateText: {fileID: 1161958421}
   HP: 3
   maxHP: 5
 --- !u!114 &624034011
@@ -4984,11 +4997,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 172515602e62fb746b5d573b38a5fe58, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!224 &895786026 stripped
-RectTransform:
-  m_CorrespondingSourceObject: {fileID: 3656726727560201360, guid: 7dbf7ee9c70eef94d91e65e6c28a3739, type: 3}
-  m_PrefabInstance: {fileID: 995380904}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &895863890
 GameObject:
   m_ObjectHideFlags: 0
@@ -5305,6 +5313,22 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 794002944066831558, guid: 7dbf7ee9c70eef94d91e65e6c28a3739, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 794002944066831558, guid: 7dbf7ee9c70eef94d91e65e6c28a3739, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 794002944066831558, guid: 7dbf7ee9c70eef94d91e65e6c28a3739, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 794002944066831558, guid: 7dbf7ee9c70eef94d91e65e6c28a3739, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1757038411752902592, guid: 7dbf7ee9c70eef94d91e65e6c28a3739, type: 3}
       propertyPath: m_Name
       value: Canvas (1)
@@ -5325,6 +5349,22 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2185373683232321351, guid: 7dbf7ee9c70eef94d91e65e6c28a3739, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2185373683232321351, guid: 7dbf7ee9c70eef94d91e65e6c28a3739, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2185373683232321351, guid: 7dbf7ee9c70eef94d91e65e6c28a3739, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2185373683232321351, guid: 7dbf7ee9c70eef94d91e65e6c28a3739, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2434148398387095171, guid: 7dbf7ee9c70eef94d91e65e6c28a3739, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -5341,6 +5381,22 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3436381338154630518, guid: 7dbf7ee9c70eef94d91e65e6c28a3739, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3436381338154630518, guid: 7dbf7ee9c70eef94d91e65e6c28a3739, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3436381338154630518, guid: 7dbf7ee9c70eef94d91e65e6c28a3739, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3436381338154630518, guid: 7dbf7ee9c70eef94d91e65e6c28a3739, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4543041377367428025, guid: 7dbf7ee9c70eef94d91e65e6c28a3739, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -5354,6 +5410,38 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4543041377367428025, guid: 7dbf7ee9c70eef94d91e65e6c28a3739, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5687658233163844874, guid: 7dbf7ee9c70eef94d91e65e6c28a3739, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5687658233163844874, guid: 7dbf7ee9c70eef94d91e65e6c28a3739, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5687658233163844874, guid: 7dbf7ee9c70eef94d91e65e6c28a3739, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5687658233163844874, guid: 7dbf7ee9c70eef94d91e65e6c28a3739, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6730456292487467617, guid: 7dbf7ee9c70eef94d91e65e6c28a3739, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6730456292487467617, guid: 7dbf7ee9c70eef94d91e65e6c28a3739, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6730456292487467617, guid: 7dbf7ee9c70eef94d91e65e6c28a3739, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6730456292487467617, guid: 7dbf7ee9c70eef94d91e65e6c28a3739, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
@@ -5365,6 +5453,22 @@ PrefabInstance:
       propertyPath: inventoryControllerObject
       value: 
       objectReference: {fileID: 1465295388}
+    - target: {fileID: 7278047556468744677, guid: 7dbf7ee9c70eef94d91e65e6c28a3739, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7278047556468744677, guid: 7dbf7ee9c70eef94d91e65e6c28a3739, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7278047556468744677, guid: 7dbf7ee9c70eef94d91e65e6c28a3739, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7278047556468744677, guid: 7dbf7ee9c70eef94d91e65e6c28a3739, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7962094433038514175, guid: 7dbf7ee9c70eef94d91e65e6c28a3739, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -5378,6 +5482,38 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7962094433038514175, guid: 7dbf7ee9c70eef94d91e65e6c28a3739, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9073387106942495750, guid: 7dbf7ee9c70eef94d91e65e6c28a3739, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9073387106942495750, guid: 7dbf7ee9c70eef94d91e65e6c28a3739, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9073387106942495750, guid: 7dbf7ee9c70eef94d91e65e6c28a3739, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9073387106942495750, guid: 7dbf7ee9c70eef94d91e65e6c28a3739, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9076780227113168497, guid: 7dbf7ee9c70eef94d91e65e6c28a3739, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9076780227113168497, guid: 7dbf7ee9c70eef94d91e65e6c28a3739, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9076780227113168497, guid: 7dbf7ee9c70eef94d91e65e6c28a3739, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9076780227113168497, guid: 7dbf7ee9c70eef94d91e65e6c28a3739, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
@@ -46560,8 +46696,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 89a59f424811fa644b5bd2fa3073766f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pausePanel: {fileID: 895786026}
+  pausePanel: {fileID: 0}
   gameUI: {fileID: 0}
+  settingMenu: {fileID: 0}
   globalVolume: {fileID: 894388726}
   duration: 0.5
   openEase: 27
