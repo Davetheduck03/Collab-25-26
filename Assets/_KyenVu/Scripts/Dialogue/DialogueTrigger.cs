@@ -9,7 +9,7 @@ public class DialogueChoice
     public int nextNodeIndex;
 
     [Tooltip("Tick this if this choice opens a menu (like a Shop) so the Goodbye sound doesn't play!")]
-    public bool suppressEndEvent; 
+    public bool suppressEndEvent;
 
     public UnityEvent onChoiceSelected;
 }
@@ -20,7 +20,6 @@ public class DialogueNode
     [TextArea(3, 5)]
     public string sentence;
 
-    // NEW: The boolean tick box
     [Header("Mission Settings")]
     public bool isMission;
 
@@ -31,11 +30,8 @@ public class DialogueNode
     public int nextNodeIndex = -1;
 }
 
-// ... Keep your DialogueSet and DialogueTrigger classes exactly the same here ...
-
-
 // =========================================================================
-// CUSTOM INSPECTOR CODE (Paste this at the very bottom of DialogueTrigger.cs)
+// CUSTOM INSPECTOR CODE
 // =========================================================================
 #if UNITY_EDITOR
 [UnityEditor.CustomPropertyDrawer(typeof(DialogueNode))]
@@ -43,7 +39,6 @@ public class DialogueNodeDrawer : UnityEditor.PropertyDrawer
 {
     public override float GetPropertyHeight(UnityEditor.SerializedProperty property, GUIContent label)
     {
-        // If the array element is collapsed, just return a single line height
         if (!property.isExpanded)
             return UnityEditor.EditorGUIUtility.singleLineHeight;
 
@@ -58,7 +53,6 @@ public class DialogueNodeDrawer : UnityEditor.PropertyDrawer
         height += UnityEditor.EditorGUI.GetPropertyHeight(sentence, true) + UnityEditor.EditorGUIUtility.standardVerticalSpacing;
         height += UnityEditor.EditorGUI.GetPropertyHeight(isMission, true) + UnityEditor.EditorGUIUtility.standardVerticalSpacing;
 
-        // Only add height for missionDetails if the box is ticked!
         if (isMission.boolValue)
         {
             height += UnityEditor.EditorGUI.GetPropertyHeight(missionDetails, true) + UnityEditor.EditorGUIUtility.standardVerticalSpacing;
@@ -76,7 +70,6 @@ public class DialogueNodeDrawer : UnityEditor.PropertyDrawer
 
         Rect currentRect = new Rect(position.x, position.y, position.width, UnityEditor.EditorGUIUtility.singleLineHeight);
 
-        // Draw the foldout arrow for the Array Element
         property.isExpanded = UnityEditor.EditorGUI.Foldout(currentRect, property.isExpanded, label, true);
 
         if (property.isExpanded)
@@ -100,7 +93,6 @@ public class DialogueNodeDrawer : UnityEditor.PropertyDrawer
             UnityEditor.EditorGUI.PropertyField(currentRect, isMission, true);
             currentRect.y += h + UnityEditor.EditorGUIUtility.standardVerticalSpacing;
 
-            // Conditionally draw the Mission Details slot if ticked!
             if (isMission.boolValue)
             {
                 h = UnityEditor.EditorGUI.GetPropertyHeight(missionDetails, true);
@@ -132,19 +124,18 @@ public class DialogueSet
     public int requiredEncounterLevel = 0;
     public DialogueNode[] dialogueNodes;
 
-    // NEW: Fire an event when this specific conversation finishes!
     [Header("Events")]
     [Tooltip("Fires when the player opens this dialogue")]
     public UnityEvent onDialogueOpen;
     [Tooltip("Fires when the player closes this dialogue.")]
-    public UnityEvent onDialogueEnd; 
+    public UnityEvent onDialogueEnd;
 }
 
 public class DialogueTrigger : MonoBehaviour
 {
     [Header("NPC Data")]
     public string npcName = "Mysterious Stranger";
-    public Sprite npcPortrait;
+    public Sprite npcPortrait; // <--- RESTORED: Portrait is back here!
 
     [Header("Conversations")]
     public DialogueSet[] dialogueSets;
@@ -153,7 +144,6 @@ public class DialogueTrigger : MonoBehaviour
     [SerializeField] private SO_SFXEvent welcomeSfx;
     [SerializeField] private SO_SFXEvent goodbyeSfx;
 
-// Simple helper methods to play them
     public void PlayWelcome() => welcomeSfx?.Play();
     public void PlayGoodbye() => goodbyeSfx?.Play();
 
@@ -166,16 +156,14 @@ public class DialogueTrigger : MonoBehaviour
                 NotificationManager.Instance.ShowNotification("The shop is closed, please come back at 5:00 AM.");
             }
 
-           
             PlayerStateManager player = Object.FindFirstObjectByType<PlayerStateManager>();
             if (player != null)
             {
                 player.EndInteraction();
             }
-            return; 
+            return;
         }
 
-   
         int currentEncounter = MissionManager.Instance != null ? MissionManager.Instance.GetEncounterLevel(npcName) : 0;
 
         DialogueSet validSet = null;
@@ -193,9 +181,9 @@ public class DialogueTrigger : MonoBehaviour
         if (validSet != null)
         {
             validSet.onDialogueOpen?.Invoke();
-            
+
+            // <--- RESTORED: Now passes Name and Portrait properly --->
             DialogueManager.Instance.StartDialogue(npcName, npcPortrait, validSet.dialogueNodes, validSet.onDialogueEnd);
         }
     }
-
 }
