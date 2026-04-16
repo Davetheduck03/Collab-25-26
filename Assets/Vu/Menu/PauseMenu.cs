@@ -145,10 +145,29 @@ public class PauseMenu : MonoBehaviour
 
     public void ConfirmResetDay()
     {
-        // IMPORTANT: Unfreeze time before reloading!
-        Time.timeScale = 1f;
+        // 1. DEDUCT TODAY'S GOLD
+        // We use the QuotaManager to find out exactly how much we made *today*
+        if (QuotaManager.Instance != null && CurrencyManager.Instance != null)
+        {
+            int goldMadeToday = QuotaManager.Instance.GoldEarned;
+            if (goldMadeToday > 0)
+            {
+                CurrencyManager.Instance.RemoveCurrency(goldMadeToday);
+                Debug.Log($"[Reset Day] Deducted {goldMadeToday} gold that was earned today.");
+            }
 
-        // Reloads the current active scene to restart the day
+            // Tell QuotaManager to reset today's tracking back to 0
+            QuotaManager.Instance.ResetRun();
+        }
+
+        // 2. WIPE INVENTORY
+        if (InventoryController.Instance != null)
+        {
+            InventoryController.Instance.ClearAllItems();
+        }
+
+        // 3. UNFREEZE TIME & RELOAD
+        Time.timeScale = 1f;
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 

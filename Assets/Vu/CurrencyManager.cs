@@ -73,7 +73,23 @@ public class CurrencyManager : GameSingleton<CurrencyManager>
         Debug.Log("Not enough currency!");
         return false;
     }
+    // --- NEW: For forcibly removing gold when resetting a day ---
+    public void RemoveCurrency(int amount)
+    {
+        if (amount > 0)
+        {
+            playerData.currency -= amount;
 
+            // Safety check: don't let gold go into the negatives
+            if (playerData.currency < 0)
+            {
+                playerData.currency = 0;
+            }
+
+            SaveCurrency();
+            Debug.Log("Forcibly removed " + amount + " gold for day reset. New total: " + playerData.currency);
+        }
+    }
     // Optional: Call this on application quit to ensure save
     void OnApplicationQuit()
     {

@@ -246,7 +246,13 @@ public class InventoryController : MonoBehaviour
             RefreshUIEvent?.Invoke();
         }
     }
-
+    public void ClearAllItems()
+    {
+        items.Clear();
+        SaveInventory(); // Overwrite the save file with an empty inventory
+        RefreshUIEvent?.Invoke();
+        Debug.Log("[InventoryController] All items completely wiped for day reset.");
+    }
     public void UseItem(ItemData itemData)
     {
         var existing = items.Find(i => i.data == itemData);
