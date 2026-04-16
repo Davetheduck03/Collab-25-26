@@ -518,9 +518,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 89a59f424811fa644b5bd2fa3073766f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pausePanel: {fileID: 0}
-  gameUI: {fileID: 6408622782028589398}
-  settingMenu: {fileID: 0}
+  pausePanel: {fileID: 4446144614180725295}
+  mainMenuConfirmPanel: {fileID: 0}
+  resetDayConfirmPanel: {fileID: 0}
+  mainMenuSceneName: MainMenu
   globalVolume: {fileID: 0}
   duration: 0.5
   openEase: 27
@@ -7227,6 +7228,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6ba12f233211b464a8ec43f3d4603ead, type: 3}
+--- !u!1 &4446144614180725295 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2145640748404848909, guid: 6ba12f233211b464a8ec43f3d4603ead, type: 3}
+  m_PrefabInstance: {fileID: 2338837277821901602}
+  m_PrefabAsset: {fileID: 0}
 --- !u!224 &4550617116842345713 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 2256921564773048275, guid: 6ba12f233211b464a8ec43f3d4603ead, type: 3}
