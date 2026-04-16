@@ -11,6 +11,15 @@ public class DialogueChoice
     [Tooltip("Tick this if this choice opens a menu (like a Shop) so the Goodbye sound doesn't play!")]
     public bool suppressEndEvent;
 
+    // ==========================================
+    // --- NEW: REWARD SETTINGS ---
+    // ==========================================
+    [Header("Reward Settings")]
+    [Tooltip("Tick this to give the player money when they click this choice!")]
+    public bool givesMoney;
+    [Tooltip("How much gold should this choice give?")]
+    public int moneyToGive;
+
     public UnityEvent onChoiceSelected;
 }
 
@@ -184,6 +193,14 @@ public class DialogueTrigger : MonoBehaviour
 
             // <--- RESTORED: Now passes Name and Portrait properly --->
             DialogueManager.Instance.StartDialogue(npcName, npcPortrait, validSet.dialogueNodes, validSet.onDialogueEnd);
+        }
+    }
+    public void StartMissionFromNPC(MissionSO mission)
+    {
+        if (MissionManager.Instance != null)
+        {
+            // This perfectly passes the existing npcName without you having to type it twice!
+            MissionManager.Instance.StartMission(mission, npcName);
         }
     }
 }

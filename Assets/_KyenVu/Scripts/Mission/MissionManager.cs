@@ -16,18 +16,22 @@ public class ObjectiveProgress
     }
 }
 
-// UPDATED: Tracks the entire mission and checks if ALL objectives are done
+// =======================================================
+// --- UPDATED: ActiveMission now remembers the NPC! ---
+// =======================================================
 [System.Serializable]
 public class ActiveMission
 {
     public MissionSO missionData;
     public List<ObjectiveProgress> progressList = new List<ObjectiveProgress>();
 
+    // NEW: Stores the name of the NPC who gave this mission
+    public string questGiver;
+
     public bool isReadyToTurnIn
     {
         get
         {
-            // If even ONE objective isn't complete, the mission isn't ready
             foreach (var p in progressList)
             {
                 if (!p.isComplete) return false;
@@ -36,10 +40,12 @@ public class ActiveMission
         }
     }
 
-    public ActiveMission(MissionSO data)
+    // NEW: We now require a name when a mission is created
+    public ActiveMission(MissionSO data, string npcName)
     {
         missionData = data;
-        // Create a progress tracker for every objective on the card
+        questGiver = npcName;
+
         foreach (var obj in data.objectives)
         {
             progressList.Add(new ObjectiveProgress(obj));
@@ -103,16 +109,19 @@ public class MissionManager : MonoBehaviour
 
     // --- MISSION SYSTEM ---
 
-    public void StartMission(MissionSO mission)
+    public void StartMission(MissionSO mission, string npcName = "")
     {
         if (activeMissions.Exists(m => m.missionData == mission)) return;
 
-        activeMissions.Add(new ActiveMission(mission));
-        Debug.Log($"[Mission] Started: {mission.missionName}");
+        // Pass the NPC name into the new mission!
+        activeMissions.Add(new ActiveMission(mission, npcName));
+        Debug.Log($"[Mission] Started: {mission.missionName} (Given by: {npcName})");
     }
-
     public void ProgressMission(MissionType type, string targetID, int amount = 1)
     {
+        // --- NEW: Create a temporary list to hold missions that just finished ---
+        List<MissionSO> newlyCompletedMissions = new List<MissionSO>();
+
         // Check every active mission
         foreach (var mission in activeMissions)
         {
@@ -128,13 +137,21 @@ public class MissionManager : MonoBehaviour
                         progress.currentAmount += amount;
                         Debug.Log($"[Mission] {mission.missionData.missionName} | Progress on {targetID}: {progress.currentAmount}/{progress.objective.targetAmount}");
 
+                        // If this was the last objective needed, add it to our finished list!
                         if (mission.isReadyToTurnIn)
                         {
-                            Debug.Log($"[Mission] {mission.missionData.missionName} is fully complete and ready to turn in!");
+                            Debug.Log($"[Mission] {mission.missionData.missionName} is fully complete! Auto-turning in...");
+                            newlyCompletedMissions.Add(mission.missionData);
                         }
                     }
                 }
             }
+        }
+
+        // --- NEW: Safely turn in all the finished missions now that we are done looking at the list! ---
+        foreach (var finishedMission in newlyCompletedMissions)
+        {
+            TurnInMission(finishedMission);
         }
     }
 
@@ -145,7 +162,20 @@ public class MissionManager : MonoBehaviour
         {
             activeMissions.Remove(active);
             Debug.Log($"[Mission] Successfully turned in: {mission.missionName}");
-            // Add your reward logic here!
+
+            // Give Gold Reward
+            if (mission.goldReward > 0 && CurrencyManager.Instance != null)
+            {
+                CurrencyManager.Instance.AddFreeCurrency(mission.goldReward);
+                if (NotificationManager.Instance != null)
+                    NotificationManager.Instance.ShowNotification($"Mission Complete! +{mission.goldReward} Gold");
+            }
+
+            // --- NEW: Level up the specific NPC who gave us this quest! ---
+            if (!string.IsNullOrEmpty(active.questGiver))
+            {
+                IncreaseEncounter(active.questGiver);
+            }
         }
     }
 }

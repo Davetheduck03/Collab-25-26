@@ -1,7 +1,6 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-// We remove the interface because InteractableObject handles the interaction now.
 public class ScreenSwitcher : MonoBehaviour
 {
     [Header("Scene Settings")]
@@ -17,6 +16,44 @@ public class ScreenSwitcher : MonoBehaviour
             NotificationManager.Instance.ShowNotification("The dock is closed, please come back at 7:00 AM.");
             return; // Stop the code, don't let them on the boat!
         }
+
+        // =================================================================
+        // --- NEW: CHECK FOR FISHING ROD BEFORE LETTING THEM LEAVE ---
+        // =================================================================
+        bool hasRod = false;
+
+        // 1. Check if it's in their inventory
+        if (InventoryController.Instance != null)
+        {
+            foreach (var item in InventoryController.Instance.items)
+            {
+                if (item.data is RodItemData)
+                {
+                    hasRod = true;
+                    break;
+                }
+            }
+        }
+
+        // 2. Check if it is already equipped (just in case!)
+        if (!hasRod && EquipmentManager.Instance != null)
+        {
+            if (EquipmentManager.Instance.GetEquippedRod() != null)
+            {
+                hasRod = true;
+            }
+        }
+
+        // 3. Block them if they don't have one
+        if (!hasRod)
+        {
+            if (NotificationManager.Instance != null)
+            {
+                NotificationManager.Instance.ShowNotification("You need to buy a Fishing Rod from the shop first! Accept the mission for some money");
+            }
+            return; // Stop the code, don't let them on the boat!
+        }
+        // =================================================================
 
         // Show the equipment selection menu before entering the fishing scene.
         // The menu will call SceneManager.LoadScene(sceneToLoad) when the player confirms.

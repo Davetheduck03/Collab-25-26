@@ -161,15 +161,29 @@ public class DialogueManager : MonoBehaviour
             int targetIndex = node.choices[i].nextNodeIndex;
             UnityEngine.Events.UnityEvent onSelectEvent = node.choices[i].onChoiceSelected;
 
-            // --- CHANGED: Read the checkbox from the inspector ---
             bool shouldSuppress = node.choices[i].suppressEndEvent;
+
+            // --- NEW: Read the money reward settings from the inspector ---
+            bool givesMoney = node.choices[i].givesMoney;
+            int moneyToGive = node.choices[i].moneyToGive;
 
             buttonComp.onClick.AddListener(() =>
             {
-                // If the checkbox was ticked, set the flag before making the choice
                 if (shouldSuppress)
                 {
                     suppressEndEvent = true;
+                }
+
+                if (givesMoney && CurrencyManager.Instance != null)
+                {
+                    // CHANGE THIS LINE:
+                    CurrencyManager.Instance.AddFreeCurrency(moneyToGive);
+
+                    // Optional: Pop up a notification so the player knows they got it!
+                    if (NotificationManager.Instance != null)
+                    {
+                        NotificationManager.Instance.ShowNotification($"Received {moneyToGive} Gold!");
+                    }
                 }
 
                 onSelectEvent?.Invoke();

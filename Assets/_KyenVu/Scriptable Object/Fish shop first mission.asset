@@ -18,7 +18,8 @@ MonoBehaviour:
   objectives:
   - missionType: 1
     targetFish: {fileID: 0}
-    targetItem: {fileID: 11400000, guid: 9abdf5c2439bac342ae9c09a7d896270, type: 2}
+    targetItem: {fileID: 11400000, guid: fadbc5707fd6d3f4aa7a3d7e3a42e6c0, type: 2}
     targetName: 
     targetAmount: 1
   goldReward: 100
+  npcEncounterToIncrease: 

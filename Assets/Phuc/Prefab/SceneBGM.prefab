@@ -45,11 +45,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   musicsList:
-  - sceneName: sound testing
-    sceneMusic: {fileID: 11400000, guid: 22e5d6757b9a1c44f80c47e15d869dda, type: 2}
-  - sceneName: Top Down scene
-    sceneMusic: {fileID: 11400000, guid: 2af60ff714bb509489ea211c72c3ab0c, type: 2}
-  - sceneName: 
+  - sceneName: 2D scene 2
     sceneMusic: {fileID: 11400000, guid: 82290cf2f8e24e1468eddde1843bdc62, type: 2}
-  - sceneName: Test
+  - sceneName: Top Down scene 3
     sceneMusic: {fileID: 11400000, guid: 43720ccf8632522449dfc724bd2143e0, type: 2}
+  - sceneName: MainMenu
+    sceneMusic: {fileID: 11400000, guid: 2af60ff714bb509489ea211c72c3ab0c, type: 2}

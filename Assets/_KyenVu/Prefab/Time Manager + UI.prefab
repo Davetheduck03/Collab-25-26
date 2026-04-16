@@ -49,7 +49,7 @@ Canvas:
   m_GameObject: {fileID: 3001605048061565381}
   m_Enabled: 1
   serializedVersion: 3
-  m_RenderMode: 0
+  m_RenderMode: 1
   m_Camera: {fileID: 0}
   m_PlaneDistance: 100
   m_PixelPerfect: 0
@@ -60,7 +60,7 @@ Canvas:
   m_VertexColorAlwaysGammaSpace: 0
   m_AdditionalShaderChannelsFlag: 25
   m_UpdateRectTransformForStandalone: 0
-  m_SortingLayerID: 0
+  m_SortingLayerID: -846496367
   m_SortingOrder: 0
   m_TargetDisplay: 0
 --- !u!114 &4913126172043055721
@@ -120,7 +120,7 @@ MonoBehaviour:
   morningSprite: {fileID: 5843913820271866725, guid: 22953a4740e96404386a5fcf10c4c4d8, type: 3}
   nightSprite: {fileID: 2900575744110868131, guid: e7458a6d313c13d4f80211c9c1829f39, type: 3}
   currentDay: 1
-  currentHour: 18
+  currentHour: 7
   currentMinute: 0
   realSecondsPerTick: 30
   inGameMinutesPerTick: 30

@@ -78,12 +78,18 @@ public class ItemShopButton : MonoBehaviour
         CurrencyManager.Instance.SpendCurrency(price);
         InventoryController.Instance.AddItem(item, 1);
 
-        NotificationManager.Instance?.ShowNotification(
-            $"Bought {item.displayName} for {price} g!");
+        // =======================================================
+        // --- NEW: Tell the Mission Manager we got an item! ---
+        // =======================================================
+        if (MissionManager.Instance != null)
+        {
+            // Replace 'MissionType.Acquire' with whatever enum you use for buying/getting items!
+            // Depending on your setup, item.name might need to be item.displayName or your ID string.
+            MissionManager.Instance.ProgressMission(MissionType.Buy, item.name, 1);
+        }
 
+        NotificationManager.Instance?.ShowNotification($"Bought {item.displayName} for {price} g!");
         RefreshPriceLabel();
-
-        Debug.Log($"[ItemShopButton] Purchased '{item.displayName}' for {price} g.");
     }
 
     // ── Helpers ───────────────────────────────────────────────────────────────

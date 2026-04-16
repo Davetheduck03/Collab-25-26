@@ -10,14 +10,17 @@ public class PlayerCurrencyData
 }
 public class CurrencyManager : GameSingleton<CurrencyManager>
 {
-    /// <summary>Fires whenever gold is successfully added. Used by QuotaManager to track run earnings.</summary>
     public static event Action<int> OnCurrencyAdded;
+    // --- NEW: This tells the UI to update whenever gold changes (up OR down!) ---
+    public static event Action<int> OnCurrencyChanged;
 
     private PlayerCurrencyData playerData;
     private string savePath;
 
-    void Start()
+    protected override void Awake()
     {
+        base.Awake(); // Sets up the GameSingleton
+
         savePath = Path.Combine(Application.persistentDataPath, "playerData.json");
         LoadCurrency();
     }
@@ -55,39 +58,54 @@ public class CurrencyManager : GameSingleton<CurrencyManager>
         if (amount > 0)
         {
             playerData.currency += amount;
-            SaveCurrency();  // Save after change
+            SaveCurrency();
             Debug.Log("Added " + amount + ". New total: " + playerData.currency);
+
             OnCurrencyAdded?.Invoke(amount);
+            OnCurrencyChanged?.Invoke(playerData.currency); // <-- NEW
         }
     }
+    public void AddFreeCurrency(int amount)
+    {
+        if (amount > 0)
+        {
+            playerData.currency += amount;
+            SaveCurrency();
+            Debug.Log("Added FREE gold: " + amount + ". New total: " + playerData.currency);
 
+            // NOTICE: We do NOT fire OnCurrencyAdded here! 
+            // This makes the QuotaManager completely ignore this money.
+
+            // We DO fire this so the UI text still updates on the screen:
+            OnCurrencyChanged?.Invoke(playerData.currency);
+        }
+    }
     public bool SpendCurrency(int amount)
     {
         if (amount > 0 && playerData.currency >= amount)
         {
             playerData.currency -= amount;
-            SaveCurrency();  // Save after change
+            SaveCurrency();
             Debug.Log("Spent " + amount + ". New total: " + playerData.currency);
+
+            OnCurrencyChanged?.Invoke(playerData.currency); // <-- NEW
             return true;
         }
         Debug.Log("Not enough currency!");
         return false;
     }
-    // --- NEW: For forcibly removing gold when resetting a day ---
+
     public void RemoveCurrency(int amount)
     {
         if (amount > 0)
         {
             playerData.currency -= amount;
-
-            // Safety check: don't let gold go into the negatives
-            if (playerData.currency < 0)
-            {
-                playerData.currency = 0;
-            }
+            if (playerData.currency < 0) playerData.currency = 0;
 
             SaveCurrency();
-            Debug.Log("Forcibly removed " + amount + " gold for day reset. New total: " + playerData.currency);
+            Debug.Log("Forcibly removed " + amount + " gold. New total: " + playerData.currency);
+
+            OnCurrencyChanged?.Invoke(playerData.currency); // <-- NEW
         }
     }
     // Optional: Call this on application quit to ensure save
