@@ -40,7 +40,11 @@ public class QuotaManager : GameSingleton<QuotaManager>
     protected override void Awake()
     {
         base.Awake();
-        ResetRun();
+        // Only reset if we are the real singleton — not a duplicate being destroyed.
+        // Without this guard, returning to the top-down scene creates a short-lived
+        // duplicate that fires ResetRun() and wipes out the accumulated gold.
+        if (_instance == this)
+            ResetRun();
     }
 
     private void Start()
