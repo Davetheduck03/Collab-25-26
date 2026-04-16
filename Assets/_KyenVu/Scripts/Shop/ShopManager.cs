@@ -9,7 +9,7 @@ public class ShopManager : MonoBehaviour
     public GameObject FishShopPanel;
     public GameObject UpgradeStallPanel;
     public Button[] closeButton;
-
+    public GameObject PlayerStatsUI;
     private void OnEnable()
     {
         // --- NEW: Listen for the shop closing event ---
@@ -47,6 +47,7 @@ public class ShopManager : MonoBehaviour
         }
         ShopCanvas.SetActive(true);
         TavernPanel.SetActive(true);
+        PlayerStatsUI.SetActive(false);
         Invoke(nameof(LockPlayer), 0.05f);
     }
 
@@ -62,7 +63,7 @@ public class ShopManager : MonoBehaviour
         {
             ShopCanvas.SetActive(true);
             FishShopPanel.SetActive(true);
-
+PlayerStatsUI.SetActive(false);
             if (FishShopUI.Instance != null)
                 FishShopUI.Instance.Refresh();
 
@@ -81,6 +82,7 @@ public class ShopManager : MonoBehaviour
         }
         ShopCanvas.SetActive(true);
         UpgradeStallPanel.SetActive(true);
+        PlayerStatsUI.SetActive(false);
         Invoke(nameof(LockPlayer), 0.05f);
     }
     // --- CLOSE METHODS (Trigger these from UI 'X' Buttons) ---
@@ -88,6 +90,7 @@ public class ShopManager : MonoBehaviour
     public void CloseTavern()
     {
         if (TavernPanel.activeSelf) TavernPanel.SetActive(false);
+        PlayerStatsUI.SetActive(true);
         CheckAndCloseCanvas();
     }
 
@@ -108,6 +111,9 @@ public class ShopManager : MonoBehaviour
     private void CheckAndCloseCanvas()
     {
         ShopCanvas.SetActive(false);
+        
+        if (PlayerStatsUI != null) PlayerStatsUI.SetActive(true);
+        
         FreePlayer();
     }
 

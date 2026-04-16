@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: Cave_FishyWishy
   m_EditorClassIdentifier: 
   clip: {fileID: 8300000, guid: 539d1a593b1d7274ba9a9c848b04d34a, type: 3}
-  volume: 1
+  volume: 0.8
   fadeDuration: 1
   loop: 1

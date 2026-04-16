@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: MarketPlace
   m_EditorClassIdentifier: 
   clip: {fileID: 8300000, guid: 354e5c6621114614f9f2f3afa60e77bd, type: 3}
-  volume: 1
+  volume: 0.8
   fadeDuration: 1
   loop: 1

@@ -685,8 +685,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Drag fish here to sell
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 8db2455f50bb4fe40be0a92165b8d21d, type: 2}
+  m_sharedMaterial: {fileID: -532953460481378604, guid: 8db2455f50bb4fe40be0a92165b8d21d, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -717,7 +717,7 @@ MonoBehaviour:
   m_fontSizeMin: 18
   m_fontSizeMax: 72
   m_fontStyle: 0
-  m_HorizontalAlignment: 1
+  m_HorizontalAlignment: 2
   m_VerticalAlignment: 256
   m_textAlignment: 65535
   m_characterSpacing: 0
@@ -1461,7 +1461,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c4ae664dba5ebb74088a67b574faf2c8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  slotCount: 40
   itemGrid: {fileID: 5160148231733698704}
   slotPrefab: {fileID: 3107752576863203006, guid: af6f859eb0295ad46b0ca3b4d37e5c82, type: 3}
 --- !u!1 &4891288467793671310

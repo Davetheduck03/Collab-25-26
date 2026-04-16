@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: Forest_Demo
   m_EditorClassIdentifier: 
   clip: {fileID: 8300000, guid: 2b29832d8641fa542a6751502b20fd18, type: 3}
-  volume: 1
+  volume: 0.8
   fadeDuration: 1
   loop: 1

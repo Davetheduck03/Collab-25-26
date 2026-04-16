@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: BattleTheme_Reel_em_in
   m_EditorClassIdentifier: 
   clip: {fileID: 8300000, guid: 225ca6d646a7f3b4a83789f938449aa9, type: 3}
-  volume: 1
+  volume: 0.8
   fadeDuration: 1
   loop: 1
