@@ -45,6 +45,8 @@ public class GameIntroManager : MonoBehaviour
 
     private void PlayMaelleResponse()
     {
+        PlayerPrefs.SetInt("HasPlayedIntro", 1);
+        PlayerPrefs.Save();
         // 3. Create an event for when the ENTIRE intro is over
         UnityEvent onIntroEnd = new UnityEvent();
         onIntroEnd.AddListener(() =>
@@ -52,8 +54,7 @@ public class GameIntroManager : MonoBehaviour
             Debug.Log("Intro finished! Let the fishing begin.");
 
             // Save the fact that we watched the intro
-            PlayerPrefs.SetInt("HasPlayedIntro", 1);
-            PlayerPrefs.Save();
+
         });
 
         // 4. Start Maelle's response immediately!
