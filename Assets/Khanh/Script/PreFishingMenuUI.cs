@@ -16,6 +16,11 @@ public class PreFishingMenuUI : MonoBehaviour
 
     public enum EquipSlotType { Rod, Hook, Boat, Zone }
 
+    [Header("Font")]
+    [Tooltip("Assign a TMP font asset here to use it for all text in the menu. " +
+             "Leave empty to fall back to the TMP default font.")]
+    public TMP_FontAsset menuFont;
+
     // ── Runtime-created UI refs ────────────────────────────────────────────
     private GameObject    panel;
     private CanvasGroup   cg;
@@ -615,29 +620,28 @@ public class PreFishingMenuUI : MonoBehaviour
 
     // ── TMP font lookup (multiple fallbacks so text is never invisible) ──────
 
-    private static TMP_FontAsset s_DefaultFont;
-
-    private static TMP_FontAsset GetTMPFont()
+    private TMP_FontAsset GetTMPFont()
     {
-        if (s_DefaultFont != null) return s_DefaultFont;
+        // Inspector-assigned font takes priority
+        if (menuFont != null) return menuFont;
 
         // 1. TMP Settings asset (works if TMP Essential Resources were imported)
-        s_DefaultFont = TMP_Settings.defaultFontAsset;
-        if (s_DefaultFont != null) { Debug.Log("[PreFishing] TMP font: TMP_Settings"); return s_DefaultFont; }
+        var f = TMP_Settings.defaultFontAsset;
+        if (f != null) { Debug.Log("[PreFishing] TMP font: TMP_Settings"); return f; }
 
         // 2. Standard LiberationSans that ships with TMP Essential Resources
-        s_DefaultFont = Resources.Load<TMP_FontAsset>("Fonts & Materials/LiberationSans SDF");
-        if (s_DefaultFont != null) { Debug.Log("[PreFishing] TMP font: LiberationSans SDF"); return s_DefaultFont; }
+        f = Resources.Load<TMP_FontAsset>("Fonts & Materials/LiberationSans SDF");
+        if (f != null) { Debug.Log("[PreFishing] TMP font: LiberationSans SDF"); return f; }
 
         // 3. Any TMP font already loaded in memory
         var all = Resources.FindObjectsOfTypeAll<TMP_FontAsset>();
-        if (all != null && all.Length > 0) { s_DefaultFont = all[0]; Debug.Log($"[PreFishing] TMP font: {all[0].name}"); return s_DefaultFont; }
+        if (all != null && all.Length > 0) { Debug.Log($"[PreFishing] TMP font: {all[0].name}"); return all[0]; }
 
         Debug.LogError("[PreFishing] Could not find ANY TMP font asset — text will be invisible. Import TMP Essential Resources (Window > TextMeshPro > Import TMP Essential Resources).");
         return null;
     }
 
-    private static TMP_Text TMP(GameObject parent, string text, float size, Color col)
+    private TMP_Text TMP(GameObject parent, string text, float size, Color col)
     {
         var go  = new GameObject("T", typeof(RectTransform));
         go.transform.SetParent(parent.transform, false);

@@ -9872,6 +9872,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7164490898484125580, guid: 76d5a48850834584eb99bb2138e6fffe, type: 3}
+      propertyPath: menuFont
+      value: 
+      objectReference: {fileID: 11400000, guid: 8db2455f50bb4fe40be0a92165b8d21d, type: 2}
     - target: {fileID: 9055098489726416303, guid: 76d5a48850834584eb99bb2138e6fffe, type: 3}
       propertyPath: m_Name
       value: PreFishingMenu
