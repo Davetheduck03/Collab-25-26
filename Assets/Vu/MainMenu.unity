@@ -913,15 +913,15 @@ PrefabInstance:
       objectReference: {fileID: 21300000, guid: 50cae68668bb44a4c895611799231063, type: 3}
     - target: {fileID: 4410860575260654329, guid: 0b079c97a0300d34982151046a2a4012, type: 3}
       propertyPath: m_SortingLayer
-      value: 0
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 4410860575260654329, guid: 0b079c97a0300d34982151046a2a4012, type: 3}
       propertyPath: m_SortingOrder
-      value: 1
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 4410860575260654329, guid: 0b079c97a0300d34982151046a2a4012, type: 3}
       propertyPath: m_SortingLayerID
-      value: 0
+      value: -846496367
       objectReference: {fileID: 0}
     - target: {fileID: 6714761297254429148, guid: 0b079c97a0300d34982151046a2a4012, type: 3}
       propertyPath: m_Name
@@ -1403,15 +1403,15 @@ PrefabInstance:
       objectReference: {fileID: 21300000, guid: 09c9987f002402740a75882feca480c9, type: 3}
     - target: {fileID: 4410860575260654329, guid: 0b079c97a0300d34982151046a2a4012, type: 3}
       propertyPath: m_SortingLayer
-      value: 0
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 4410860575260654329, guid: 0b079c97a0300d34982151046a2a4012, type: 3}
       propertyPath: m_SortingOrder
-      value: 1
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 4410860575260654329, guid: 0b079c97a0300d34982151046a2a4012, type: 3}
       propertyPath: m_SortingLayerID
-      value: 0
+      value: -846496367
       objectReference: {fileID: 0}
     - target: {fileID: 6714761297254429148, guid: 0b079c97a0300d34982151046a2a4012, type: 3}
       propertyPath: m_Name
@@ -2285,7 +2285,7 @@ Canvas:
   m_AdditionalShaderChannelsFlag: 25
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: -846496367
-  m_SortingOrder: 5
+  m_SortingOrder: 6
   m_TargetDisplay: 0
 --- !u!224 &619377187
 RectTransform:
