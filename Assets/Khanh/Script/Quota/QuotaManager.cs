@@ -74,6 +74,7 @@ public class QuotaManager : GameSingleton<QuotaManager>
 
 
     /// <summary>Called by TimeManager/Bed when the player goes to sleep.</summary>
+    /// <summary>Called by TimeManager/Bed when the player goes to sleep.</summary>
     public bool CheckQuotaAtEndOfDay()
     {
         if (runEnded) return false;
@@ -83,18 +84,28 @@ public class QuotaManager : GameSingleton<QuotaManager>
         if (goldEarned >= goldTarget)
         {
             Debug.Log("[QuotaManager] Quota Met! You survive to fish another day.");
-            IncreaseQuota();
-            ZoneProgressionManager.Instance?.UnlockNextZone();
-            ResetRun(); // Reset the daily earnings back to 0 for the next morning
-            return true; // Survived!
+            // We NO LONGER reset the run here! We wait for the UI to read the numbers first.
+            return true;
         }
         else
         {
             Debug.Log("[QuotaManager] Quota FAILED! Game Over.");
             runEnded = true;
-            OnRunFailed?.Invoke();
-            return false; // Game Over!
+
+            // We NO LONGER invoke OnRunFailed here! This prevents old scripts from 
+            // interrupting the DOTween fade animation. The UI handles the loss now!
+            return false;
         }
+    }
+
+    // =======================================================
+    // --- NEW: CALLED BY THE UI AFTER THE FADE IS DONE ---
+    // =======================================================
+    public void ApplyWinRewards()
+    {
+        IncreaseQuota();
+        ZoneProgressionManager.Instance?.UnlockNextZone();
+        ResetRun(); // Safely reset the daily earnings back to 0 for the next morning
     }
 
     private void IncreaseQuota()
@@ -102,7 +113,6 @@ public class QuotaManager : GameSingleton<QuotaManager>
         goldTarget += dailyQuotaIncrease;
         Debug.Log($"[QuotaManager] Quota has increased! New target is {goldTarget}g.");
     }
-
     // ── Private ───────────────────────────────────────────────────────────────
 
     private void HandleGoldAdded(int amount)

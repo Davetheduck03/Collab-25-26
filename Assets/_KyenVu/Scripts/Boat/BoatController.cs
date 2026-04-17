@@ -22,10 +22,27 @@ public class BoatController : MonoBehaviour
     [Tooltip("Drag your fade screen UI Animator here.")]
     public Animator sceneTransitionAnimator;
     public float transitionDelay = 3f;
-
-    // --- NEW: Confirmation Panel Reference ---
     [Tooltip("Drag your Return Confirmation UI Panel here.")]
     public GameObject returnConfirmationPanel;
+
+    // ==========================================
+    // --- NEW: COMPREHENSIVE AUDIO SETTINGS ---
+    // ==========================================
+    [Header("Audio: Sound Effects")]
+    public SO_SFXEvent paddleSfx;
+    public SO_SFXEvent castRodSfx;
+    public SO_SFXEvent fishHookedSfx;
+    public SO_SFXEvent boatCreakSfx;
+
+    [Header("Audio: Character Voices")]
+    public SO_SFXEvent charEffortSfx; // Grunt when casting
+    public SO_SFXEvent charHappySfx;  // Cheer on catch
+    public SO_SFXEvent charMadSfx;    // Sigh/groan on miss
+
+    [Header("Audio: Music")]
+    public SO_BGMEvent normalBgm;     // Peaceful water theme
+    public SO_BGMEvent battleBgm;     // Intense fishing battle theme
+    // ==========================================
 
     private Vector2 moveInput;
     private bool canMove = true;
@@ -50,16 +67,22 @@ public class BoatController : MonoBehaviour
 
     private void Awake()
     {
-        if (rb == null)
-            rb = GetComponent<Rigidbody2D>();
+        if (rb == null) rb = GetComponent<Rigidbody2D>();
         hook.SetActive(false);
         sceneTransitionAnimator.gameObject.SetActive(false);
-        if (animator == null)
-            animator = GetComponentInChildren<Animator>();
-       
-        // Ensure the panel starts hidden
+        if (animator == null) animator = GetComponentInChildren<Animator>();
+
         if (returnConfirmationPanel != null)
             returnConfirmationPanel.SetActive(false);
+    }
+
+    private void Start()
+    {
+        // Make sure normal music is playing when we load into the boat
+        if (normalBgm != null && SoundManager.Instance != null)
+        {
+            SoundManager.Instance.PlayBGM(normalBgm);
+        }
     }
 
     private void Update()
@@ -68,15 +91,8 @@ public class BoatController : MonoBehaviour
 
         if (Keyboard.current != null && Keyboard.current.hKey.wasPressedThisFrame)
         {
-            if (!isFishing)
-            {
-                // CHANGED: Prompt the UI instead of immediately loading
-                PromptReturnToTown();
-            }
-            else
-            {
-                Debug.Log("Can't return to town right now, you are fishing!");
-            }
+            if (!isFishing) PromptReturnToTown();
+            else Debug.Log("Can't return to town right now, you are fishing!");
         }
     }
 
@@ -101,11 +117,7 @@ public class BoatController : MonoBehaviour
         else
         {
             rb.linearVelocity = new Vector2(0, rb.linearVelocity.y);
-
-            if (animator != null)
-            {
-                animator.SetBool("isMoving", false);
-            }
+            if (animator != null) animator.SetBool("isMoving", false);
         }
     }
 
@@ -118,116 +130,111 @@ public class BoatController : MonoBehaviour
     {
         if (!isFishing && !isReturning)
         {
-            Debug.Log(" Started Fishing Animation");
-
             isFishing = true;
             canMove = false;
             rb.linearVelocity = Vector2.zero;
 
-            if (animator != null)
-            {
-                animator.SetTrigger("Fish");
-            }
+            if (animator != null) animator.SetTrigger("Fish");
         }
     }
 
     private void OnReturn()
     {
-        if (!isFishing && !isReturning)
-        {
-            // CHANGED: Also use the prompt for the Input System event
-            PromptReturnToTown();
-        }
+        if (!isFishing && !isReturning) PromptReturnToTown();
     }
 
     public void PromptReturnToTown()
     {
-        // If the panel is already open, do nothing
         if (returnConfirmationPanel != null && returnConfirmationPanel.activeSelf) return;
 
-        // Freeze the boat while they decide
         canMove = false;
         rb.linearVelocity = Vector2.zero;
 
-        if (returnConfirmationPanel != null)
-        {
-            returnConfirmationPanel.SetActive(true);
-        }
-        else
-        {
-            // Fallback: If you forgot to assign the panel, just go home!
-            StartCoroutine(ReturnToTownSequence());
-        }
+        if (returnConfirmationPanel != null) returnConfirmationPanel.SetActive(true);
+        else StartCoroutine(ReturnToTownSequence());
     }
 
     public void ConfirmReturn()
     {
-        if (returnConfirmationPanel != null)
-            returnConfirmationPanel.SetActive(false);
-
+        if (returnConfirmationPanel != null) returnConfirmationPanel.SetActive(false);
         StartCoroutine(ReturnToTownSequence());
     }
 
     public void CancelReturn()
     {
-        if (returnConfirmationPanel != null)
-            returnConfirmationPanel.SetActive(false);
-
-        // Unfreeze the boat!
+        if (returnConfirmationPanel != null) returnConfirmationPanel.SetActive(false);
         canMove = true;
     }
 
-    // =========================================================================
+    // ==========================================
+    // FISHING EVENT HANDLERS
+    // ==========================================
 
     private void HandleFishCaught(GameObject caughtFish)
     {
-        if (struggleCoroutine != null)
-        {
-            StopCoroutine(struggleCoroutine);
-        }
+        if (struggleCoroutine != null) StopCoroutine(struggleCoroutine);
         struggleCoroutine = StartCoroutine(RandomStruggleRoutine());
+
+        // Audio: Fish hooked splash & instant Battle Theme!
+        if (SoundManager.Instance != null)
+        {
+            SoundManager.Instance.PlaySfx(fishHookedSfx);
+            if (battleBgm != null) SoundManager.Instance.PlayBGM(battleBgm);
+        }
     }
 
     private void HandleFishingFinished(bool success, EnemySO caughtFishData)
     {
-        if (struggleCoroutine != null)
-        {
-            StopCoroutine(struggleCoroutine);
-        }
-
+        if (struggleCoroutine != null) StopCoroutine(struggleCoroutine);
         StartCoroutine(FishingFinishedSequence(success, caughtFishData));
     }
 
     private IEnumerator FishingFinishedSequence(bool success, EnemySO caughtFishData)
     {
-        Debug.Log("Fishing finished! Playing 'Done' animation...");
-
-        if (animator != null)
-        {
-            animator.SetTrigger("Done");
-        }
+        if (animator != null) animator.SetTrigger("Done");
 
         yield return new WaitForSeconds(1.0f);
 
+        // Audio & Animation based on Success or Failure
         if (animator != null)
         {
-            if (success) animator.SetTrigger("Happy");
-            else animator.SetTrigger("Mad");
+            if (success)
+            {
+                animator.SetTrigger("Happy");
+                if (SoundManager.Instance != null)
+                {
+                    SoundManager.Instance.PlaySfx(charHappySfx); // Cheer!
+                    SoundManager.Instance.PlaySfx(boatCreakSfx); // Jump on boat
+                }
+            }
+            else
+            {
+                animator.SetTrigger("Mad");
+                if (SoundManager.Instance != null)
+                {
+                    SoundManager.Instance.PlaySfx(charMadSfx);   // Groan/Sigh
+                    SoundManager.Instance.PlaySfx(boatCreakSfx); // Stomp on boat
+                }
+            }
         }
 
         yield return new WaitForSeconds(1.5f);
+
+        // Audio: Return to normal peaceful music after the struggle is over
+        if (SoundManager.Instance != null && normalBgm != null)
+        {
+            SoundManager.Instance.PlayBGM(normalBgm);
+        }
 
         if (success && caughtFishData != null && CatchFishUI.Instance != null)
         {
             CatchFishUI.Instance.gameObject.SetActive(true);
             CatchFishUI.Instance.ShowCatchResult(caughtFishData);
-
             yield return new WaitUntil(() => !CatchFishUI.Instance.gameObject.activeSelf);
         }
 
         isFishing = false;
         canMove = true;
-        Debug.Log("Animations and UI complete! Returning to boat control.");
     }
 
     private IEnumerator RandomStruggleRoutine()
@@ -239,6 +246,7 @@ public class BoatController : MonoBehaviour
             if (isFishing && animator != null)
             {
                 animator.SetTrigger("Struggle");
+                SoundManager.Instance?.PlaySfx(charEffortSfx);
             }
         }
     }
@@ -252,52 +260,50 @@ public class BoatController : MonoBehaviour
         rb.simulated = false;
 
         Collider2D boatCollider = GetComponent<Collider2D>();
-        if (boatCollider != null)
-        {
-            boatCollider.enabled = false;
-        }
+        if (boatCollider != null) boatCollider.enabled = false;
 
-        if (animator != null)
-        {
-            animator.speed = 0f;
-        }
-
-        Debug.Log("Starting scene transition...");
-
-        if (sceneTransitionAnimator != null)
-        {
-            sceneTransitionAnimator.SetTrigger("FadeOut");
-        }
+        if (animator != null) animator.speed = 0f;
+        if (sceneTransitionAnimator != null) sceneTransitionAnimator.SetTrigger("FadeOut");
 
         yield return new WaitForSeconds(transitionDelay);
 
         GameObject[] allObjects = FindObjectsByType<GameObject>(FindObjectsInactive.Include, FindObjectsSortMode.None);
         foreach (GameObject obj in allObjects)
         {
-            if (obj.name == "Splash(Clone)")
-            {
-                Destroy(obj);
-            }
+            if (obj.name == "Splash(Clone)") Destroy(obj);
         }
 
-        Debug.Log($"Returning to {returnSceneName}...");
         SceneManager.LoadScene(returnSceneName);
     }
+
+    // ==========================================
+    // ANIMATION EVENTS
+    // ==========================================
 
     public void PlaySplashAnimationEvent()
     {
         Water water = UnityEngine.Object.FindFirstObjectByType<Water>();
+        if (water != null) water.Ripple(transform.position, true, true, 0.6f);
 
-        if (water != null)
+        // ==========================================
+        // --- NEW: Play the sound exactly when the splash happens! ---
+        // ==========================================
+        if (SoundManager.Instance != null)
         {
-            water.Ripple(transform.position, true, true, 0.6f);
+            SoundManager.Instance.PlaySfx(paddleSfx);
         }
     }
 
     public void SpawnHookAnimationEvent()
     {
-        Debug.Log("Hook Casted!");
         hook.SetActive(true);
         OnFishingStarted?.Invoke();
+
+        // Audio: Cast rod swish & character effort grunt
+        if (SoundManager.Instance != null)
+        {
+            SoundManager.Instance.PlaySfx(castRodSfx);
+            SoundManager.Instance.PlaySfx(charEffortSfx);
+        }
     }
 }

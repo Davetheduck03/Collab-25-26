@@ -4,6 +4,8 @@ using UnityEngine.InputSystem;
 using UnityEngine.Rendering;
 using UnityEngine.Rendering.Universal;
 using DG.Tweening;
+using UnityEngine.UI; // <--- NEW: Required for UI Sliders
+using Phuc.SoundSystem; // <--- NEW: Required to talk to your SoundManager
 
 public class PauseMenu : MonoBehaviour
 {
@@ -15,6 +17,13 @@ public class PauseMenu : MonoBehaviour
     public GameObject mainMenuConfirmPanel;
     [Tooltip("Drag your Reset Day Confirmation Panel here.")]
     public GameObject resetDayConfirmPanel;
+
+    // ==========================================
+    // --- NEW: AUDIO SLIDERS ---
+    // ==========================================
+    [Header("Audio Settings")]
+    public Slider bgmSlider;
+    public Slider sfxSlider;
 
     [Header("Scene Settings")]
     public string mainMenuSceneName = "MainMenu";
@@ -45,6 +54,33 @@ public class PauseMenu : MonoBehaviour
                 Debug.LogError("[PauseMenu] No ColorAdjustments override found in the Volume!");
             }
         }
+
+        // ==========================================
+        // --- NEW: LOAD SAVED AUDIO SETTINGS ---
+        // ==========================================
+        if (bgmSlider != null)
+        {
+            // Load saved value (default to 0.75 if no save exists)
+            bgmSlider.value = PlayerPrefs.GetFloat("SavedBGMVolume", 0.75f);
+
+            // Apply it immediately
+            UpdateBGMVolume(bgmSlider.value);
+
+            // Listen for when the player drags the slider
+            bgmSlider.onValueChanged.AddListener(UpdateBGMVolume);
+        }
+
+        if (sfxSlider != null)
+        {
+            // Load saved value (default to 0.75 if no save exists)
+            sfxSlider.value = PlayerPrefs.GetFloat("SavedSFXVolume", 0.75f);
+
+            // Apply it immediately
+            UpdateSFXVolume(sfxSlider.value);
+
+            // Listen for when the player drags the slider
+            sfxSlider.onValueChanged.AddListener(UpdateSFXVolume);
+        }
     }
 
     void Update()
@@ -52,21 +88,33 @@ public class PauseMenu : MonoBehaviour
         // --- Smart Escape Logic ---
         if (Keyboard.current != null && Keyboard.current.escapeKey.wasPressedThisFrame)
         {
-            // 1. If a confirmation panel is open, ESC closes it
-            if (mainMenuConfirmPanel.activeSelf)
-            {
-                CloseMainMenuConfirm();
-            }
-            else if (resetDayConfirmPanel.activeSelf)
-            {
-                CloseResetDayConfirm();
-            }
-            // 2. Otherwise, toggle the pause menu normally
-            else
-            {
-                TogglePause();
-            }
+            if (mainMenuConfirmPanel.activeSelf) CloseMainMenuConfirm();
+            else if (resetDayConfirmPanel.activeSelf) CloseResetDayConfirm();
+            else TogglePause();
         }
+    }
+
+    // ==========================================
+    // --- NEW: VOLUME UPDATE METHODS ---
+    // ==========================================
+    public void UpdateBGMVolume(float value)
+    {
+        if (SoundManager.Instance != null)
+        {
+            SoundManager.Instance.SetBGMVolume(value);
+        }
+        // Save the setting so it remembers next time!
+        PlayerPrefs.SetFloat("SavedBGMVolume", value);
+    }
+
+    public void UpdateSFXVolume(float value)
+    {
+        if (SoundManager.Instance != null)
+        {
+            SoundManager.Instance.SetSFXVolume(value);
+        }
+        // Save the setting so it remembers next time!
+        PlayerPrefs.SetFloat("SavedSFXVolume", value);
     }
 
     // ==========================================
@@ -81,122 +129,50 @@ public class PauseMenu : MonoBehaviour
             Time.timeScale = 0f;
             ShowPanel(pausePanel);
 
-            // Desaturate screen
             if (colorAdjustments != null)
             {
-                DOTween.To(() => colorAdjustments.saturation.value, x => colorAdjustments.saturation.value = x, -100f, duration)
-                    .SetUpdate(true);
+                DOTween.To(() => colorAdjustments.saturation.value, x => colorAdjustments.saturation.value = x, -100f, duration).SetUpdate(true);
             }
         }
         else
         {
-            // Close everything when unpausing just in case
             HidePanel(mainMenuConfirmPanel);
             HidePanel(resetDayConfirmPanel);
 
             HidePanel(pausePanel, () =>
             {
-                Time.timeScale = 1f; // Only unpause time AFTER animation finishes
+                Time.timeScale = 1f;
             });
 
-            // Resaturate screen
             if (colorAdjustments != null)
             {
-                DOTween.To(() => colorAdjustments.saturation.value, x => colorAdjustments.saturation.value = x, 0f, duration)
-                    .SetUpdate(true);
+                DOTween.To(() => colorAdjustments.saturation.value, x => colorAdjustments.saturation.value = x, 0f, duration).SetUpdate(true);
             }
         }
     }
 
-    // ==========================================
-    // MAIN MENU CONFIRMATION
-    // ==========================================
-    public void OpenMainMenuConfirm()
-    {
-        ShowPanel(mainMenuConfirmPanel);
-    }
+    // ... (Keep the rest of your Main Menu, Reset Day, and DOTween methods exactly the same) ...
 
-    public void CloseMainMenuConfirm()
-    {
-        HidePanel(mainMenuConfirmPanel);
-    }
+    public void OpenMainMenuConfirm() { ShowPanel(mainMenuConfirmPanel); }
+    public void CloseMainMenuConfirm() { HidePanel(mainMenuConfirmPanel); }
+    public void ConfirmMainMenu() { Time.timeScale = 1f; SceneManager.LoadScene(mainMenuSceneName); }
 
-    public void ConfirmMainMenu()
-    {
-        // IMPORTANT: Unfreeze time before loading a new scene!
-        Time.timeScale = 1f;
-
-        // Optional: Add scene transition logic here if you have it
-        SceneManager.LoadScene(mainMenuSceneName);
-    }
-
-    // ==========================================
-    // RESET DAY CONFIRMATION
-    // ==========================================
-    public void OpenResetDayConfirm()
-    {
-        ShowPanel(resetDayConfirmPanel);
-    }
-
-    public void CloseResetDayConfirm()
-    {
-        HidePanel(resetDayConfirmPanel);
-    }
-
+    public void OpenResetDayConfirm() { ShowPanel(resetDayConfirmPanel); }
+    public void CloseResetDayConfirm() { HidePanel(resetDayConfirmPanel); }
     public void ConfirmResetDay()
     {
-        // 1. DEDUCT TODAY'S GOLD
-        // We use the QuotaManager to find out exactly how much we made *today*
         if (QuotaManager.Instance != null && CurrencyManager.Instance != null)
         {
             int goldMadeToday = QuotaManager.Instance.GoldEarned;
-            if (goldMadeToday > 0)
-            {
-                CurrencyManager.Instance.RemoveCurrency(goldMadeToday);
-                Debug.Log($"[Reset Day] Deducted {goldMadeToday} gold that was earned today.");
-            }
-
-            // Tell QuotaManager to reset today's tracking back to 0
+            if (goldMadeToday > 0) CurrencyManager.Instance.RemoveCurrency(goldMadeToday);
             QuotaManager.Instance.ResetRun();
         }
-
-        // 2. WIPE INVENTORY
-        if (InventoryController.Instance != null)
-        {
-            InventoryController.Instance.ClearAllItems();
-        }
-
-        // 3. UNFREEZE TIME & RELOAD
+        if (InventoryController.Instance != null) InventoryController.Instance.ClearAllItems();
         Time.timeScale = 1f;
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 
-    // ==========================================
-    // DOTWEEN HELPER METHODS
-    // ==========================================
-    private void SetupPanel(GameObject panel)
-    {
-        if (panel == null) return;
-        panel.transform.localScale = Vector3.zero;
-        panel.SetActive(false);
-    }
-
-    private void ShowPanel(GameObject panel)
-    {
-        if (panel == null) return;
-        panel.transform.DOKill();
-        panel.SetActive(true);
-        panel.transform.DOScale(Vector3.one, duration).SetEase(openEase).SetUpdate(true);
-    }
-
-    private void HidePanel(GameObject panel, System.Action onComplete = null)
-    {
-        if (panel == null || !panel.activeSelf) return;
-        panel.transform.DOKill();
-        panel.transform.DOScale(Vector3.zero, duration).SetEase(closeEase).SetUpdate(true).OnComplete(() =>
-        {
-            panel.SetActive(false);
-            onComplete?.Invoke();
-        });
-    }
+    private void SetupPanel(GameObject panel) { if (panel == null) return; panel.transform.localScale = Vector3.zero; panel.SetActive(false); }
+    private void ShowPanel(GameObject panel) { if (panel == null) return; panel.transform.DOKill(); panel.SetActive(true); panel.transform.DOScale(Vector3.one, duration).SetEase(openEase).SetUpdate(true); }
+    private void HidePanel(GameObject panel, System.Action onComplete = null) { if (panel == null || !panel.activeSelf) return; panel.transform.DOKill(); panel.transform.DOScale(Vector3.zero, duration).SetEase(closeEase).SetUpdate(true).OnComplete(() => { panel.SetActive(false); onComplete?.Invoke(); }); }
 }

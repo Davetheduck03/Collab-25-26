@@ -18,9 +18,6 @@ public class TimeManager : MonoBehaviour
     public int currentHour = 5;
     public int currentMinute = 0;
 
-    // =======================================================
-    // --- NEW: AUTO-TIME SETTINGS ---
-    // =======================================================
     [Header("Auto-Time Settings")]
     [Tooltip("How many real-world seconds before time advances.")]
     public float realSecondsPerTick = 30f;
@@ -32,7 +29,7 @@ public class TimeManager : MonoBehaviour
     [Header("Schedule Limits")]
     public const int SHOP_OPEN_HOUR = 5;   // 5:00 AM
     public const int DOCK_OPEN_HOUR = 7;   // 7:00 AM
-    public const int SHOP_CLOSE_HOUR = 19; // 7:00 PM (19:00)
+    public const int SHOP_CLOSE_HOUR = 24; // 24 = Midnight
 
     public static event Action<string> OnTimeChanged;
     public static event Action<int> OnDayChanged;
@@ -50,34 +47,34 @@ public class TimeManager : MonoBehaviour
         Debug.Log(IsShopOpen() ? "The Fish Shop is OPEN!" : "The Fish Shop is CLOSED!");
     }
 
-    // =======================================================
-    // --- NEW: THE TIMER TICK LOGIC ---
-    // =======================================================
     private void Update()
     {
-        // Check if we are outside of the 7:00 AM to 7:00 PM window
-        if (currentHour < DOCK_OPEN_HOUR || currentHour >= SHOP_CLOSE_HOUR)
+        // --- NEW: If time hit midnight, stop ALL automatic ticking completely ---
+        if (currentHour >= 24) return;
+
+        // Auto-tick time during specific hours (e.g., before the dock opens)
+        if (currentHour < DOCK_OPEN_HOUR)
         {
-            // Count up real-world seconds
             autoTimeTimer += Time.deltaTime;
 
-            // If 30 seconds have passed...
             if (autoTimeTimer >= realSecondsPerTick)
             {
-                autoTimeTimer = 0f; // Reset the timer
-                AdvanceTime(inGameMinutesPerTick); // Add 30 in-game minutes!
+                autoTimeTimer = 0f;
+                AdvanceTime(inGameMinutesPerTick);
                 Debug.Log($"[TimeManager] Auto-advanced time by {inGameMinutesPerTick} mins.");
             }
         }
         else
         {
-            // Keep the timer at 0 during the day so it doesn't instantly tick when 7 PM hits
             autoTimeTimer = 0f;
         }
     }
 
     public void AdvanceTime(int minutesPassed)
     {
+        // --- NEW: Block any time from passing if it is already midnight ---
+        if (currentHour >= 24) return;
+
         currentMinute += minutesPassed;
 
         while (currentMinute >= 60)
@@ -85,42 +82,42 @@ public class TimeManager : MonoBehaviour
             currentMinute -= 60;
             currentHour++;
 
+            // =======================================================
+            // --- NEW: MIDNIGHT LIMIT AND LATE NIGHT WARNINGS ---
+            // =======================================================
+
+            // 1. Cap time exactly at Midnight (24:00)
             if (currentHour >= 24)
             {
-                currentHour = 0;
+                currentHour = 24;
+                currentMinute = 0; // Force it to 12:00 AM exactly
+
+                if (NotificationManager.Instance != null)
+                {
+                    NotificationManager.Instance.ShowNotification("It's Midnight! You are exhausted, please go to sleep.");
+                }
+
+                OnShopClosed?.Invoke();
+                break; // Exit the loop so time stops advancing completely
             }
 
-            // =======================================================
-            // --- NEW: TIME-BASED NOTIFICATIONS ---
-            // =======================================================
+            // 2. Late Night Fishing Warnings
+            if (currentHour == 22) // 10:00 PM
+            {
+                if (NotificationManager.Instance != null)
+                    NotificationManager.Instance.ShowNotification("It's 10:00 PM! It's getting very late.");
+            }
+            if (currentHour == 23) // 11:00 PM
+            {
+                if (NotificationManager.Instance != null)
+                    NotificationManager.Instance.ShowNotification("It's 11:00 PM! You need to head back to town soon!");
+            }
 
-            // 1. Announce when the Dock opens (7:00 AM)
+            // 3. Dock Opening
             if (currentHour == DOCK_OPEN_HOUR)
             {
                 if (NotificationManager.Instance != null)
-                {
                     NotificationManager.Instance.ShowNotification("The dock is now OPEN!");
-                }
-            }
-
-            // 2. Warning at 6:00 PM (18:00) that the shop is closing soon
-            if (currentHour == 18)
-            {
-                if (NotificationManager.Instance != null)
-                {
-                    NotificationManager.Instance.ShowNotification("It's 6:00 PM! The Fish Shop is closing soon, please come back!");
-                }
-            }
-
-            // 3. Existing check for 7:00 PM
-            if (currentHour == SHOP_CLOSE_HOUR)
-            {
-                Debug.Log("The Fish Shop is now CLOSED!");
-                OnShopClosed?.Invoke();
-
-            //Optional: You could also add a notification here!
-                 if (NotificationManager.Instance != null)
-                    NotificationManager.Instance.ShowNotification("It's 7:00 PM. The Fish Shop is now CLOSED.");
             }
         }
 
@@ -134,13 +131,23 @@ public class TimeManager : MonoBehaviour
         if (QuotaManager.Instance != null)
         {
             bool survived = QuotaManager.Instance.CheckQuotaAtEndOfDay();
-            if (!survived)
+
+            if (survived)
             {
-                Debug.Log("GAME OVER! You did not meet the quota.");
-                return;
+                // YOU WON TODAY! Show the Win screen!
+                if (DailyResultUI.Instance != null) DailyResultUI.Instance.ShowWinScreen();
+            }
+            else
+            {
+                // YOU FAILED THE QUOTA! Show the Game Over screen!
+                if (DailyResultUI.Instance != null) DailyResultUI.Instance.ShowLoseScreen();
             }
         }
+    }
 
+    // This is called by the "Next Day" button after the screen fades to black!
+    public void ExecuteSleepRoutine()
+    {
         currentDay++;
         currentHour = 5;
         currentMinute = 0;
@@ -148,7 +155,6 @@ public class TimeManager : MonoBehaviour
         ForceUpdateUI();
         Debug.Log($"Woke up on Day {currentDay}!");
     }
-
     public bool IsShopOpen() => currentHour >= SHOP_OPEN_HOUR && currentHour < SHOP_CLOSE_HOUR;
     public bool IsDockOpen() => currentHour >= DOCK_OPEN_HOUR;
 
@@ -165,7 +171,7 @@ public class TimeManager : MonoBehaviour
 
         if (timeIcon != null)
         {
-            if (currentHour >= 5 && currentHour < 12)
+            if (currentHour >= 5 && currentHour < 18) // Switch to night icon at 6 PM
             {
                 timeIcon.sprite = morningSprite;
             }
@@ -178,8 +184,10 @@ public class TimeManager : MonoBehaviour
 
     public string GetTimeString()
     {
-        string ampm = currentHour >= 12 ? "PM" : "AM";
+        // --- NEW: Fix AM/PM logic so 24:00 correctly says "12:00 AM" instead of PM! ---
+        string ampm = (currentHour >= 12 && currentHour < 24) ? "PM" : "AM";
         int displayHour = currentHour > 12 ? currentHour - 12 : currentHour;
+
         if (displayHour == 0) displayHour = 12;
 
         return $"{displayHour:00}:{currentMinute:00} {ampm}";
